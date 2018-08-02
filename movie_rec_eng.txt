@@ -1,7 +1,7 @@
 from pyspark.storagelevel import StorageLevel
 import math
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/ratings3.txt').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/ratings_sample.txt').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
@@ -71,6 +71,5 @@ index = simscore.map(lambda x: (x[0][0][0], (x[0][0][1], x[1])))
 index2=index.combineByKey(li, app,ext)
 movie_rec_index = index2.map(lambda x: (x[0],sorted(x[1],key=getKey))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
-movie_rec_index.lookup('719')
 
 
