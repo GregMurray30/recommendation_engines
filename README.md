@@ -6,7 +6,7 @@ Ratings_sample.txt is "::" separated value file in the format [user_id]::[movie_
 MODEL EXPLANATION
 This model utitizes basic network theory and Bellman-Ford shortest path algorithm to generate movie recommendations.
 
-Multi-Planar User-Movie Network: The hyperplanar, user-movie network consists of two planar networks with nodes in a power-law-like distribution. The first plane is the user network, which is a weighted, directed, a-cyclic graph (DAG). The second plane is the movie network, also a DAG. The two planes are connected by a user-movie network which shares nodes with the user and movie networks. It is a weighted, non-directed and a-cyclic graph in the form of cross-edges, which represent each user's rating of each movie. 
+Multi-Planar User-Movie Network: The multi-planar, user-movie network consists of two planar networks with nodes in a power-law-like distribution. The first plane is the user network, which is a weighted, directed, a-cyclic graph (DAG). The second plane is the movie network, also a DAG. The two planes are connected by a user-movie network which shares nodes with the user and movie networks. It is a weighted, non-directed and a-cyclic graph in the form of cross-edges, which represent each user's rating of each movie. 
 
   The user network nodes represent users. The network's edge weights are calculated as the average net difference of their shared movie ratings. The weights are directional in that they may be either negative or positive. However, the node pairs do not show up twice (A-B and B-A) in the graph's edge list as would normally be the case in a directed graph as the order of the pairs is indicated by the sign of its weight. The intuition behind negative weights is demonstrated in the following example. 
   
