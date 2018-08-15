@@ -57,30 +57,24 @@ class Graph:
             dist[k] = abs(dist[k])
         self.printArr(dist)
         print(self.topRecommendations(dist, 3))
+        
 
-# g = Graph()
-# g.addEdge('d', 'c', 5)
-# g.addEdge('a', 'b', -1)
-# g.addEdge('a', 'c', 4)
-# g.addEdge('b', 'c', 3)
-# g.addEdge('b', 'd', 2)
-# g.addEdge('d', 'b', 1)
+if __name__=='__main__':
+    #add user rating pairs manually using addEdge()
+    g = Graph()
+    g.addEdge('a', ('b', -1))
+    g.addEdge('a', ('c', 4))
+    g.addEdge('b', ('c', 3))
+    g.addEdge('b', ('d', 2))
+    g.addEdge('b', ('e', 2))
+    g.addEdge('d', ('c', 5))
+    g.addEdge('d', ('b', 1))
+    g.addEdge('e', ('d', -3))
+    #adjust userID to see recommendations for that user
+    userID = 'a'
+    g.BellmanFord(userID)
 
-# g = Graph()
-# g.addEdge('a', ('b', -1))
-# g.addEdge('a', ('c', 4))
-# g.addEdge('b', ('c', 3))
-# g.addEdge('b', ('d', 2))
-# g.addEdge('b', ('e', 2))
-# g.addEdge('d', ('c', 5))
-# g.addEdge('d', ('b', 1))
-# g.addEdge('e', ('d', -3))
-# 
-# g.BellmanFord('a')
-
-g2 = Graph()
-g2.createFromCsv('/Users/gregmurray/Documents/BigData/movie_rec_engine/ratings_sample.csv')
-g2.BellmanFord('a')
-
-fpath ='/Users/gregmurray/Documents/BigData/movie_rec_engine/ratings_sample.csv'
-df = pd.read_csv(fpath)
+    g2 = Graph()
+    #can generate recommendations directly from csv file
+    g2.createFromCsv('/Users/gregmurray/Documents/BigData/movie_rec_engine/ratings_sample_toy.csv')
+    g2.BellmanFord(userID)
