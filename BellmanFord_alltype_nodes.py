@@ -9,8 +9,8 @@ class Graph:
         self.nodes = []
         self.top_recs = []
     
-    def addEdge(self, u,v,w):
-        self.graph.append((u,v,w))
+    def addEdge(self, u,vw):
+        self.graph.append((u,vw[0], vw[1]))
     
     def setVertices(self):
         for e in self.graph:
