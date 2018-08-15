@@ -38,7 +38,6 @@ class Graph:
         return self.top_recs[1:n+1]
     
     def BellmanFord(self, src):
-        print(self.graph)
         #initialize vertices array
         self.setVertices()
         
@@ -47,7 +46,6 @@ class Graph:
         for n in self.nodes:
             dist[n] = float("Inf")
         dist[src] = 0
-        print('nodes:', self.nodes)
         
         for i in range(len(self.nodes)-1):
             for u, v, w in self.graph:
