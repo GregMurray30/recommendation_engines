@@ -1,6 +1,7 @@
 #Author: Greg Murray (adapted from code by Neelam Yadav https://www.geeksforgeeks.org/bellman-ford-algorithm-dp-23/)
 #Description: Bellman-Ford Shortest Distance algorithm for string node names
 
+#Allows for nodes (user and movie ID's) of any data type, not just int.
 
 class Graph:
     def __init__(self):
