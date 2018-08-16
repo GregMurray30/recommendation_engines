@@ -50,4 +50,4 @@ l = [("a",  ("b",4)),("a",  ("c",3)),("b",  ("c",2)),("b",  ("f",-1)),("a",  ("g
 ("a",  ("f",3)),("b",  ("d",3)),("c",  ("d",2)),("h",  ("b",1)),("g",  ("d",-2)), ("c", ("h", -4))]
 l2= sc.parallelize(l)
 g = SparkGraph(l2)
-BellmanFord(g,'a')
+bellmanFord(g,'a', 3)
