@@ -39,8 +39,6 @@ def BellmanFord(g, src):
     for i in range(len(g.nodes)-1):
             dist = sc.broadcast(g.dist)
             rdd1 = g.graph_rdd.map( lambda x: (x[1][0] , dist.value.get(x[0], float("Inf"))+x[1][1]) if abs(dist.value.get(x[0], float("Inf"))+x[1][1])< abs(dist.value.get(x[1][0], float("Inf"))) else (x[1][0],dist.value.get(x[1][0], float("Inf"))) )
-            r = rdd1.collect()
-            print(r)
             min_i = rdd1.reduceByKey(abs_min).collect()
             g.dist = dict(min_i)
             print('g.dist', g.dist)
