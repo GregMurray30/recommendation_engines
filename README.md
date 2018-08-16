@@ -1,4 +1,4 @@
-# recommendation_engine WORK IN PROGRESS, NOT READY FOR USE!!!
+# recommendation_engine BETA VERSION
 Movie recommendation engine using Apache Spark
 Ratings_sample.txt is "::" separated value file in the format [user_id]::[movie_id]::[rating]::[rating_date]. 
 
