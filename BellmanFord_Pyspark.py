@@ -23,13 +23,10 @@ class SparkGraph:
             self.top_recs = sorted(sef.dist, key=self.dist.get)
             if n> len(self.dist):
                     return self.top_recs
-            return self.top_recs[1:n+1]
-    def printSelf(self):
-            for k, v in self.dist:
-                    print(k, v)
+            return self.top_recs[:n]
     
 
-def BellmanFord(g, src):
+def BellmanFord(g, src, n):
     g.setDist(src)
     def abs_min(a, b):
         if abs(a)<abs(b):
@@ -41,11 +38,10 @@ def BellmanFord(g, src):
             rdd1 = g.graph_rdd.map( lambda x: (x[1][0] , dist.value.get(x[0], float("Inf"))+x[1][1]) if abs(dist.value.get(x[0], float("Inf"))+x[1][1])< abs(dist.value.get(x[1][0], float("Inf"))) else (x[1][0],dist.value.get(x[1][0], float("Inf"))) )
             min_i = rdd1.reduceByKey(abs_min).collect()
             g.dist = dict(min_i)
-            print('g.dist', g.dist)
     for k in g.dist:
             g.dist[k] = abs(g.dist[k])
 
-
+    return g.topRecommendations(n)
 
 
 l = [("a",  ("b",4)),("a",  ("c",3)),("b",  ("c",2)),("b",  ("f",-1)),("a",  ("g",-2)),
