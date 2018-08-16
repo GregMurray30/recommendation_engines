@@ -8,6 +8,6 @@ If you have a relatively small user-movie rating csv file you may use the Bellma
 
 
 
-IMPORTANT: With the exception of BellmanFord_alltype_nodes.py, the .py files are NOT meant for execution in a regular Python environment as they utilize PySpark. The files are meant to be executed via the command terminal in a PySpark instance . Copy and paste the text directly into the terminal, then execute Graph(<desired user id>, <n top movie recommendations>) for the desired user and n top movie recommendations.
+IMPORTANT: With the exception of BellmanFord_Python_only.py, the .py files are NOT meant for execution in a regular Python environment as they utilize PySpark - an Apache Spark MapReduce language for Python. The files are meant to be executed via the command terminal in a PySpark instance . Copy and paste the text directly into the terminal, then execute Graph(<desired user id>, <n top movie recommendations>) for the desired user and n top movie recommendations.
   
   
