@@ -1,4 +1,5 @@
 
+
 #Author: Greg Murray
 #Title: Bellman-Ford Recommendation Engine
 
@@ -20,11 +21,11 @@ class SparkGraph:
                     self.dist[n] = float("Inf")
                     self.dist[source]= 0
     def topRecommendations(self, n):
-            self.top_recs = sorted(sef.dist, key=self.dist.get)
+            self.top_recs = sorted(self.dist, key=self.dist.get)
             if n> len(self.dist):
                     return self.top_recs
-            return self.top_recs[1:n+1]
-    
+            return self.top_recs[0:n]
+
 
 def bellmanFord(g, src, n):
     g.setDist(src)
@@ -35,19 +36,16 @@ def bellmanFord(g, src, n):
             return b
     for i in range(len(g.nodes)-1):
             dist = sc.broadcast(g.dist)
-            rdd1 = g.graph_rdd.map( lambda x: (x[1][0] , dist.value.get(x[0], float("Inf"))+x[1][1]) if 
-                                   abs(dist.value.get(x[0], float("Inf"))+x[1][1])< abs(dist.value.get(x[1][0], float("Inf")))
-                                   else (x[1][0], dist.value.get(x[1][0], float("Inf"))) )
+            rdd1 = g.graph_rdd.map(lambda x: (x[1][0] , dist.value.get(x[0], float("Inf"))+x[1][1]) if abs(dist.value.get(x[0], float("Inf"))+x[1][1])< abs(dist.value.get(x[1][0], float("Inf"))) else (x[1][0], dist.value.get(x[1][0], float("Inf"))) )
+            #r = rdd1.collect()
+            #print(r)
             min_i = rdd1.reduceByKey(abs_min).collect()
             g.dist = dict(min_i)
+            #print('g.dist', g.dist)
     for k in g.dist:
             g.dist[k] = abs(g.dist[k])
-
     return g.topRecommendations(n)
 
 
-l = [("a",  ("b",4)),("a",  ("c",3)),("b",  ("c",2)),("b",  ("f",-1)),("a",  ("g",-2)),
-("a",  ("f",3)),("b",  ("d",3)),("c",  ("d",2)),("h",  ("b",1)),("g",  ("d",-2)), ("c", ("h", -4))]
-l2= sc.parallelize(l)
-g = SparkGraph(l2)
-bellmanFord(g,'a', 3)
+g = SparkGraph(USER_MOVIE_NETWORK)
+bellmanFord(g,'1', 3)
