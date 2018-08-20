@@ -1,0 +1,11 @@
+Brainstorming of ideas for improving this model:
+
+Shortcomings:
+-Two people with a shared "enemy" are currently considered, mathematically, more dissimilar than their enemy.This may be the 
+case but it could also be the opposite.
+-One major problem is that sample size is not being incorporated 
+
+
+Solution Ideas:
+-Use inverse probabilities (high probability should be a short distance) instead of scalar weights. Using an (perhaps) adaptation of the Bernoulli distribution (the distribution used must be bound in the domain of x since the differences (x values) can be at most 4.5 and at least 0), the probability of getting a magnitudinal difference of <1 would be caclulated. You'd have to choose what the value was. You could have it be a program parameter to adjust the 'strictness' of the recommendation - like if it were .5 (as in p(<0.5)), the probablity would be smaller.) 
+-To address sample size uncertainty you could use a Bayesian approach where the likelihood was the distribution mentioned above. For the prior you could pick 50% if you wanted to be simple or somehow determine clusters with homogeneity scores to determine a prior distribution.
