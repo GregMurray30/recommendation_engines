@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-from pyspark.storagelevel impou_rt StorageLevel
-impou_rt math
+from pyspark.storagelevel import StorageLevel
+import math
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_eng/ratings_sample_small.txt').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+#sc = spark.sparkContext
+
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/two_user.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
@@ -14,8 +16,8 @@ def app(a,b):
 def ext(a,b):
      a.extend(b)
      return a
-		
-rt = rdd.map(lambda x: x.split("::"))
+
+rt = rdd.map(lambda x: x.split(","))
 rt = rt.map(lambda x: x[0:3])
 
 #______________________________________________________________________________#
@@ -55,6 +57,7 @@ def sim(arr):
      d=round(d,2)
      d2=round(d2,2)
      return (d, d2)
+     
 
 u_rate_diff1 = user_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 #rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
@@ -76,38 +79,15 @@ similar_user_pairs = shared_movies1.map(lambda x: ((x[0], x[1][0]), x[1][1] ))
 
 
 #Add 'u' to each user ID for 'user'
-#USER_NETWORK schema:(userA, (userB, avg_net_diffAB))
-USER_NETWORK = similar_user_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][0][1])))
+#USER_NETWORK schema:(userA, (userB, avg_mag_diffAB))
+USER_NETWORK = similar_user_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][0][0])))
 
 
 #______________________________________________________________________________#
 #MOVIE NETWORK
+
 #(movie, (user, rating)
-def rating_rank(v):
-    if float(v[1])>4.5: #rating of 5
-        return (v[0], 0.0)
-    elif float(v[1])>4.0:
-        return (v[0], 0.5)
-    elif float(v[1])>3.5:
-        return (v[0], 1.0)
-    elif float(v[1])>3.0:
-        return (v[0], 1.5)
-    elif float(v[1])>2.5:
-        return (v[0], 2.0)
-    elif float(v[1])>2.0:
-        return (v[0], 2.5)
-    elif float(v[1])>1.5:
-        return (v[0], 3.0)
-    elif float(v[1])>1.0:
-        return (v[0], 3.5)
-    elif float(v[1])>0.5:
-        return (v[0], 4.0)
-    elif float(v[1])>0.0:
-        return (v[0], 4.5)
-        
-        
-m_rt1 = rt.map(lambda x: (x[1], (x[0], x[2])))
-m_rt2 = m_rt1.mapValues(rating_rank)
+m_rt2 = rt.map(lambda x: (x[1], (x[0], x[2])))
 m_nr = m_rt2.map(lambda x: (x[0], 1))
 numRaters = m_nr.reduceByKey(lambda x,y: x+y)
 
@@ -149,12 +129,40 @@ similar_movie_pairs = shared_users1.map(lambda x: ((x[0], x[1][0]), x[1][1] ))
 
 
 #Add 'm' to each movie ID for 'movie'
-#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'), avg_net_diffAB))
-MOVIE_NETWORK = similar_movie_pairs.map(lambda x: ((x[0][0][0], 'm'), ((x[0][1][0], 'm'), x[1][0][1])))
-
+#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'), avg_mag_diffAB))
+MOVIE_NETWORK = similar_movie_pairs.map(lambda x: ((x[0][0][0], 'm'), ((x[0][1][0], 'm'), x[1][0][0])))
+#MOVIE_NETWORK = similar_movie_pairs.map(lambda x: (x[0][0][0], (x[0][1][0], x[1][0][1])))
 
 #______________________________________________________________________________#
 #USER-MOVIE NETWORK
 
 ###Final User-Movie Network RDD
-USER_MOVIE_NETWORK = USER_NETWORK.union(MOVIE_NETWORK)
+def rating_rank(v):
+    if float(v[1])>4.5: #rating of 5
+        return (v[0], 0.0)
+    elif float(v[1])>4.0:
+        return (v[0], 0.5)
+    elif float(v[1])>3.5:
+        return (v[0], 1.0)
+    elif float(v[1])>3.0:
+        return (v[0], 1.5)
+    elif float(v[1])>2.5:
+        return (v[0], 2.0)
+    elif float(v[1])>2.0:
+        return (v[0], 2.5)
+    elif float(v[1])>1.5:
+        return (v[0], 3.0)
+    elif float(v[1])>1.0:
+        return (v[0], 3.5)
+    elif float(v[1])>0.5:
+        return (v[0], 4.0)
+    elif float(v[1])>0.0:
+        return (v[0], 4.5)
+        
+
+
+um_ratings = u_rt2.mapValues(rating_rank)
+um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+user_movie_network0 = USER_NETWORK.union(MOVIE_NETWORK)
+
+USER_MOVIE_NETWORK = user_movie_network0.union(um_ratings2)
