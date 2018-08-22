@@ -49,8 +49,8 @@ may be weighted according to one's beliefs on the impact that particular network
 GAUSSIAN NETWORK MODEL:
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
-of the rating differences, the Gaussian model's edge weights are the inverse of the probability that the
-difference between the two users, or two movies, is less than some designated threshold parameter (usually 1).
+of the rating differences, the Gaussian model's edge weights are the probability that the
+difference between the two users, or two movies, is greater than some designated threshold parameter θ.
 The inverse of the probability is used in order for a high probability to correspond to a short distance. 
 
 The advantage over the scalar model is that the Gaussian model accounts for any uncertainty due to high variance 
@@ -62,7 +62,7 @@ the sample size. In the case where the mean difference is greater than the thres
 variance is 0, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
 network. Formally, distance in this network is calculated:
   
-  δ(E<sub>uv</sub>; θ)=(Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)<=θ])<sup>-1</sup>, when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
+  δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
   
   δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
   
