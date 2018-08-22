@@ -2,6 +2,8 @@
 Movie recommendation engine using Apache Spark
 Ratings_sample.txt is "::" separated value file in the format [user_id]::[movie_id]::[rating]::[rating_date]. 
 
+Execute the code from either USER_MOVIE_NETWORK.py or USER_MOVIE_NETWORK_gaussian.py and then, in the same PySpark instance, execute the code from BellmanFord.py. For an explanation on the difference between USER_MOVIE_NETWORK.py and USER_MOVIE_NETWORK_gaussian.py, see model_conceptual_framework.md.
+
 For instruction on installing PySpark on your machine see: https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/spark/macbook_and_linux/download_and_install_spark_on_macbook_and_linux.md)
 
 This algorithm is very greedy so even medium sized datasets will take too long to run on a normal CPU. A GPU or server cluster is needed.
