@@ -23,7 +23,7 @@ behind permitting negative weights is demonstrated in the following example.
 In order to accommodate a belief that an increase in degree separation should correspond to 
 a decrease in the similarity regardless of the values of the edge weights, a weighting 
 paramter λ to the distance function δ(E) applied to each node traversal originating from the 
-same cluster.
+same cluster. Formally, 
   
   δ(E<sub>uv</sub>; λ) = λE<sub>uv</sub>, where C<sub>m</sub> is cluster m, and where C<sub>u</sub>=C<sub>v</sub>.
 
@@ -60,14 +60,13 @@ In these instances, and where the mean difference is less than the threshold par
 calculated using the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is 
 the sample size. In the case where the mean difference is greater than the threshold parameter and the 
 variance is 0, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
-network. 
+network. Formally, distance in this network is calculated:
   
   δ(E<sub>uv</sub>; θ)=(Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)<=θ])<sup>-1</sup>, when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
   
   δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
   
   δ(E<sub>uv</sub>; θ)= ∞, otherwise
-
 
 
 
