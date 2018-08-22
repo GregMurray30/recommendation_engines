@@ -55,11 +55,12 @@ correspond to a short distance.
 
 The advantage of this model is that it accounts for any uncertainty due to high variance in the sample of 
 shared ratings. One major disadvantage of this approach, however, is that probability cannot be calculated for 
-a sample with variance of 0, which becomes an issue with a small sample size. In these instances, distance 
-is calculated using the inverse logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is the sample size, 
+a sample with variance of 0, which becomes an issue with a small sample size. In these instances, and
+where the mean difference is greater than the threshold parameter, distance is calculated using
+the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is the sample size, 
 if and only if the mean difference is less than or equal to the aforementioned threshold parameter (usually 1). 
-In the case where the mean difference is greater than the threshold parameter and the variance is 0, the edge 
-is set equal to infinity, effectively removing the two nodes' connection from the network.
+In the case  and the variance is 0, the edge is set equal to infinity, effectively removing the two 
+nodes' connection from the network.
 
 
 
