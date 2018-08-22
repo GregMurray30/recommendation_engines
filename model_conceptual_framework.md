@@ -57,14 +57,14 @@ The advantage over the scalar model is that the Gaussian model accounts for any 
 in the sample of shared ratings. One major disadvantage of this approach, however, is that the CDF 
 cannot be calculated for a sample with variance of 0, which becomes an issue with a small sample size. 
 In these instances, and where the mean difference is less than the threshold parameter θ, distance is 
-calculated using the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is 
+calculated using the one minus a scaled version of the logistic function, δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>, where n is 
 the sample size. In the case where the mean difference is greater than the threshold parameter and the 
 variance is 0, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
 network. Formally, distance in this network is calculated:
   
   δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
   
-  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, where n is the sample size of E<sub>uv</sub>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
+  δ(E<sub>uv</sub>; θ)=(1000+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, where n is the sample size of E<sub>uv</sub>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
   
   δ(E<sub>uv</sub>; θ)= ∞, otherwise
 
