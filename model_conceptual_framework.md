@@ -25,7 +25,7 @@ a decrease in the similarity regardless of the values of the edge weights, a wei
 paramter λ to the distance function δ(E) applied to each node traversal originating from the 
 same cluster.
   
-  δ(E<sub>uv</sub>) = λE<sub>uv</sub>, where u, v ∈ C(1,2), P<sub>E<sub>ij</sub></sub> ∈ P<sub>m</sub>, and P<sub>m</sub> is  plane m.
+  δ(E<sub>uv</sub>, λ) = λE<sub>uv</sub>, where u, v ∈ C(1,2), P<sub>E<sub>ij</sub></sub> ∈ P<sub>m</sub>, and where P<sub>m</sub> is  plane m.
 
 The movie network nodes represent individual movies. Reciprocating the user network, the
 movie network's edge weights are the average net difference in their shared-user
