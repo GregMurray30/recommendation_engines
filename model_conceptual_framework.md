@@ -64,7 +64,7 @@ network. Formally, distance in this network is calculated:
   
   δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
   
-  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
+  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, where n is the sample size of E<sub>uv</sub>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
   
   δ(E<sub>uv</sub>; θ)= ∞, otherwise
 
