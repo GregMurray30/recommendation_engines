@@ -1,24 +1,24 @@
 
-MODEL CONCEPTUAL FRAMEWORK This model utitizes basic network theory and Bellman-Ford
-shortest path algorithm to generate movie recommendations. This model description serves
-as the conceptual framework only and does not reflect the model's literal implementation
-in PySpark.
+MODEL CONCEPTUAL FRAMEWORK 
+Both the scalar (USER_MOVIE_NETWORK.py) and Gaussian network models
+utitize basic network theory and Bellman-Ford shortest path algorithm to generate movie recommendations. 
+This model description serves as the conceptual framework only and does not reflect the models'
+literal implementation in PySpark. 
 
-Dual-Cluster User-Movie Network: The dual-cluster, user-movie network consists of two
-principal network clusters with nodes in a power-law-like distribution. The first cluster
-is the user network, which is a weighted, non-directed, cyclic graph. The second network
-cluster is the movie network, also a weighted, non-directed, cyclic graph. Finally, the 
-two clusters are connected by the user-movienetwork. It is a weighted, directed and cyclic 
+The dual-cluster, user-movie networks consists of twoprincipal network clusters with nodes in a 
+power-law-like distribution. The first cluster is the user network, which is a weighted, non-directed, 
+cyclic graph. The second network cluster is the movie network, also a weighted, non-directed, cyclic graph. 
+Finally, the two clusters are connected by the user-movienetwork. It is a weighted, directed and cyclic 
 graph composed of cross-edges representing each user's rating of each movie. As the name 
 implies, the user-movie network shares nodes with the user and movie networks.
 
+SCALAR NETWORK MODEL:
 The user network nodes represent individual users. The network's edge weights are
 calculated as the average magnitudinal difference of their shared-movie ratings. The weights are
 non-directed. in that they may be either negative or positive. Accordingly, the sign of
 the weight indicates the direction of the edge. The node pairs still show up twice (A-B
 and B-A) in the graph's edge list where w<sub>AB</sub>=-1(w<sub>BA</sub>). The intuition
 behind permitting negative weights is demonstrated in the following example.
-
 
 In order to accommodate a belief that an increase in degree separation should correspond to 
 a decrease in the similarity regardless of the values of the edge weights, a weighting 
@@ -45,7 +45,25 @@ ratings, her similarity to other users, and her rated movies similarities to oth
 movies are not assessed in some arbitrary order. In addition, each plane's edge distances
 may be weighted according to one's beliefs on the impact that particular network*.
 
- *In this iteration of the model the distances in the user network, movie network, and the
+GAUSSIAN NETWORK MODEL:
+The Gaussian network model is identical to the scalar network except for the calculation of the
+edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
+of the rating differences, the Guassian model's edge weights are the inverse of the probability that the
+difference between the two users, or two movies, is less than some designated threshold parameter, 
+the default of which is 1. The inverse of the probability is used in order for a high probability to 
+correspond to a short distance. 
+
+The advantage of this model is that it accounts for any uncertainty due to high variance in the sample of 
+shared ratings. One major disadvantage of this approach, however, is that probability cannot be calculated for 
+a sample with variance of 0, which becomes an issue with a small sample size. In these instances, distance 
+is calculated using the inverse logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n<sup>, where n is the sample size, 
+if and only if the mean difference is less than or equal to the aforementioned threshold parameter (usually 1). 
+In the case where the mean difference is greater than the threshold parameter and the variance is 0, the edge 
+is set equal to infinity, effectively removing the two nodes' connection from the network.
+
+
+
+ *In this iteration of the scalar model the distances in the user network, movie network, and the
  user-movie cross network are scaled the same, assigning each network equal impact on the
  final recommendation. These edge weights could easily be scaled to accomodate one's
  beliefs on the importance each network has in determining the right movie recommendation.
