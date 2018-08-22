@@ -6,7 +6,8 @@ Adjust the file path to the data csv file in either USER_MOVIE_NETWORK.py or USE
 
 For instruction on installing PySpark on your machine see: https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/spark/macbook_and_linux/download_and_install_spark_on_macbook_and_linux.md)
 
-This algorithm is very greedy so even medium sized datasets will take too long to converge on a normal CPU. For anything larger than a few hundred nodes, a GPU or server cluster is required.
+This algorithm is very greedy so even medium sized datasets will take too long to converge on a normal CPU. For anything larger than a few hundred nodes, a GPU or server cluster is required (the number of data points in the resultant data
+structure is usually 100-1000 times the number of nodes).
 
 
 IMPORTANT: With the exception of BellmanFord_Python_only.py, the .py files are NOT meant for execution in a regular Python environment as they utilize PySpark - an Apache Spark MapReduce framework for Python. The files are meant to be executed via the command terminal in a PySpark instance . Copy and paste the text directly into the terminal, then execute Graph(<desired user id>, <n top movie recommendations>) for the desired user and n top movie recommendations.
