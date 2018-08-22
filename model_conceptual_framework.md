@@ -53,7 +53,7 @@ difference between the two users, or two movies, is less than some designated th
 The inverse of the probability is used in order for a high probability to correspond to a short distance. 
 
 The advantage over the scalar model is that this model accounts for any uncertainty due to high variance 
-in the sample of shared ratings. One major disadvantage of this approach, however, is that probability 
+in the sample of shared ratings. One major disadvantage of this approach, however, is that the CDF 
 cannot be calculated for a sample with variance of 0, which becomes an issue with a small sample size. 
 In these instances, and where the mean difference is less than the threshold parameter, distance is 
 calculated using the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is 
