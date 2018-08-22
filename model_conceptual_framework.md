@@ -22,8 +22,8 @@ behind permitting negative weights is demonstrated in the following example.
 
 In order to accommodate a belief that an increase in degree separation should correspond to 
 a decrease in the similarity regardless of the values of the edge weights, a weighting 
-function f(E) is applied to each node traversal originating from the same cluster. Formally, 
-f(E<sub>uv</sub>) = λE<sub>uv</sub>, where u, v ∈ C(1,2); and P<sub>E<sub>ij</sub></sub> ∈ P<sub>m</sub>; 
+function δ(E) is applied to each node traversal originating from the same cluster. Formally, 
+δ(E<sub>uv</sub>) = λE<sub>uv</sub>, where u, v ∈ C(1,2); and P<sub>E<sub>ij</sub></sub> ∈ P<sub>m</sub>; 
 where λ is the weighting parameter, and P<sub>m</sub> is plane m.
 
 The movie network nodes represent individual movies. Reciprocating the user network, the
