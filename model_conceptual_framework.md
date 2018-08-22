@@ -48,18 +48,22 @@ may be weighted according to one's beliefs on the impact that particular network
 GAUSSIAN NETWORK MODEL:
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
-of the rating differences, the Guassian model's edge weights are the inverse of the probability that the
+of the rating differences, the Gaussian model's edge weights are the inverse of the probability that the
 difference between the two users, or two movies, is less than some designated threshold parameter (usually 1).
 The inverse of the probability is used in order for a high probability to correspond to a short distance. 
 
-The advantage over the scalar model is that this model accounts for any uncertainty due to high variance 
+The advantage over the scalar model is that the Gaussian model accounts for any uncertainty due to high variance 
 in the sample of shared ratings. One major disadvantage of this approach, however, is that the CDF 
 cannot be calculated for a sample with variance of 0, which becomes an issue with a small sample size. 
-In these instances, and where the mean difference is less than the threshold parameter, distance is 
+In these instances, and where the mean difference is less than the threshold parameter θ, distance is 
 calculated using the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e<sup>n</sup>, where n is 
 the sample size. In the case where the mean difference is greater than the threshold parameter and the 
 variance is 0, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
-network.
+network. 
+  δ(E<sub>uv</sub>; θ)=(Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)<=θ])<sup>-1</sup> when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ
+  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup> when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ
+  δ(E<sub>uv</sub>; θ)= ∞ otherwise
+
 
 
 
