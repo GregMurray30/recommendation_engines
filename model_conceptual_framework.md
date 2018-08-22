@@ -60,9 +60,11 @@ calculated using the inverse of the logistic function, δ(n)=(1+e<sup>n</sup>)/e
 the sample size. In the case where the mean difference is greater than the threshold parameter and the 
 variance is 0, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
 network. 
-  δ(E<sub>uv</sub>; θ)=(Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)<=θ])<sup>-1</sup> when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ
-  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup> when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ
-  δ(E<sub>uv</sub>; θ)= ∞ otherwise
+  δ(E<sub>uv</sub>; θ)=(Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)<=θ])<sup>-1</sup>, when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;
+  
+  δ(E<sub>uv</sub>; θ)=(1+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;
+  
+  δ(E<sub>uv</sub>; θ)= ∞, otherwise
 
 
 
