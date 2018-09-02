@@ -5,7 +5,7 @@
 There are two models in this repository, the scalar model and the Gaussian model. Both the scalar ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)) and Gaussian ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)) network models
 utilize basic network theory and Dijkstra's shortest path algorithm to generate movie[<sup>1</sup>](#1) recommendations.
 
-The dual node-type, user-movie network is a weighted, non-directed and cyclic graph consisting
+The user-movie network has two node types, and is a weighted, non-directed and cyclic graph consisting
 of two principal network node types, user and movie nodes, with node centrality in a skewed normal or 
 power-law-like distribution.
 
