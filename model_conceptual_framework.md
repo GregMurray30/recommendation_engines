@@ -68,7 +68,7 @@ network. Formally, distance in this network is calculated where
 
 Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples) the Guassian model retains one distinct advantage over its scalar counterpart: its edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations appear in both models). 
 
-
+###### 1
  *In this iteration of the scalar model the distances in the user network, movie network, and the
  user-movie cross network are scaled the same, assigning each network equal impact on the
  final recommendation. These edge weights could easily be scaled to accomodate one's
