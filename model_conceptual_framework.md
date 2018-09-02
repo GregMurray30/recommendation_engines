@@ -43,6 +43,11 @@ In addition, each node type's edge distances may be weighted according to one's 
 that particular type*.
 
 ## GAUSSIAN NETWORK MODEL:
+
+<p align="center">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
+</p>
+
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
 of the rating differences, the Gaussian model's edge weights are the probability that the
