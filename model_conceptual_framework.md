@@ -51,7 +51,7 @@ that particular type*.
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
 of the rating differences, the Gaussian model's edge weights are the probability that the
-difference between two users, or two movies, is greater than some designated threshold parameter θ.
+difference between two users, or two movies, is greater than some designated threshold parameter θ (represented in the visualization above as the thickness of the edge line).
 
 One major disadvantage of this approach is that the cumulative distribution function cannot be calculated 
 for a sample with variance of 0. This becomes an issue with small sample sizes. In these instances, and 
