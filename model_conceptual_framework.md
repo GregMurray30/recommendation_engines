@@ -9,7 +9,7 @@ the model is generalizable to any data set that fits a user-product-rating parad
 
 The dual node-type, user-movie network is a weighted, non-directed and cyclic graph consisting
 of two principal network node types, user and movie nodes, with node centrality in a skewed normal or 
-power-law-like distribution (fatter tail than a standard power-law distribution).
+power-law-like distribution.
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
