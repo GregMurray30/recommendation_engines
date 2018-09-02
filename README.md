@@ -1,8 +1,8 @@
 # recommendation_engine BETA VERSION
 Movie recommendation engine using Apache Spark
-Ratings_sample.txt is "::" separated value file in the format [user_id]::[movie_id]::[rating]::[rating_date]. 
+Ratings_sample.txt is "::" separated value file in the format *[user_id]::[movie_id]::[rating]::[rating_date]*. 
 
-Adjust the file path to the data csv file in either USER_MOVIE_NETWORK.py or USER_MOVIE_NETWORK_gaussian.py and execute the code in a PySpark instance. Then, in the same PySpark instance, execute the code from BellmanFord_PySpark.py. For an explanation on the difference between USER_MOVIE_NETWORK.py and USER_MOVIE_NETWORK_gaussian.py, see model_conceptual_framework.md.
+Adjust the file path to the data csv file in either USER_MOVIE_NETWORK.py or USER_MOVIE_NETWORK_gaussian.py and execute the code in a PySpark instance. Then, in the same PySpark instance, execute the code from BellmanFord_PySpark.py. For an explanation on the difference between [USER_MOVIE_NETWORK.py](#1) and [USER_MOVIE_NETWORK_gaussian.py](#2), see [model_conceptual_framework.md](#3).
 
 For instruction on installing PySpark on your machine see: https://github.com/mahmoudparsian/big-data-mapreduce-course/blob/master/spark/macbook_and_linux/download_and_install_spark_on_macbook_and_linux.md)
 
