@@ -11,19 +11,23 @@ The dual node-type, user-movie network is a weighted, non-directed and cyclic gr
 of two principal network node types, user and movie nodes, with node centrality in a skewed normal or 
 power-law-like distribution (fatter tail than a standard power-law distribution).
 
+<p align="center">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
+ </p>
+**Figure 1:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
 
 ## SCALAR NETWORK MODEL:
 The user nodes represent individual users. The network's edge weights are
 calculated as the average magnitudinal difference of their shared-movie ratings. The weights are
 non-directed and positive. As it is non-directed, the user node pairs still show up twice (*A-B* and *B-A*) 
-in the graph's edge list where *w<sub>AB</sub>=(w<sub>*BA</sub>)*.
+in the graph's edge list where **w<sub>AB</sub>=(w<sub>*BA</sub>)**.
 
 The movie nodes represent individual movies. Reciprocating the user nodes, the
 movie network's edge weights are the average magnitudinal difference in their shared-user
 ratings. 
 
 Cross edges connecting a user node to a movie node indicate the user's rating of that movie
-where node *u* ∈ **G<sub>user</sub>**, and node *v* ∈ **G<sub>movie</sub>**. In order for a high rating 
+where node **u ∈ G<sub>user</sub>**, and node **v ∈ G<sub>movie</sub>**. In order for a high rating 
 to correspond to a small distance, a rating-rank is used in (rating of 5 is a 1, rating of 4 
 is 2, etc.) for the edge weight in place of the actual rating.
 
@@ -46,19 +50,16 @@ that particular type*.
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
 of the rating differences, the Gaussian model's edge weights are the probability that the
-difference between two users, or two movies, is greater than some designated threshold parameter θ.
+difference between two users, or two movies, is greater than some designated threshold parameter **θ**.
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
- 
 **Figure 1:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
  
 One major disadvantage of this approach is that the cumulative distribution function cannot be calculated 
 for a sample with variance of zero. This becomes an issue with small sample sizes. In these instances, and 
-where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logistic function, *δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>*, where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the 
-variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the 
-network. Formally, distance in this network is calculated where
+where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logistic function, *δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>*, where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
   >**δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;**
   
@@ -66,7 +67,7 @@ network. Formally, distance in this network is calculated where
   
   >**δ(E<sub>uv</sub>; θ)= ∞, otherwise**
 
-Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples) the Guassian model retains one distinct advantage over its scalar counterpart: its edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations appear in both models). 
+Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples), the Guassian model retains one distinct advantage over its scalar counterpart: edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations frequently appear in both models). 
 
 >###### 1
 >*In this iteration of the scalar model the distances in the user network, movie network, and the
