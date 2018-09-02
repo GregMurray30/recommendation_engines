@@ -1,5 +1,6 @@
 
-MODEL CONCEPTUAL FRAMEWORK 
+# MODEL CONCEPTUAL FRAMEWORK 
+
 Both the scalar (USER_MOVIE_NETWORK.py) and Gaussian network models
 utitize basic network theory and Bellman-Ford shortest path algorithm to generate movie recommendations.
 This model description serves as the conceptual framework only and does not reflect the models'
@@ -7,10 +8,11 @@ literal implementation in PySpark. While movies are the entity of interest in th
 the model is generalizable to any data set that fits a user-product-rating paradigm. 
 
 The dual node-type, user-movie network is a weighted, non-directed and cyclic graph consisting
-of two principal network node types, user and movie nodes, with node centrality in a 
+of two principal network node types, user and movie nodes, with node centrality in a skewed normal or 
 power-law-like distribution (fatter tail than a standard power-law distribution).
 
-SCALAR NETWORK MODEL:
+
+## SCALAR NETWORK MODEL:
 The user nodes represent individual users. The network's edge weights are
 calculated as the average magnitudinal difference of their shared-movie ratings. The weights are
 non-directed and positive. As it is non-directed, the user node pairs still show up twice (A-B and B-A) 
@@ -40,7 +42,7 @@ movies are not assessed in any arbitrary order, but rather considered simulaneou
 In addition, each node type's edge distances may be weighted according to one's beliefs about the impact 
 that particular type*.
 
-GAUSSIAN NETWORK MODEL:
+## GAUSSIAN NETWORK MODEL:
 The Gaussian network model is identical to the scalar network except for the calculation of the
 edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
 of the rating differences, the Gaussian model's edge weights are the probability that the
