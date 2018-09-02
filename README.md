@@ -2,7 +2,7 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 
 Both the scalar ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)) and Gaussian ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)) network models
-utitize basic network theory and Bellman-Ford shortest path algorithm to generate movie recommendations.
+utitize basic network theory and Dijkstra's shortest path algorithm to generate movie recommendations.
 This model description serves as the conceptual framework only and does not reflect the models'
 literal implementation in PySpark. While movies are the entity of interest in these examples, 
 the model is generalizable to any data set that fits a user-product-rating paradigm. 
