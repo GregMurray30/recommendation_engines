@@ -12,9 +12,10 @@ of two principal network node types, user and movie nodes, with node centrality 
 power-law-like distribution (fatter tail than a standard power-law distribution).
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
  </p>
-**Figure 1:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
+ 
+**Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and count of nodes on the y axis. Note that the count of node connections follows a skewed normal distribution in this sample.*
 
 ## SCALAR NETWORK MODEL:
 The user nodes represent individual users. The network's edge weights are
@@ -55,7 +56,8 @@ difference between two users, or two movies, is greater than some designated thr
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
-**Figure 1:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
+ 
+**Figure 2:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
  
 One major disadvantage of this approach is that the cumulative distribution function cannot be calculated 
 for a sample with variance of zero. This becomes an issue with small sample sizes. In these instances, and 
