@@ -52,8 +52,9 @@ difference between two users, or two movies, is greater than some designated thr
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
-  * Figure 1: A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity.
-</p>
+ </p>
+ <p>* Figure 1: A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges. *
+ </p>
 
 
 One major disadvantage of this approach is that the cumulative distribution function cannot be calculated 
