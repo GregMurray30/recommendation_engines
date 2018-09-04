@@ -16,7 +16,7 @@ power-law-like distribution.
 **Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a skewed normal distribution in this sample.*
 
 ## SCALAR NETWORK MODEL
-Each node of the type user represents an individual user in this network model. The network's edge weights are
+Each node of type user represents an individual user in this network model. The network's edge weights are
 calculated as the mean magnitudinal difference between the two nodes' shared-movie ratings. The weights are
 non-directed, however, the user node pairs still show up twice (*A-B* and *B-A*) 
 in the graph's edge list where **w<sub>*AB*</sub>=w<sub>*BA*</sub>**.
