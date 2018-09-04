@@ -17,7 +17,7 @@ power-law-like distribution.
 
 ## SCALAR NETWORK MODEL
 Each node of type user represents an individual user in this network model. The network's edge weights are
-calculated as the mean magnitudinal difference between the two nodes' shared-movie ratings. The weights are
+calculated as the mean magnitudinal difference between the two nodes' shared-movies' ratings. The weights are
 non-directed, however, the user node pairs still show up twice (*A-B* and *B-A*) 
 in the graph's edge list where **w<sub>*AB*</sub>=w<sub>*BA*</sub>**.
 
