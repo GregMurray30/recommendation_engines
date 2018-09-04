@@ -11,7 +11,7 @@ The user-movie network is a weighted, non-directed and a-cyclic graph consisting
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
  </p>
  
-**Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a skewed normal distribution in this sample.*
+**Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
 ## SCALAR NETWORK MODEL
 Each node of type user represents an individual user in this network model. The network's edge weights are
