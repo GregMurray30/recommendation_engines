@@ -73,7 +73,7 @@ In order to test the predictive ability of the two models I utilized "leave-one-
 
 ## *APPENDIX*
 >###### 1
->*While movies are the recommendation object of interest in these examples, the model is generalizable to any data set that fits a user-product-rating paradigm. 
+>*While movies are the recommendation object of interest in these examples, the model is generalizable to any data set that fits a user-product-rating paradigm.*
 
 >###### 2
 >*In this iteration of the scalar model the distances in the user network, movie network, and the
@@ -85,6 +85,6 @@ In order to test the predictive ability of the two models I utilized "leave-one-
  factor.*
  
  >###### 3
- >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity
+ >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
  
 
