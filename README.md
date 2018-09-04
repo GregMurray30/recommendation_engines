@@ -58,7 +58,7 @@ difference between two users, or two movies, is greater than some designated thr
 **Figure 2:** *A representation of the Gaussian Network model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
  
 One major disadvantage of the probabilistic approach to edge weights is that the cumulative distribution function cannot be calculated for a sample with variance of zero. This becomes an issue with small sample sizes. In these instances, and 
-where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logit function, *δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
+where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the inverse of the logistic function, *δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
   >**δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;**
   
@@ -66,7 +66,7 @@ where the mean difference is less than the threshold parameter **θ**, distance 
   
   >**δ(E<sub>uv</sub>; θ)= ∞, otherwise**
 
-Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples), the Guassian model retains one distinct advantage over its scalar counterpart: edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations frequently appear in both models). 
+Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples), the Gaussian model retains one distinct advantage over its scalar counterpart: edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations frequently appear in both models). 
 
 >###### 1
 >*While movies are the recommendation object of interest in these examples, the model is generalizable to any data set that fits a user-product-rating paradigm. 
@@ -81,6 +81,6 @@ Despite its longer convergence times (and admittedly "hacky" solution to zero-va
  factor.*
  
  >###### 3
- >*The constant 1 in the logit function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity
+ >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity
  
 
