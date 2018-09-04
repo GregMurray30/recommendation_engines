@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+#Author: Greg Murray
+#Title: Gaussian User-Movie Network Reccomendation Engine
+
 from pyspark.storagelevel import StorageLevel
 import math
 
-#sc = spark.sparkContext
+sc = spark.sparkContext
 
 rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
@@ -17,6 +20,7 @@ def app(a,b):
 def ext(a,b):
      a.extend(b)
      return a
+
 
 rt = rdd.map(lambda x: x.split(","))
 rt = rt.map(lambda x: x[0:3])
@@ -73,13 +77,13 @@ def sd(v):
 		return (v,0)
 	else:
 		return (v, round(st.stdev(v[2]),3))
-
+		
 
 u_rate_diff1 = user_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 #rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
+
 u_rate_diff2= u_rate_diff1.map(get_diff)
 u_rate_diff3 = u_rate_diff2.mapValues(sd)
-
 
 	
 #gaussian_pairs schema: (((userA, num_ratings_userA), (userB, num_ratings_userB)), ((avg_mag_diffAB, sd_diffAB), num_shared_movies))
@@ -88,26 +92,28 @@ u_gaussian_pairs = u_rate_diff3.map(lambda x: (((x[0][0], x[1][0][0][0]), (x[0][
 
 import scipy.stats as ss
 import math
-
 def prob_pairs(x):
     def _prob_pairs(v):
-        prob = float(1-ss.norm(v[0][0], v[0][1]).cdf(x))
-        #if variance==0 then hack a probability with logistic func if the mean <=1
+        prob = 1-float(ss.norm(v[0][0], v[0][1]).cdf(x))
+        #if variance==0 then hack a probability estimate with logistic func if the mean <=1
         if math.isnan(prob):
             if v[0][0]<=x:
-                prob=(math.exp(v[1])/(1000+math.exp(v[1])))
+                prob=1-(math.exp(v[1])/(1000+math.exp(v[1])))
+                return ((v[0], v[1]), prob)
             else:
-                prob=0.0
+                prob=float("Inf")
+                return ((v[0], v[1]), prob)
         return ((v[0], v[1]), prob)
     return _prob_pairs
-    
+
+
+
+#u_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diff<=x)
 u_cdf_pairs = u_gaussian_pairs.mapValues(prob_pairs(1))
 
-
-
 #Add 'u' to each user ID for 'user'
-#USER_NETWORK schema: ((userA, 'u'), ((userB, 'm'), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diffAB<=x)
-USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1])))
+#USER_NETWORK schema: ((userA, 'u'), ((userB, 'm'), probability_of_diffAB<=x)
+USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][1])))
 
 
 #______________________________________________________________________________#
@@ -146,11 +152,12 @@ m_rate_diff3 = m_rate_diff2.mapValues(sd)
 m_gaussian_pairs = m_rate_diff3.map(lambda x: (((x[0][0], x[1][0][0][0]), (x[0][1], x[1][0][0][1])), ((x[1][0][1][0], x[1][1]), len(x[1][0][2]) )))
 
 
+#m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diff<=x)
 m_cdf_pairs = m_gaussian_pairs.mapValues(prob_pairs(1))
 
 #Add 'm' to each movie ID for 'movie'
-#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diff<=x)
-MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1])))
+#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'),  probability_of_diff<=x)
+MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][1])))
 
 
 #______________________________________________________________________________#
@@ -180,9 +187,8 @@ def rating_rank(v):
         return (v[0], 4.5)
         
 
-
 um_ratings = u_rt2.mapValues(rating_rank)
 um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
 user_movie_network0 = USER_NETWORK.union(MOVIE_NETWORK)
 
-USER_MOVIE_NETWORK = user_movie_network0.union(um_ratings2)
+USER_MOVIE_NETWORK_Gaussian = user_movie_network0.union(um_ratings2)
