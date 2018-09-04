@@ -95,7 +95,7 @@ def prob_pairs(x):
         #if variance==0 then hack a probability with logistic func if the mean <=1
         if math.isnan(prob):
             if v[0][0]<=x:
-                prob=(math.exp(v[1])/(1+math.exp(v[1])))
+                prob=(math.exp(v[1])/(1000+math.exp(v[1])))
             else:
                 prob=0.0
         return ((v[0], v[1]), prob)
