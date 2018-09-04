@@ -60,7 +60,7 @@ difference between two users, or two movies, is greater than some designated thr
 One major disadvantage of the probabilistic approach to edge weights is that the cumulative distribution function cannot be calculated for a sample with variance of zero. This becomes an issue with small sample sizes. In these instances, and 
 where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the inverse of the logistic function, *δ(n)=(1000+e<sup>n</sup>)/e<sup>n</sup>* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
-  >**δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ]), when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;**
+  >**δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ], when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;**
   
   >**δ(E<sub>uv</sub>; θ)=(1000+e<sup>n</sup>)/e<sup>n<sub>uv</uv></sup>, where n is the sample size of E<sub>uv</sub>, when σ<sub>uv</sub>=0 and μ<sub>uv</sub><=θ;**
   
