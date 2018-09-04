@@ -69,7 +69,7 @@ where the mean difference is less than the threshold parameter **θ**, distance 
 Despite its longer convergence times (and admittedly "hacky" solution to zero-variance samples), the Gaussian model retains one distinct advantage over its scalar counterpart: edge distances account for any uncertainty due to high variance in the sample of shared ratings. This frequently results in more sensible recommendations than the scalar model (although some of the recommendations frequently appear in both models). 
 
 ## TESTING THE MODELS
-In order to test the predictive ability of the two models I utilized "leave-one-out" (LOO) cross validation technique. In this way the network could be left virtually unchanged in composing the training data sets. 
+In order to test the predictive ability of the two models I utilized "leave-one-out" (LOO) cross validation technique. In this way the network could be left virtually unchanged whilest composing the training data sets. 
 
 ## *APPENDIX*
 >###### 1
