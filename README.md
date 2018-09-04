@@ -71,6 +71,7 @@ Despite its longer convergence times (and admittedly "hacky" solution to zero-va
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models I utilized "leave-one-out" (LOO) cross validation technique. In this way the network could be left virtually unchanged in composing the training data sets. 
 
+## *APPENDIX*
 >###### 1
 >*While movies are the recommendation object of interest in these examples, the model is generalizable to any data set that fits a user-product-rating paradigm. 
 
