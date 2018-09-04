@@ -19,7 +19,7 @@ power-law-like distribution.
 Each node of the user type node represent individual users in this network model. The network's edge weights are
 calculated as the mean magnitudinal difference between the two nodes' shared-movie ratings. The weights are
 non-directed, however, the user node pairs still show up twice (*A-B* and *B-A*) 
-in the graph's edge list where **w<sub>AB</sub>=(w<sub>*BA</sub>)**.
+in the graph's edge list where **w<sub>*AB*</sub>=(w<sub>*BA*</sub>)**.
 
 The second type of node in this model is the movie node which represent individual movies. Reciprocating the user nodes, the
 movie network's edge weights are the mean magnitudinal difference between the two nodes' shared-users'
