@@ -59,7 +59,7 @@ One major disadvantage of the probabilistic approach to edge weights is that sin
 <p align="left">
   <img src="https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f" title="Noraml PDF">,
  </p> 
- it is undefined for samples with a variance (**σ**) of zero. This becomes an issue with small sample sizes. In these instances, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logistic function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
+ it is undefined for samples with a variance (σ) of zero. This becomes an issue with small sample sizes. In these instances, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logistic function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
   >**δ(E<sub>uv</sub>; θ)=Pr[N(μ<sub>uv</sub>, σ<sub>uv</sub>)>θ], when σ<sub>uv</sub>>0 and μ<sub>uv</sub><=θ;**
   
