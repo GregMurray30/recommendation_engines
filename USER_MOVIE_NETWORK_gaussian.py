@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #Author: Greg Murray
-#Title: Gaussian User-Movie Network Reccomendation Engine
+#Title: Gaussian User-Movie Network Recommendation Engine
 
 from pyspark.storagelevel import StorageLevel
 import math
