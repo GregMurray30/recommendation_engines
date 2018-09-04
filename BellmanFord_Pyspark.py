@@ -1,6 +1,5 @@
 #Author: Greg Murray
 #Title: Bellman-Ford Recommendation Engine
-#sc2 = spark.sparkContext 
 
 #sc = spark.sparkContext
 class SparkGraph:
