@@ -2,7 +2,7 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 
 ## INTRODUCTION
-There are two models in this repository, the scalar model and the Gaussian model. Both the scalar ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)) and Gaussian ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)) network models
+There are two models used for determining recommendations for users in this repository, the scalar model and the Gaussian model. Both the scalar ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)) and Gaussian ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)) network models
 utilize basic network theory and Dijkstra's shortest path algorithm to generate movie[<sup>1</sup>](#1) recommendations.
 
 The user-movie network has two node types, and is a weighted, non-directed and cyclic graph consisting
