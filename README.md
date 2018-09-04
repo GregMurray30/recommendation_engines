@@ -83,9 +83,3 @@ In order to test the predictive ability of the two models I utilized the "leave-
  
  >###### 3
  >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
- 
- >###### 4
- > <p align="left">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/4abaca87a10ecfa77b5a205056523706fe6c9c3f.svg" title="Noraml PDF">
- </p> 
-
