@@ -1,6 +1,6 @@
 
 # MODEL CONCEPTUAL FRAMEWORK 
->##### by Greg Murray
+>#### by Greg Murray
 ## INTRODUCTION
 There are two models used for determining recommendations for users, the scalar model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Both the scalar  and Gaussian network models
 utilize basic network theory and Dijkstra's shortest path algorithm to generate movie[<sup>1</sup>](#1) recommendations.
