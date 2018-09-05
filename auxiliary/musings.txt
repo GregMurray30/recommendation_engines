@@ -3,12 +3,12 @@ Brainstorming of ideas for improving this model:
 Shortcomings:
 -Two people with a shared "enemy" are currently considered, mathematically, more dissimilar than their enemy.This may be the 
 case but it could also be the opposite.
--One major problem is that sample size is not being incorporated 
--What do you do with 0 variance node pairs??
+-One major problem is that sample size is not being incorporated -SOLVED 
+-What do you do with 0 variance node pairs?? -WORKING SOLUTION
 
 Solution Ideas:
 
 -To address sample size uncertainty you could use a Bayesian approach where the likelihood was the distribution mentioned above.
 For the prior you could pick the overall mean, or somehow determine clusters with homogeneity scores to determine a prior distribution estimate.
 
--Node Centrality should be penalized ("Blockbuster Effect"), where the more popular a movie the less that similarity counts. The reality check on this is that nearly everyone liked Jurassic Park (fill in the blockbuster blank) but that does not mean we all have similar tastes. Finding the correct function of centrality to assign to the similarity algorithm (s(c)) is the hard part. 
+-Node Centrality should be penalized where the more popular a movie the less that similarity counts ("Blockbuster Effect"). The reality check on this is that nearly everyone liked Jurassic Park, Avatar, etc. (fill in the blockbuster blank), but that does not mean we all have similar tastes. Finding the correct function of centrality to assign to the similarity algorithm (s(c)) is the hard part. 
