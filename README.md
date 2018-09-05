@@ -2,8 +2,8 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 ## INTRODUCTION
-There are two models used for determining recommendations for users, the scalar model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Both the scalar  and Gaussian network models
-utilize basic network theory and Dijkstra's shortest path algorithm to generate movie[<sup>1</sup>](#1) recommendations.
+The recommender system proposed detailed in this description is a hybrid model utilizing components of user-based nearest neighbor, and item-based nearest neighbor receommenders, as well as basic network theory. There are two models used for determining recommendations for users, the scalar model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the scalar  and Gaussian networks are modelled identically and
+utilize Dijkstra's shortest path algorithm to generate item[<sup>1</sup>](#1) recommendations.
 
 The user-movie network is a weighted, non-directed and a-cyclic graph consisting of two node types, user and movie nodes, with node centrality typically in a skewed normal or power-law-like distribution.
 
