@@ -22,7 +22,8 @@ Although the weights are non-directed, the user node pairs still show up twice (
 in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*XY*</sub>**.
 
 The second type of node in this model is the movie node which represent individual movies. Reciprocating the user nodes, the
-movie network's edge weights are the sample correlation coefficient of the two movies' shared-users' ratings. 
+movie network's edge weights are determined by the two movies' shared-users' ratings but this time using cosine similarity. For movies A and B the, similarity is defined
+![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d94e5903f7936d3c131e040ef2c51b473dd071d).
 
 Cross edges connecting a user node to a movie node indicate the user's rating of that movie
 where node **u ∈ G<sub>user</sub>**, and node **v ∈ G<sub>movie</sub>**. In order for a high rating 
