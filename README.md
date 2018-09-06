@@ -16,7 +16,7 @@ The user-movie network is a weighted, non-directed and a-cyclic graph consisting
 ## Pearson NETWORK MODEL
 Each node of type user represents an individual user in this network model. The network's edge weights are
 calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-movies' ratings. For two users, X and Y, then their similarity is defined as 
-![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/43219265dc2c827cb4f5b34f2e3fb797bed2e820)
+![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/43219265dc2c827cb4f5b34f2e3fb797bed2e820).
 
 Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
 in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*XY*</sub>**.
