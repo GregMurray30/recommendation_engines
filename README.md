@@ -2,7 +2,7 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 ## INTRODUCTION
-The recommender system proposed detailed in this description is a hybrid model utilizing components of user-based nearest neighbor, and item-based nearest neighbor receommenders, as well as basic network theory. There are two models used for determining recommendations for users, the scalar model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the scalar  and Gaussian networks are modelled identically and
+The recommender system proposed detailed in this description is a hybrid model utilizing components of user-based nearest neighbor, and item-based nearest neighbor receommenders, as well as basic network theory. There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
 utilize Dijkstra's shortest path algorithm to generate item[<sup>1</sup>](#1) recommendations.
 
 The user-movie network is a weighted, non-directed and a-cyclic graph consisting of two node types, user and movie nodes, with node centrality typically in a skewed normal or power-law-like distribution.
@@ -13,11 +13,13 @@ The user-movie network is a weighted, non-directed and a-cyclic graph consisting
  
 **Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
-## SCALAR NETWORK MODEL
+## Pearson NETWORK MODEL
 Each node of type user represents an individual user in this network model. The network's edge weights are
-calculated as the mean magnitudinal difference between the two nodes' shared-movies' ratings. The weights are
-non-directed, however, the user node pairs still show up twice (*A-B* and *B-A*) 
-in the graph's edge list where **w<sub>*AB*</sub>=w<sub>*BA*</sub>**.
+calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-movies' ratings. For two users, X and Y, then their similarity is defined as 
+![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/43219265dc2c827cb4f5b34f2e3fb797bed2e820)
+
+Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
+in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*XY*</sub>**.
 
 The second type of node in this model is the movie node which represent individual movies. Reciprocating the user nodes, the
 movie network's edge weights are the mean magnitudinal difference between the two nodes' shared-users'
