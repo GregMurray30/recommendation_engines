@@ -14,6 +14,7 @@ The user-movie network is a weighted, non-directed and a-cyclic graph consisting
 **Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
 ## PEARSON NETWORK MODEL
+#### USER NODES
 Each node of type user represents an individual user in this network model. The network's edge weights are
 calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-movies' ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
@@ -21,10 +22,12 @@ calculated as the Pearson correlation coefficient (hence the name) of the two us
 Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
 in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>**.
 
+#### MOVIE NODES
 The second type of node in this model is the movie node which represent individual movies. Reciprocating the user nodes, the
 movie network's edge weights are determined by the two movies' shared-users' ratings but this time using cosine similarity. For movies A and B the, similarity is defined
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d94e5903f7936d3c131e040ef2c51b473dd071d).
 
+#### CROSS EDGES
 Cross edges connecting a user node to a movie node indicate the user's rating of that movie
 where node **u ∈ G<sub>user</sub>**, and node **v ∈ G<sub>movie</sub>**. In order for a high rating 
 to correspond to a small distance, a rating-rank is used in (rating of 5 is a 1, rating of 4 
