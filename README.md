@@ -49,9 +49,8 @@ that particular type.
 
 ## GAUSSIAN NETWORK MODEL:
 
-The Gaussian network model is identical to the scalar network except for the calculation of the
-edge weight distances. Where the edge weights in the scalar model are simply the mean magnitude
-of the rating differences, the Gaussian model's edge weights are the probability that the
+The Gaussian network model is identical to the Pearson network except for the calculation of the
+edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the average magnitudinal
 difference between two users, or two movies, is greater than some designated threshold parameter **θ**.
 
 <p align="center">
