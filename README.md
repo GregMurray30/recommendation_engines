@@ -13,7 +13,7 @@ The user-movie network is a weighted, non-directed and a-cyclic graph consisting
  
 **Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
-## Pearson NETWORK MODEL
+## PEARSON NETWORK MODEL
 Each node of type user represents an individual user in this network model. The network's edge weights are
 calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-movies' ratings as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
