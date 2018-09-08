@@ -94,7 +94,7 @@ import scipy.stats as ss
 import math
 def prob_pairs(x):
     def _prob_pairs(v):
-        prob = 1-float(ss.norm(v[0][0], v[0][1]).cdf(x))
+        prob = 1-float(ss.norm(v[0][0], v[0][1]).cdf(x)) #probability difference > 1 (where 1 is the threshold theta)
         #if variance==0 then hack a probability estimate with logistic func if the mean <=1
         if math.isnan(prob):
             if v[0][0]<=x:
@@ -108,11 +108,11 @@ def prob_pairs(x):
 
 
 
-#u_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diff<=x)
+#u_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
 u_cdf_pairs = u_gaussian_pairs.mapValues(prob_pairs(1))
 
 #Add 'u' to each user ID for 'user'
-#USER_NETWORK schema: ((userA, 'u'), ((userB, 'm'), probability_of_diffAB<=x)
+#USER_NETWORK schema: ((userA, 'u'), ((userB, 'm'), probability_diffAB>theta)
 USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][1])))
 
 
@@ -152,11 +152,11 @@ m_rate_diff3 = m_rate_diff2.mapValues(sd)
 m_gaussian_pairs = m_rate_diff3.map(lambda x: (((x[0][0], x[1][0][0][0]), (x[0][1], x[1][0][0][1])), ((x[1][0][1][0], x[1][1]), len(x[1][0][2]) )))
 
 
-#m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_of_diff<=x)
+#m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
 m_cdf_pairs = m_gaussian_pairs.mapValues(prob_pairs(1))
 
 #Add 'm' to each movie ID for 'movie'
-#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'),  probability_of_diff<=x)
+#MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'),  probability_diff>theta)
 MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'), x[1][1])))
 
 
