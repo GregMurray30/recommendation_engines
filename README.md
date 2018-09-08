@@ -61,7 +61,8 @@ difference between two users, or two movies, is greater than some designated thr
  
 **Figure 2:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the movie and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
 
-The model assumes any two nodes' similarity can be modelled with a Gaussian random variable. 
+The model makes the bold assumption that any two nodes' similarity can be modelled with a Gaussian random variable. 
+
 One major disadvantage of the probabilistic approach to edge weights is that since the Gaussian probability density is ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f "Title"), it is undefined for samples with a variance (**σ<sup>2</sup>**) of zero. It can be shown that the cumulative distribution function (CDF) for a Gaussian with zero variance is defined as ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/90400cbbc8895d9f3c9a62d7502ed0f077c6ee3b).
 However, because many of the instances with zero variance are clearly more a result of small sample size than two users' unwavering similarity, this CDF is not a practical solution to the zero variance problem (which is really a sample size problem). Instead, when variance is zero, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a scaled version of the logistic function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>*</sup>](#3), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
