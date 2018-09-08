@@ -68,8 +68,6 @@ However, because many of the instances with zero variance are clearly more a res
   
   >**δ(E<sub>uv</sub>; θ)= ∞**, otherwise
 
-![alt text](https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/scaled_logistic.png)
-
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models I utilized the "leave-one-out" (LOO) cross validation technique. In this way the network can be left virtually unchanged whilst composing the training data sets. 
 
