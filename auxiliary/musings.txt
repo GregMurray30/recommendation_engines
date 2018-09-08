@@ -18,3 +18,4 @@ For the prior you could pick the overall mean, or somehow determine clusters wit
 RESOURCES
 -Pazzani (1999b) hybrid system using demographics where ratings data is shallow
 -"Huang et al. (2004) view the recommendation problem as a graph analysis problem"
+-Huang et al. (2004) view the recommendation problem as a graph analysis problem,
