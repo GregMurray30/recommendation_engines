@@ -19,7 +19,7 @@ calculated as the Pearson correlation coefficient (hence the name) of the two us
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
 Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
-in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*XY*</sub>**.
+in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>**.
 
 The second type of node in this model is the movie node which represent individual movies. Reciprocating the user nodes, the
 movie network's edge weights are determined by the two movies' shared-users' ratings but this time using cosine similarity. For movies A and B the, similarity is defined
