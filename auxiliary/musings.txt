@@ -11,7 +11,7 @@ Solution Ideas:
 -To address sample size uncertainty you could use a Bayesian approach where the likelihood was the distribution mentioned above.
 For the prior you could pick the overall mean, or somehow determine clusters with homogeneity scores to determine a prior distribution estimate.
 
--Node Centrality should be penalized where the more popular a movie the less that similarity counts ("Blockbuster Effect"). The reality check on this is that nearly everyone liked Jurassic Park, Avatar, etc. (fill in the blockbuster blank), but that does not mean we all have similar tastes. Finding the correct function of centrality to assign to the similarity algorithm (s(c)) is the hard part. 
+-For weights, use the conditional probability that users are similar given their similarity and being so many SD's from the average rating of each item. So if the average ratingn of a movie was 4.7 with a SD of .2, and user A rated it a 1 and user B rated it a 2 the probability of simliarity is much higher than if both rated it a 5 ("niche taste"). This essentially divides the similarity probability by the sample size but uses the probability of rating it away from the popular opinion (since there will be two probabilities of rating away from mean, one for each user, the final joint probability should be multiplied by 2).
 
 -Incorporate a time series to avoid the assumption that tastes don't change over time
 
