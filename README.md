@@ -1,7 +1,7 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 ## INTRODUCTION
-The recommender system detailed in this description is a collaborative filtering, hybrid model which utilizes components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory implemented in a MapReduce framework. 
+The recommender system detailed in this paper is a collaborative filtering, hybrid model which utilizes components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory implemented in a MapReduce framework. 
 
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
 utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate movie[<sup>1</sup>](#1) recommendations.
@@ -52,13 +52,16 @@ that particular type.
 
 The Gaussian network model is identical to the Pearson network except for the calculation of the
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
-difference between two users, or two items, is greater than some designated threshold parameter **θ**.
+difference between two users, or two items, is greater than some designated threshold parameter **θ**. The weights of each item's rating difference for a user pair - not to be confused with the node pair's edge weights which is determined by *all* of the rating differences between two users - is the difference of the two ratings divided by the standard deviation of the item's ratings. Mathematically, 
+
+>**w<sub>u<sub>a</sub></sub>(r<sub>u<sub>a</sub></sub>, r<sub>v<sub>a</sub></sub>, σ<sub>a</sub>)= |(r<sub>u<sub>a</sub></sub>-r<sub>v<sub>a</sub></sub>)|/σ<sub>a</sub>
+
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
  
-**Figure 2:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity. Notice that the item and user networks are not two separate clusters, but rather an mesh of the two node types inextricably linked by their complex relational edges.*
+**Figure 2:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
 
 The model makes the assumption that the utility (similarity) of any two nodes' can be modelled with a Gaussian random variable. 
 
