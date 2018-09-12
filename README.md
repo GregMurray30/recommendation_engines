@@ -1,10 +1,12 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 ## INTRODUCTION
-The recommender system detailed in this description is a collaborative filtering hybrid model utilizing components of user-based nearest neighbor and item-based nearest neighbor recommenders, as well as basic network theory implemented in PySpark and Python. There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
-utilize Dijkstra's shortest path algorithm to generate movie[<sup>1</sup>](#1) recommendations.
+The recommender system detailed in this description is a collaborative filtering, hybrid model which utilizes components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory implemented in a MapReduce framework. 
 
-The user-item network is a weighted, non-directed and acyclic graph consisting of two node types, user and item nodes, with node centrality typically in a skewed normal or power-law-like distribution.
+There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
+utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate movie[<sup>1</sup>](#1) recommendations.
+
+The user-item network is a weighted, non-directed and acyclic graph consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
@@ -14,7 +16,7 @@ The user-item network is a weighted, non-directed and acyclic graph consisting o
 
 ## PEARSON NETWORK MODEL
 #### USER NODES
-Each node of type user represents an individual user in this network model. The network's edge weights are
+Each user node represents an individual user in this network model. The network's edge weights are
 calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-items' ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
@@ -89,3 +91,6 @@ In order to test the predictive ability of the two models I utilized the "leave-
  
  >###### 3
  >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
+ 
+ ## *BIBLIOGRAPHY*
+ >*J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
