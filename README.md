@@ -82,7 +82,7 @@ In order to test the predictive ability of the two models I utilized the "leave-
 
 >###### 2
 >* Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
-in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>**.
+in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>** during implementation.
 
  
 >###### 3
