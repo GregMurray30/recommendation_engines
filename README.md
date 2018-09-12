@@ -6,7 +6,7 @@ The recommender system detailed in this description is a collaborative filtering
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
 utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate movie[<sup>1</sup>](#1) recommendations.
 
-The user-item network is a weighted, non-directed and acyclic graph consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
+The user-item network is a weighted, non-directed<sup>[*](#4)</sup> and acyclic graph consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
@@ -91,6 +91,10 @@ In order to test the predictive ability of the two models I utilized the "leave-
  
  >###### 3
  >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
+ 
+ >###### 4
+ Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
+in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>**.
  
  ## *BIBLIOGRAPHY*
  >*J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
