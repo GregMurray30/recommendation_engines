@@ -56,7 +56,7 @@ difference between two users, or two items, is greater than some designated thre
 
 > **w<sub>u<sub>a</sub></sub>(r<sub>u<sub>a</sub></sub>, r<sub>v<sub>a</sub></sub>, σ<sub>a</sub>)= |(r<sub>u<sub>a</sub></sub>-r<sub>v<sub>a</sub></sub>)|/σ<sub>a</sub>**,
 
-where r<sub>u<sub>a</sub></sub> is the user u rating of item a. The intuition behind weighting each rating difference thus is to lend varying importance to items depending on that item's degree of consensus of opinion. For example, two users with a rating difference of 4, most different, for an item with consensus opinion will be weighted the highest. In contrast, two users with a rating difference
+where r<sub>u<sub>a</sub></sub> is the user u rating of item a. The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, two users with a divergent opinions (ie: rating difference of 4) on an item with consensus opinion (low variance) will receive a relatively high weighted rating difference. In contrast, two users with very similar opinions (ie: rating difference of 1) on an item with "mixed reviews" will have a relatively low weighted rating difference.
 
 
 <p align="center">
