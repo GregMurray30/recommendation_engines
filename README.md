@@ -20,10 +20,8 @@ Each user node represents an individual user in this network model. The network'
 calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-items' ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
-Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
-in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>**.
 
-#### item NODES
+#### ITEM NODES
 The second type of node in this model is the item node which represent individual items. Reciprocating the user nodes, the
 item network's edge weights are determined by the two items' shared-users' ratings, but this time using cosine similarity. For items A and B then, similarity is defined
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d94e5903f7936d3c131e040ef2c51b473dd071d).
