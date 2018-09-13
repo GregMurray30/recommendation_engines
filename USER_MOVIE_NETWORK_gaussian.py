@@ -30,8 +30,7 @@ rt = rt.map(lambda x: x[0:3])
 
 #(user, (movie, rating)
 u_rt2 = rt.map(lambda x: (x[0], (x[1], float(x[2]))))
-u_nr = u_rt2.map(lambda x: (x[0], 1))
-numRatings = u_nr.reduceByKey(lambda x,y: x+y)
+
 
 #standard deviation of each user
 u_sd1 = u_rt2.mapValues(lambda x: x[1])
@@ -39,6 +38,10 @@ u_sd2 = u_sd1.combineByKey(li, app, ext)
 u_sd3 = u_sd2.mapValues(lambda x: round(st.stdev(x), 3))
 u_sd4 = u_rt2.join(u_sd3)
 u_sd5 = u_sd4.map(lambda x: ((x[0], x[1][1]), x[1][0]))
+
+#numRatings
+u_nr = u_sd5.map(lambda x: (x[0], 1))
+numRatings = u_nr.reduceByKey(lambda x,y: x+y)
 
 #(movie, (user, rating)
 u_rt3 = u_sd5.map(lambda x: (x[1][0], (x[0], x[1][1])))
@@ -130,13 +133,22 @@ USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'),
 
 #(movie, (user, rating)
 m_rt2 = rt.map(lambda x: (x[1], (x[0], x[2])))
-m_nr = m_rt2.map(lambda x: (x[0], 1))
-numRaters = m_nr.reduceByKey(lambda x,y: x+y)
+
+#standard deviation of each movie
+m_sd1 = m_rt2.mapValues(lambda x: x[1])
+m_sd2 = m_sd1.combineByKey(li, app, ext)
+m_sd3 = m_sd2.mapValues(lambda x: round(st.stdev(x), 3))
+m_sd4 = m_rt2.join(u_sd3)
+m_sd5 = m_sd4.map(lambda x: ((x[0], x[1][1]), x[1][0]))
+
+#numRatings
+m_nr = m_sd5.map(lambda x: (x[0], 1))
+numRatings = m_nr.reduceByKey(lambda x,y: x+y)
 
 #(user, (movie, rating)
-m_rt3 = m_rt2.map(lambda x: (x[1][0], (x[0], x[1][1])))
+m_rt3 = m_sd5.map(lambda x: (x[1][0], (x[0], x[1][1])))
 m_rt4 = m_rt3.join(m_rt3)
-m_rt5 = m_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
+m_rt5 = m_rt4.filter(lambda x: int(x[1][0][0][0])<int(x[1][1][0][0]))
 
 # ((movieA, movieB), (ratingA, ratingB))   
 m_rt6 = m_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]),((float(x[1][0][1]), float(x[1][1][1])))))
@@ -150,7 +162,6 @@ m_rt11=m_rt10.join(numRaters)
 #[(movieA, movieB), ((num_raters_movie_A, num_raters_movie_B), [(movieA_rating_1, movieB_rating_1),
 #(movieA_rating_2, movieB_rating_2),…, (movieA_rating_n, movieB_rating_n)]))
 movie_pairs = m_rt11.map(lambda x: (x[1][0][0][0], ((x[1][0][1], x[1][1]), x[1][0][0][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
-
 
 m_rate_diff1 = movie_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 #rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
