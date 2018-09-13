@@ -7,7 +7,7 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
@@ -29,14 +29,21 @@ rt = rt.map(lambda x: x[0:3])
 #USER NETWORK
 
 #(user, (movie, rating)
-u_rt2 = rt.map(lambda x: (x[0], (x[1], x[2])))
+u_rt2 = rt.map(lambda x: (x[0], (x[1], float(x[2]))))
 u_nr = u_rt2.map(lambda x: (x[0], 1))
 numRatings = u_nr.reduceByKey(lambda x,y: x+y)
 
+#standard deviation of each user
+u_sd1 = u_rt2.mapValues(lambda x: x[1])
+u_sd2 = u_sd1.combineByKey(li, app, ext)
+u_sd3 = u_sd2.mapValues(lambda x: round(st.stdev(x), 3))
+u_sd4 = u_rt2.join(u_sd3)
+u_sd5 = u_sd4.map(lambda x: ((x[0], x[1][1]), x[1][0]))
+
 #(movie, (user, rating)
-u_rt3 = u_rt2.map(lambda x: (x[1][0], (x[0], x[1][1])))
+u_rt3 = u_sd5.map(lambda x: (x[1][0], (x[0], x[1][1])))
 u_rt4 = u_rt3.join(u_rt3)
-u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
+u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0][0])<int(x[1][1][0][0]))
 
 # ((userA, userB), (ratingA, ratingB))    
 u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]),((float(x[1][0][1]), float(x[1][1][1])))))
@@ -69,15 +76,17 @@ def get_diff(x):
     for tup in x[0][1][1]:
         diff_arr.append(abs(tup[0]-tup[1]))
     return (x[0][0], (x[0][1][0], x[1], diff_arr))
-    
 
+			
+#standard deviation of each user
 import statistics as st
 def sd(v):
 	if len(v[2])==1:
 		return (v,0)
 	else:
 		return (v, round(st.stdev(v[2]),3))
-		
+
+	
 
 u_rate_diff1 = user_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 #rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
