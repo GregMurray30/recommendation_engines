@@ -62,7 +62,7 @@ where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pa
 **Figure 2:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings. Note that the standard deviation has more impact on the weighted rating-difference value when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the rating difference=0 curve (red) than the rating difference=4 (brown) curve.*
  
 
-The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 1, similar opinions (red curve), on an item with standard deviation equal to 1, a consensus opinion, will have a weighted rating difference value of 1. In order for two users with a rating difference of 4 on an item (brown curve), divergent opinions, to have the same weighted rating-difference value of 1, the standard deviation must be 5 times higher with σ<sub>a</sub>equal to 5, where essentially no one agrees.
+The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 0 (red curve) - similar opinions - on an item with standard deviation equal to 1 - a consensus opinion -  will have a weighted rating-difference value of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve) - divergent opinions - to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees<sup>[*](#5)</sup>.
 
 Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
@@ -90,7 +90,7 @@ where δ<sub>uv</sub> is the edge distance for node pair u-v.
 **Figure 4:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
 
 ## TESTING THE MODELS
-In order to test the predictive ability of the two models I utilized the "leave-one-out" (LOO) cross validation technique. In this way the network can be left virtually unchanged whilst composing the training data sets. 
+In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets. 
 
 ## *NOTES*
 
@@ -110,6 +110,8 @@ in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>** during impl
  >###### 4
  >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
 
- 
+ >###### 5
+ >*Defined thus, a node pair with a rating-difference of 4 can never have a weighted rating-difference value less than 1.25 since the standard deviation for rating differences can never be greater than 4 ((1+4)/4)=1.25)*
+
  ## *BIBLIOGRAPHY*
  >*J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
