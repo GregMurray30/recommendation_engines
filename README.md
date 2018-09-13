@@ -67,7 +67,7 @@ where r<sub>u<sub>a</sub></sub> is the user u rating of item a and r<sub>v<sub>a
 
 The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 1, similar opinions (red curve), on an item with standard deviation equal to 1, a consensus opinion, will have a weighted rating difference value of 1. In order for two users with a rating difference of 4 on an item, divergent opinions (green curve), to have the same weighted rating difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees.
 
-The model makes the assumption that the utility (similarity) of any two nodes' can be modelled with a Gaussian random variable. 
+Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
 One (major) disadvantage of the probabilistic approach to edge weights is that since the Gaussian probability density is ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f "Title"), it is undefined for samples with a variance (**σ<sup>3</sup>**) of zero. It can be shown that the cumulative distribution function (CDF) for a Gaussian with zero variance is defined as ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/90400cbbc8895d9f3c9a62d7502ed0f077c6ee3b).
 However, because many of the instances with zero variance are clearly more a result of small sample size than two users' unwavering similarity, this CDF is not a practical solution to the zero variance problem (which is really a sample size problem). Instead, when variance is zero, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>4</sup>](#4), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
@@ -95,7 +95,6 @@ In order to test the predictive ability of the two models I utilized the "leave-
 >* Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
 in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>** during implementation.
 
- 
 >###### 3
 >*In this iteration of the scalar model the distances in the user network, item network, and the
  user-item cross network are scaled the same, assigning each network equal impact on the
