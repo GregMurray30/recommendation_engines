@@ -61,11 +61,13 @@ where r<sub>u<sub>a</sub></sub> is the user u rating of item a and r<sub>v<sub>a
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Variance">
  </p>
+
 **Figure 1:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings*
   
 <p align="center">
    <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_var2.png" title="Constant Rating">
 </p>
+
 **Figure 2:** *The weighted rating difference values (y axis) plotted against the rating differences (x axis). Each curve represents a constant value for the standard deviation and shows how the weighted rating difference varies with different values rating differences.*
   
 
