@@ -49,9 +49,9 @@ ratings, her similarity to other users, and other items similarity to items she 
 
 The Gaussian network model is identical to the Pearson network except for the calculation of the
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
-difference between two users, or two items, is greater than some designated threshold parameter **θ**. The weighted value of each item's rating difference for a user pair - not to be confused with the pair's edge weight - is the absolute value of the difference of the two ratings divided by the standard deviation of all the item's ratings. Mathematically, 
+difference between two users, or two items, is greater than some designated threshold parameter **θ**. The weighted value of each item's rating difference for a user pair - not to be confused with the pair's edge weight - is one plus the absolute value of the difference of the two ratings, divided by the standard deviation of all the item's ratings. Mathematically, 
 
-> **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sub>x</sub>)= |(r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>)|/σ<sub>x</sub>**,
+> **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sub>x</sub>)= (1+|r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>|)/σ<sub>x</sub>**,
 
 where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item *x*, *r<sub>a<sub>x</sub></sub>* is user *a*'s rating of item *x*, and *r<sub>b<sub>x</sub></sub>* is user *b*'s rating of item *x*. 
 
@@ -59,7 +59,7 @@ where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pa
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating2.png" title="Constant Variance">
  </p>
 
-**Figure 1:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings*
+**Figure 1:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings. Note that the standard deviation has more effect on the weighted rating value when it is small compared to when it is large and that this variation of influence is more dramatic for the rating difference=1 curve (red) than the rating difference=5 curve.*
  
 
 The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 1, similar opinions (red curve), on an item with standard deviation equal to 1, a consensus opinion, will have a weighted rating difference value of 1. In order for two users with a rating difference of 4 on an item, divergent opinions (green curve), to have the same weighted rating difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees.
