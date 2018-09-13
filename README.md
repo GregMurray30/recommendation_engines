@@ -1,7 +1,7 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 ## INTRODUCTION
-The recommender system detailed in this paper is a collaborative filtering, hybrid model utilizing components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory and is implemented in a MapReduce framework. 
+The recommender system detailed in this paper is a collaborative filtering, hybrid model, utilizing components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory, implemented in a MapReduce framework. 
 
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
 utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate movie[<sup>1</sup>](#1) recommendations.
