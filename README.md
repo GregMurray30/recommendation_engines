@@ -17,7 +17,7 @@ The user-item network is a weighted, non-directed<sup>[2](#2)</sup> and acyclic 
 ## PEARSON NETWORK MODEL
 #### USER NODES
 Each user node represents an individual user in this network model. The network's edge weights are
-calculated as the Pearson correlation coefficient (hence the name) of the two users' shared-items' ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
+calculated as the Pearson correlation coefficient (hence the name) of the user pair's item ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity is defined as 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
 
