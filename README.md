@@ -56,7 +56,7 @@ difference between two users, or two items, is greater than some designated thre
 where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item *x*, *r<sub>a<sub>x</sub></sub>* is user *a*'s rating of item *x*, and *r<sub>b<sub>x</sub></sub>* is user *b*'s rating of item *x*. 
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating2.png" title="Constant Variance">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating2.png" title="Constant Rating Differences">
  </p>
 
 **Figure 1:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings. Note that the standard deviation has more effect on the weighted rating value when it is small compared to when it is large and that this variation of influence is more dramatic for the rating difference=1 curve (red) than the rating difference=5 curve.*
