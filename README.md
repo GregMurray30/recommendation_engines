@@ -56,13 +56,20 @@ difference between two users, or two items, is greater than some designated thre
 
 > **w<sub>u<sub>a</sub></sub>(r<sub>u<sub>a</sub></sub>, r<sub>v<sub>a</sub></sub>, σ<sub>a</sub>)= |(r<sub>u<sub>a</sub></sub>-r<sub>v<sub>a</sub></sub>)|/σ<sub>a</sub>**,
 
-where r<sub>u<sub>a</sub></sub> is the user u rating of item a and r<sub>v<sub>a</sub></sub> is the user v rating of item a. The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, two users with a divergent opinions (ie: rating difference of 4) on an item with consensus opinion (low variance) will receive a relatively high weighted rating difference. In contrast, two users with very similar opinions (ie: rating difference of 1) on an item with "mixed reviews" (high variance) will have a relatively low weighted rating difference.
+where r<sub>u<sub>a</sub></sub> is the user u rating of item a and r<sub>v<sub>a</sub></sub> is the user v rating of item a. 
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_var.png" title="Constant Variance">
-   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Rating">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Variance">
  </p>
- 
+  **Figure 1:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings*
+  
+<p align="center">
+   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_var2.png" title="Constant Rating">
+</p>
+ **Figure 2:** *The weighted rating difference values (y axis) plotted against the rating differences (x axis). Each curve represents a constant value for the standard deviation and shows how the weighted rating difference varies with different values rating differences.*
+  
+
+The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, two users with a divergent opinions (ie: rating difference of 4) on an item with consensus opinion (low variance) will receive a relatively high weighted rating difference. In contrast, two users with very similar opinions (ie: rating difference of 1) on an item with "mixed reviews" (high variance) will have a relatively low weighted rating difference.
 
 The model makes the assumption that the utility (similarity) of any two nodes' can be modelled with a Gaussian random variable. 
 
@@ -74,11 +81,12 @@ However, because many of the instances with zero variance are clearly more a res
   >**δ(E<sub>uv</sub>; θ)=1-e<sup>n<sub>uv</uv></sup>/(1000+e<sup>n</sup>)**, when **σ<sub>uv</sub>=0** and **μ<sub>uv</sub><=θ**, where n is the sample size of **E<sub>uv</sub>**;
   
   >**δ(E<sub>uv</sub>; θ)= ∞**, otherwise
+  
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
  
-**Figure 2:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
+**Figure 4:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
 
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models I utilized the "leave-one-out" (LOO) cross validation technique. In this way the network can be left virtually unchanged whilst composing the training data sets. 
