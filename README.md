@@ -53,7 +53,7 @@ difference between two users, or two items, is greater than some designated thre
 
 > **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sub>x</sub>)= |(r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>)|/σ<sub>x</sub>**,
 
-where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item *x*, and *r<sub>a<sub>x</sub></sub>* is the user *a* rating of item *x* and *r<sub>b<sub>x</sub></sub>* is the user *b* rating of item *x*. 
+where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item *x*, and *r<sub>a<sub>x</sub></sub>* is user *a*'s rating of item *x*, and *r<sub>b<sub>x</sub></sub>* is user *b*'s rating of item *x*. 
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Variance">
@@ -67,7 +67,7 @@ The intuition behind weighting each rating difference thus is to lend varying im
 Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists.png" title="Gauss Dists">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists2.png" title="Gauss Dists">
  </p>
  
 One (major) shortcoming of the probabilistic approach to edge weights is that since the Gaussian probability density is ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f "Title"), it is undefined for samples with a variance (**σ<sup>2</sup>**) of zero. It can be shown that the cumulative distribution function (CDF) for a Gaussian with zero variance is defined as ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/90400cbbc8895d9f3c9a62d7502ed0f077c6ee3b).
