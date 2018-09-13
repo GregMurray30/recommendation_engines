@@ -4,7 +4,7 @@
 The recommender system detailed in this paper is a collaborative filtering, hybrid model, employing components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory, implemented in a MapReduce framework. 
 
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
-utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate movie[<sup>1</sup>](#1) recommendations.
+utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate item recommendations.
 
 The user-item network is a weighted, non-directed<sup>[2](#2)</sup> and acyclic graph consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
 
@@ -94,8 +94,6 @@ where δ<sub>uv</sub> is the edge distance for node pair u-v.
 In order to test the predictive ability of the two models I utilized the "leave-one-out" (LOO) cross validation technique. In this way the network can be left virtually unchanged whilst composing the training data sets. 
 
 ## *NOTES*
->###### 1
->*While items are the recommendation object of interest in these examples, the model is generalizable to any data set that fits a user-product-rating paradigm.*
 
 >###### 2
 >* Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
