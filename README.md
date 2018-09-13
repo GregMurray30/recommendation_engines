@@ -54,9 +54,9 @@ The Gaussian network model is identical to the Pearson network except for the ca
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
 difference between two users, or two items, is greater than some designated threshold parameter **θ**. The weighted value of each item's rating difference for a user pair - not to be confused with the node pair's edge weight - is the absolute value of the difference of the two ratings divided by the standard deviation of the item's ratings. Mathematically, 
 
-> **w<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>)= |(r<sub>u<sub>a</sub></sub>-r<sub>v<sub>a</sub></sub>)|/σ<sub>a</sub>**,
+> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>)= |(r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>)|/σ<sub>a</sub>**,
 
-where r<sub>u<sub>a</sub></sub> is the user u rating of item x and r<sub>v<sub>a</sub></sub> is the user v rating of item x. 
+where ω<sub>uv<sub>x</sub></sub> is the weighted rating difference of user pair u-v for item x, and r<sub>u<sub>a</sub></sub> is the user u rating of item x and r<sub>v<sub>a</sub></sub> is the user v rating of item x. 
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Variance">
