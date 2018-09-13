@@ -58,7 +58,11 @@ difference between two users, or two items, is greater than some designated thre
 
 where r<sub>u<sub>a</sub></sub> is the user u rating of item a and r<sub>v<sub>a</sub></sub> is the user v rating of item a. The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, two users with a divergent opinions (ie: rating difference of 4) on an item with consensus opinion (low variance) will receive a relatively high weighted rating difference. In contrast, two users with very similar opinions (ie: rating difference of 1) on an item with "mixed reviews" (high variance) will have a relatively low weighted rating difference.
 
-
+<p align="center">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_var.png" title="Constant Variance">
+   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating.png" title="Constant Rating">
+ </p>
+ 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
