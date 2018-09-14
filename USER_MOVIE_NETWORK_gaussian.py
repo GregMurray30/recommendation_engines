@@ -38,11 +38,10 @@ def sd1(v):
 		return (v, round(st.stdev(v[1]),3))
 	
 	
-
-#(movie, (user, rating)
+#(user, (movie, rating)
 u_rt2 = rt.map(lambda x: (x[1], (x[0], x[2])))
 
-#(user, (movie, rating)
+#(movie, (user, rating)
 u_rt3 = u_rt2.map(lambda x: (x[1][0], (x[0], float(x[1][1]))))
 
 #standard deviation of users
@@ -53,17 +52,18 @@ u_sd4 = u_sd3.map(lambda x: (x[0][0], (x[1]), x[0][1]))
 u_sd5 = u_sd4.join(u_rt3)
 u_sd6 = u_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
 
-#m_rt5 schema: ((user, user_stdev), (movieA, ratingA), (movieB, ratingB))
+#u_rt5 schema: ((movie, movie_stdev), (userA, ratingA), (userB, ratingB))
 u_rt4 = u_sd6.join(u_sd6)
 u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
-# ((movieA, movieB), (ratingA, ratingB), user_stdev)   
+# u_rt6 schema: ((userA, userB), (ratingA, ratingB), movie_stdev)   
 u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]), x[0][1])))
 
 #rdd user_pairs object schema:
-#[(userA, userB), ([((userA_rating1, userB_rating_1), user1_stdev),
-#((movieA_rating_2, movieB_rating_2), user2_stdev),…, ((movieA_rating_n, movieB_rating_n), usern_stdev)]))
+#((userA, userB), ([((userA_rating1, userB_rating_1), movie1_stdev),
+#((userA_rating_2, userB_rating_2), movie2_stdev),…, ((userA_rating_n, userB_rating_n), movie_n_stdev)]))
 user_pairs1 = u_rt6.combineByKey(li, app, ext)
 
+#get weighted rating-difference value (wrdv)
 def get_wrdv(arr):
 	res=[]
 	for tup in arr:
@@ -71,12 +71,12 @@ def get_wrdv(arr):
 		res.append(wrdv)
 	return res
 	
-	
-#user_pairs2 schema: ((movieA, movieB), [weighted_rating_difference_value_1, weighted_rating_difference_value_2,...,weighted_rating_difference_value_n])
+
+#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv=2,...,wrdv_n])
 user_pairs2 = user_pairs1.mapValues(get_wrdv)
 user_pairs3 = user_pairs2.map(sd1)
 
-#user_pairs4 schema: (((movieA, movieB), (avg_wrdv, sd_wrdv), num_shared_users))
+#user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
 user_pairs4 = user_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
 
 import scipy.stats as ss
