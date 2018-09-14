@@ -97,7 +97,7 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
 >###### 1
 > *Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes more rigid and becomes directed, and acylic in its as no cycles are allowed and a node path may not "double back" on itself.*
 
->###### 3
+>###### 2
 >*In this iteration of the scalar model the distances in the user network, item network, and the
  user-item cross network are scaled the same, assigning each network equal impact on the
  final recommendation. These edge weights could easily be scaled to accomodate one's
