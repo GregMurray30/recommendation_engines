@@ -68,7 +68,7 @@ The intuition behind weighting each rating difference thus is to lend varying im
 Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists2.png" title="Gauss Dists">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists.png" title="Gauss Dists">
  </p>
  
 **Figure 3:** *Examples of weighted rating-difference (x axis) Gaussian probability density functions for three different user pairs of varying similarity and variance. User pair 1-2 is least probable of being **dissimilar**, followed by user pair 1-4, then user pair 1-3 with the highest probability of being **dissimilar**. If the threshold paramater θ were set at 1, then each user pair's edge distance would be the area under that pair's bell curve to the right of the pink dashed line (note, it is the probability they are **dissimilar** since a longer edge distance means less similar node pairs).*
