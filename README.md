@@ -6,7 +6,7 @@ The recommender system detailed in this paper is a collaborative filtering, hybr
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
 utilize a combination of Dijkstra's shortest path algorithm and spreading activation to assess the network efficiently and subsequently generate item recommendations.
 
-The user-item network is a weighted, non-directed<sup>[2](#2)</sup> and acyclic graph consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
+The user-item network is a weighted, non-directed and acyclic graph<sup>[1](#1)</sup> consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
@@ -94,9 +94,8 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
 
 ## *NOTES*
 
->###### 2
->* Although the weights are non-directed, the user node pairs still show up twice (*X-Y* and *Y-X*) 
-in the graph's edge list where **w<sub>*XY*</sub>=w<sub>*YX*</sub>** during implementation.
+>###### 1
+>* Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes more rigid and becomes directed, and acylic in its as no cycles are allowed and a node path may not "double back" on itself.
 
 >###### 3
 >*In this iteration of the scalar model the distances in the user network, item network, and the
