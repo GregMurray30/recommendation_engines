@@ -7,7 +7,7 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_tiny.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
@@ -31,21 +31,26 @@ rt = rt.map(lambda x: x[0:3])
 #(user, (movie, rating)
 u_rt2 = rt.map(lambda x: (x[0], (x[1], float(x[2]))))
 
+#(movie, (user, rating)
+u_rt3 = u_rt2.map(lambda x: (x[1][0], (x[0], x[1][1])))
 
 #standard deviation of each user
-u_sd1 = u_rt2.mapValues(lambda x: x[1])
+import statistics as st
+def sd1(v):
+	if len(v[1])==1:
+		return (v, 0)
+	else:
+		return (v, round(st.stdev(v[1]),3))
+	
+	
+u_sd1 = u_rt3.mapValues(lambda x: x[1])
 u_sd2 = u_sd1.combineByKey(li, app, ext)
-u_sd3 = u_sd2.mapValues(lambda x: round(st.stdev(x), 3))
-u_sd4 = u_rt2.join(u_sd3)
-u_sd5 = u_sd4.map(lambda x: ((x[0], x[1][1]), x[1][0]))
+u_sd3 = u_sd2.map(sd1)
+u_sd4 = u_sd3.map(lambda x: (x[0][0], (x[1]), x[0][1]))
+u_sd5 = u_sd4.join(u_rt3)
 
-#numRatings
-u_nr = u_sd5.map(lambda x: (x[0], 1))
-numRatings = u_nr.reduceByKey(lambda x,y: x+y)
 
-#(movie, (user, rating)
-u_rt3 = u_sd5.map(lambda x: (x[1][0], (x[0], x[1][1])))
-u_rt4 = u_rt3.join(u_rt3)
+u_rt4 = u_sd5.join(u_sd5)
 u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0][0])<int(x[1][1][0][0]))
 
 # ((userA, userB), (ratingA, ratingB))    
@@ -80,20 +85,11 @@ def get_diff(x):
         diff_arr.append(abs(tup[0]-tup[1]))
     return (x[0][0], (x[0][1][0], x[1], diff_arr))
 
-			
-#standard deviation of each user
-import statistics as st
-def sd(v):
-	if len(v[2])==1:
-		return (v,0)
-	else:
-		return (v, round(st.stdev(v[2]),3))
-
+		
 	
 
 u_rate_diff1 = user_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 #rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
-
 u_rate_diff2= u_rate_diff1.map(get_diff)
 u_rate_diff3 = u_rate_diff2.mapValues(sd)
 
@@ -134,42 +130,44 @@ USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0][0], 'u'), ((x[0][1][0], 'u'),
 #(movie, (user, rating)
 m_rt2 = rt.map(lambda x: (x[1], (x[0], x[2])))
 
-#standard deviation of each movie
-m_sd1 = m_rt2.mapValues(lambda x: x[1])
-m_sd2 = m_sd1.combineByKey(li, app, ext)
-m_sd3 = m_sd2.mapValues(lambda x: round(st.stdev(x), 3))
-m_sd4 = m_rt2.join(u_sd3)
-m_sd5 = m_sd4.map(lambda x: ((x[0], x[1][1]), x[1][0]))
-
-#numRatings
-m_nr = m_sd5.map(lambda x: (x[0], 1))
-numRatings = m_nr.reduceByKey(lambda x,y: x+y)
-
 #(user, (movie, rating)
-m_rt3 = m_sd5.map(lambda x: (x[1][0], (x[0], x[1][1])))
-m_rt4 = m_rt3.join(m_rt3)
-m_rt5 = m_rt4.filter(lambda x: int(x[1][0][0][0])<int(x[1][1][0][0]))
+m_rt3 = m_rt2.map(lambda x: (x[1][0], (x[0], float(x[1][1]))))
 
-# ((movieA, movieB), (ratingA, ratingB))   
-m_rt6 = m_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]),((float(x[1][0][1]), float(x[1][1][1])))))
-m_rt7 = m_rt6.combineByKey(li, app, ext)
-m_rt8 = m_rt7.map(lambda x: (x[0][0], (x[0], x[1])))
-m_rt9=m_rt8.join(numRaters)
-m_rt10 = m_rt9.map(lambda x: (x[1][0][0][1], x[1])) 
-m_rt11=m_rt10.join(numRaters)
+#standard deviation of users
+m_sd1 = m_rt3.mapValues(lambda x: x[1])
+m_sd2 = m_sd1.combineByKey(li, app, ext)
+m_sd3 = m_sd2.map(sd1)
+m_sd4 = m_sd3.map(lambda x: (x[0][0], (x[1]), x[0][1]))
+m_sd5 = m_sd4.join(m_rt3)
+m_sd6 = m_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
+
+#m_rt5 schema: ((user, user_stdev), (movieA, ratingA), (movieB, ratingB))
+m_rt4 = m_sd6.join(m_sd6)
+m_rt5 = m_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
+# ((movieA, movieB), (ratingA, ratingB), user_stdev)   
+m_rt6 = m_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]), x[0][1])))
 
 #rdd user_pairs object schema:
-#[(movieA, movieB), ((num_raters_movie_A, num_raters_movie_B), [(movieA_rating_1, movieB_rating_1),
-#(movieA_rating_2, movieB_rating_2),…, (movieA_rating_n, movieB_rating_n)]))
-movie_pairs = m_rt11.map(lambda x: (x[1][0][0][0], ((x[1][0][1], x[1][1]), x[1][0][0][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+#[(movieA, movieB), ([((movieA_rating_1, movieB_rating_1), user1_stdev),
+#((movieA_rating_2, movieB_rating_2), user2_stdev),…, ((movieA_rating_n, movieB_rating_n), usern_stdev)]))
+movie_pairs1 = m_rt6.combineByKey(li, app, ext)
 
-m_rate_diff1 = movie_pairs.map(lambda x: (x,sim(x[1][1]))).persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
-#rate_diff2 schema: ((userA, userB), (num_shared_movies, (num_ratings_userA, num_ratings_userB), (mag_avg_diff, net_avg_diff)))
-m_rate_diff2= m_rate_diff1.map(get_diff)
-m_rate_diff3 = m_rate_diff2.mapValues(sd)
+def get_wrdv(arr):
+	res=[]
+	for tup in arr:
+		wrdv = (1+abs(tup[0][0]-tup[0][1]))/tup[1]
+	res.append(wrdv)
+	return res
+	
+	
+#movie_pairs2 schema: ((movieA, movieB), [weighted_rating_difference_value_1, weighted_rating_difference_value_2,...,weighted_rating_difference_value_n])
+movie_pairs2 = movie_pairs1.mapValues(get_wrdv)
+movie_pairs3 = movie_pairs2.map(sd1)
 
-#m_gaussian_pairs schema: (((movieA, num_raters_movieA), (movieB, num_raters_movieB)), ((avg_mag_diffAB, sd_diffAB), num_shared_users))
-m_gaussian_pairs = m_rate_diff3.map(lambda x: (((x[0][0], x[1][0][0][0]), (x[0][1], x[1][0][0][1])), ((x[1][0][1][0], x[1][1]), len(x[1][0][2]) )))
+#movie_pairs4 schema: (((movieA, movieB), (avg_wrdv, sd_wrdv), num_shared_users))
+movie_pairs4 = movie_pairs3.map(lambda x: (x[0][0], (st.mean(x[0][1]), x[1]), len(x[0][1])))
+
+m_gaussian_pairs = movie_pairs3.map(lambda x: (((x[0][0], x[1][0][0][0]), (x[0][1], x[1][0][0][1])), ((x[1][0][1][0], x[1][1]), len(x[1][0][2]) )))
 
 
 #m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
