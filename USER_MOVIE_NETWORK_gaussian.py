@@ -88,11 +88,11 @@ def prob_pairs(theta):
         if math.isnan(prob):
             if v[0]<=theta:
                 prob=1-(math.exp(v[1])/(1000+math.exp(v[1])))
-                return ((v[0], v[1]), prob)
+                return ((v[0], v[1]), round(prob, 3))
             else:
                 prob=float("Inf")
                 return ((v[0], v[1]), prob)
-        return ((v[0], v[1]), prob)
+        return ((v[0], v[1]), round(prob, 3))
     return _prob_pairs
 
 
