@@ -1,6 +1,14 @@
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
+
+<p align="center">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
+ </p>
+ 
+**Figure 1:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
+
 ## INTRODUCTION
+
 The recommender system detailed in this paper is a collaborative filtering, hybrid model, employing components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory, implemented in a MapReduce framework. 
 
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson  and Gaussian networks are modelled identically and
@@ -84,11 +92,6 @@ However, because many of the instances with zero variance are clearly more a res
 
 where δ<sub>uv</sub> is the edge distance for node pair u-v.
   
-<p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
- </p>
- 
-**Figure 4:** *A representation of the Gaussian Network Model. The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
 
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets. 
