@@ -95,7 +95,7 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
 ## *NOTES*
 
 >###### 1
->* Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes more rigid and becomes directed, and acylic in its as no cycles are allowed and a node path may not "double back" on itself.
+> *Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes more rigid and becomes directed, and acylic in its as no cycles are allowed and a node path may not "double back" on itself.*
 
 >###### 3
 >*In this iteration of the scalar model the distances in the user network, item network, and the
@@ -113,4 +113,4 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
  >*Defined thus, a node pair with a rating-difference of 4 can never have a weighted rating-difference value less than 1.25 since the standard deviation for rating differences can never be greater than 4 ((1+4)/4)=1.25)*
 
  ## *BIBLIOGRAPHY*
- >*J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
+ >J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
