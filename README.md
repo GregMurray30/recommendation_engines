@@ -15,6 +15,7 @@ The user-item network is a weighted, non-directed and acyclic graph<sup>[1](#1)<
 **Figure 1:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
 ## PEARSON NETWORK MODEL
+
 #### USER NODES
 Each user node represents an individual user in this network model. The network's edge weights are
 calculated as the Pearson correlation coefficient (hence the name) of the user pair's shared item ratings, as has been demonstrated as the most accurate measurement of similarity between users (Herlocker et al. 1999). For two users, X and Y, then, their sample similarity, *r*, is defined as 
@@ -62,7 +63,7 @@ where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pa
 **Figure 2:** *The weighted rating difference values (y axis) plotted against the standard deviation (x axis). Each curve represents a constant value for the rating difference and shows how the weighted rating difference varies with the standard deviation of the item's ratings. Note that the standard deviation has more impact on the weighted rating-difference value when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the rating difference=0 curve (red) than the rating difference=4 (brown) curve.*
  
 
-The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 0 (red curve) - similar opinions - on an item with standard deviation equal to 1 - a consensus opinion -  will have a weighted rating-difference value of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve) - divergent opinions - to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees<sup>[*](#5)</sup>.
+The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion for that item. For example, looking at figure 1 above, two users with a rating difference equal to 0 (red curve) - similar opinions - on an item with standard deviation equal to 1 - a consensus opinion -  will have a weighted rating-difference value of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve) - divergent opinions - to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees<sup>[4](#4)</sup>.
 
 Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
