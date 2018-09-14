@@ -53,7 +53,7 @@ difference between two users, or two items, is greater than some designated thre
 
 > **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sub>x</sub>)= (1+|r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>|)/σ<sub>x</sub>**,
 
-where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item *x*, *r<sub>a<sub>x</sub></sub>* is user *a*'s rating of item *x*, and *r<sub>b<sub>x</sub></sub>* is user *b*'s rating of item *x*. 
+where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item x, *r<sub>a<sub>x</sub></sub>* is user a's rating of item x, and *r<sub>b<sub>x</sub></sub>* is user b's rating of item x. 
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating3.png" title="Constant Rating Differences">
