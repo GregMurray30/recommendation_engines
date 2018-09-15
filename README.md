@@ -5,7 +5,7 @@
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex.png" title="Network_Example">
  </p>
  
-**Figure 1:** *A representation of the [Gaussian Network Model](#Gaussian Network Model). The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
+**Figure 1:** *A representation of the [Gaussian Network Model](#Gaussian_Network_Model). The varying thicknesses of each edge line represent different probabilities of similarity (the figure is a visual representation only, in the model the probabilities determine the distance and no notion of edge "thickness" actually exists). Notice that the item and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
 
 ## INTRODUCTION
 
