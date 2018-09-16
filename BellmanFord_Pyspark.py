@@ -1,5 +1,5 @@
 #Author: Greg Murray
-#Title: Bellman-Ford Recommendation Engine
+#Title: Dijkstra Recommendation Engine
 
 #sc = spark.sparkContext
 class SparkGraph:
@@ -36,7 +36,7 @@ class SparkGraph:
     
 
 
-def bellmanFord(g, src, n, degree_penalty=1):
+def dijstra(g, src, n, degree_penalty=1):
     import time
     g.setDist(src)
     dgr_pen = sc.broadcast(degree_penalty)
@@ -85,8 +85,8 @@ def bellmanFord(g, src, n, degree_penalty=1):
 if __name__=="__main__":
     #g = SparkGraph(USER_MOVIE_NETWORK_Gaussian)
     s =  SparkGraph(USER_MOVIE_NETWORK)
-    #bellmanFord(g,('1', 'u'), 5, 1.2)
-    bellmanFord(s,('1', 'u'), 5, 1.2)
+    #dijstra(g,('1', 'u'), 5, 1.2)
+    dijstra(s,('1', 'u'), 5, 1.2)
     
     #Lookup values in previous rdds for reference on the recommendations validity
     #g.graph_rdd.filter(lambda x: x[0]==('1', 'u') and x[1][0]==('2', 'u')).collect()
