@@ -68,7 +68,7 @@ def get_wrdv(arr):
 	res=[]
 	for tup in arr:
 		wrdv = (1+abs(tup[0][0]-tup[0][1]))/tup[1]
-		res.append(wrdv)
+		res.append((wrdv))
 	return res
 	
 
@@ -101,7 +101,7 @@ u_cdf_pairs = user_pairs4.mapValues(prob_pairs(1))
 
 #Add 'u' to each movie ID for 'user'
 #USER_NETWORK schema: ((userA, 'u'), ((userB, 'u'),  probability_wrdv>theta)
-USER_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1][1])))
+USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1][1])))
 
 #______________________________________________________________________________#
 #MOVIE NETWORK
