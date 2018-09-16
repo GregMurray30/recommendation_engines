@@ -130,14 +130,6 @@ m_rt6 = m_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]),
 #[(movieA, movieB), ([((movieA_rating_1, movieB_rating_1), user1_stdev),
 #((movieA_rating_2, movieB_rating_2), user2_stdev),…, ((movieA_rating_n, movieB_rating_n), usern_stdev)]))
 movie_pairs1 = m_rt6.combineByKey(li, app, ext)
-
-def get_wrdv(arr):
-	res=[]
-	for tup in arr:
-		wrdv = (1+abs(tup[0][0]-tup[0][1]))/tup[1]
-		res.append(wrdv)
-	return res
-	
 	
 #movie_pairs2 schema: ((movieA, movieB), [weighted_rating_difference_value_1, weighted_rating_difference_value_2,...,weighted_rating_difference_value_n])
 movie_pairs2 = movie_pairs1.mapValues(get_wrdv)
