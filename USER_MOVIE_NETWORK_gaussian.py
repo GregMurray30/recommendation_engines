@@ -7,7 +7,7 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_test.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
