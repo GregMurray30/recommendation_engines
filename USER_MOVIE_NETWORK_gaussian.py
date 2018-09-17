@@ -7,7 +7,7 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_test.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_small.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
 
 def li(v): return [v]
@@ -67,10 +67,10 @@ user_pairs1 = u_rt6.combineByKey(li, app, ext)
 def get_wrdv(arr):
 	res=[]
 	for tup in arr:
-		wrdv = (1+abs(tup[0][0]-tup[0][1]))/tup[1]
-		res.append((wrdv))
+		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		res.append(wrdv)
 	return res
-	
+
 
 #user_pairs2 schema: ((userA, userB), [wrdv1, wrdv=2,...,wrdv_n])
 user_pairs2 = user_pairs1.mapValues(get_wrdv)
@@ -83,7 +83,7 @@ import scipy.stats as ss
 import math
 def prob_pairs(theta):
     def _prob_pairs(v):
-        prob = 1-float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference > x (where x is the threshold theta)
+        prob = 1-float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference > theta (where theta is the threshold param)
         #if variance==0 then hack a probability estimate with logistic func if the mean <=1
         if math.isnan(prob):
             if v[0]<=theta:
