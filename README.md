@@ -58,7 +58,7 @@ The Gaussian network model is identical to the Pearson model except for the calc
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
 difference between two users, or two items, is greater than some designated threshold parameter **θ**. The weighted value of each item's rating difference for a user pair - not to be confused with the pair's edge weight - is one plus the absolute value of the difference of the two ratings, divided by the standard deviation of all the item's ratings. Mathematically, 
 
-> **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sub>x</sub>)= (1+|r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>|)/σ<sub>x</sub>**
+> **ω<sub>ab<sub>x</sub></sub>(r<sub>a<sub>x</sub></sub>, r<sub>b<sub>x</sub></sub>, σ<sup>2</sup><sub>x</sub>)= (1+|r<sub>a<sub>x</sub></sub>-r<sub>b<sub>x</sub></sub>|)/σ<sub>x</sub>**
 
 where *ω<sub>ab<sub>x</sub></sub>* is the weighted rating difference of user pair *a-b* for item x, *r<sub>a<sub>x</sub></sub>* is user a's rating of item x, and *r<sub>b<sub>x</sub></sub>* is user b's rating of item x. 
 
