@@ -5,7 +5,7 @@
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/network_ex2.png" title="Network_Example">
  </p>
  
-**Figure 1:** *A representation of the [Gaussian Network Model](#Gaussian_Network_Model). The varying lengths of each edge line represent different probabilities of similarity. Notice that the movie (item) and user networks are not two separate clusters, but rather a mesh of the two node types inextricably linked by their complex network of relational edges.*
+**Figure 1:** *A representation of the [Gaussian Network Model](#Gaussian_Network_Model). The varying widths of the edge lines represent different probabilities of similarity (fatter is more probable). Notice that the movie (item) and user networks are not two separate clusters but rather a mesh of the two node types inextricably linked by their complex interchange of relational edges.*
 
 ## INTRODUCTION
 
