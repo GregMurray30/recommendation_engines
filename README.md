@@ -60,7 +60,7 @@ difference between two users, or two items, is less than some designated thresho
 
 > **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>)= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/σ<sub>x</sub>**
 
-where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *a-b* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
+where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
 <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating3.png" title="Constant Rating Differences">
@@ -69,7 +69,7 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *a-b* for item/user
 **Figure 3:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=0" curve (red) than the "rating difference=4" (brown) curve.*
  
 
-The intuition behind weighting each rating difference thus is to lend varying importance to items depending on the degree to which there is a consensus of opinion from all users for that item. For example, looking at figure 1 above, two users with a rating difference equal to 0 (red curve) - similar opinions - on an item with standard deviation equal to 1 - a consensus opinion -  will have a weighted rating-difference value of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve) - divergent opinions - to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees<sup>[3](#3)</sup>. Similarly, 
+The intuition behind weighting each rating difference thus is to lend varying importance to items/users depending on, in the case of items, the degree to which there is a consensus of opinion from all users for that item, and, in the case of users, whether they are a consistent reviewer. For example, looking at figure 1 above, a user pair with a rating difference equal to 0 (red curve), aka similar opinions, on an item with standard deviation equal to 1, a consensus opinion, will have a wrdv of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve), divergent opinions, to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub>equal to 4, where essentially no one agrees<sup>[3](#3)</sup>.
 
 Because the range of the weighted rating difference is continuous, the model assumes a Gaussian random variable to model the utility (similarity) of any two nodes. 
 
@@ -77,19 +77,22 @@ Because the range of the weighted rating difference is continuous, the model ass
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists.png" title="Gauss Dists">
  </p>
  
-**Figure 4:** *Examples of weighted rating-difference (x axis) Gaussian probability density functions for three different user pairs of varying similarity and variance. User pair A-B is least probable of being **dissimilar**, followed by user pair A-D, then user pair A-C with the highest probability of being **dissimilar**. If the threshold paramater θ were set at 1, then each user pair's edge distance would be the area under that pair's bell curve to the right of the pink dashed line (note, it is the probability they are **dissimilar** since a longer edge distance means less similar node pairs).*
+**Figure 4:** *Examples of weighted rating-difference (x axis) Gaussian probability density functions for three different user pairs of varying similarity and variance. User pair A-B is most probable of being similar, followed by user pair A-D, then user pair A-C with the lowest probability of being similar. If the threshold paramater θ were set at 1, then each user pair's edge distance would be the area under that pair's bell curve to the **left** of the pink dashed line.
  
 One (major) shortcoming of the probabilistic approach to edge weights is that since the Gaussian probability density is ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f "Title"), it is undefined for samples with a variance (**σ<sup>2</sup>**) of zero. It can be shown that the cumulative distribution function (CDF) for a Gaussian with zero variance is defined as ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/90400cbbc8895d9f3c9a62d7502ed0f077c6ee3b).
 However, because many of the instances with zero variance are clearly more a result of small sample size than two users' unwavering similarity, this CDF is not a practical solution to the zero variance problem (which is really a sample size problem). Instead, when variance is zero, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>4</sup>](#4), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
-  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=Pr[N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>)>θ]**, when **σ<sup>2</sup><sub>uv</sub>>0** and **μ<sub>uv</sub><=θ**;
+  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=Pr[N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>)<θ]**, when **σ<sup>2</sup><sub>uv</sub>>0** and **μ<sub>uv</sub><=θ**;
   
-  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=1-e<sup>n<sub>uv</uv></sup>/(1000+e<sup>n</sup>)**, when **σ<sup>2</sup><sub>uv</sub>=0** and **μ<sub>uv</sub><=θ**, where n is the sample size of **E<sub>uv</sub>**;
+  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=e<sup>n<sub>uv</uv></sup>/(1000+e<sup>n</sup>)**, when **σ<sup>2</sup><sub>uv</sub>=0** and **μ<sub>uv</sub><=θ**, where n is the sample size of **E<sub>uv</sub>**;
   
   >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sub>uv</sub>); θ)= ∞**, otherwise,
 
 where δ<sub>uv</sub> is the edge distance for node pair u-v.
   
+  
+## GRAPH ASSESSMENT
+Both graphs are assessed using a spreading activation algorithm. 
 
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets. 
