@@ -77,4 +77,19 @@ while z!=[]:
 
 node_arrs_rdd = sc.parallelize(node_arrs)
 init_z_rdd = sc.parallelize(init_z)
+init_z_rdd = init_z_rdd.flatMap(lambda x: x)
 node_arrs_res = node_arrs_rdd.union(init_z_rdd)
+node_arrs_res2 = node_arrs_res.combineByKey(li, app, ext)
+
+def max(arr):
+    max=0
+    for x in arr:
+        if x>max:
+            max=x
+    return max
+
+
+node_arrs_res3 = node_arrs_res2.mapValues(max)
+
+#FINAL OUTPUT
+TOP_N_RECOMMENDATIONS = node_arrs_res3.sortBy(lambda x: x[1]).collect()[-4:-1] #top 3 recommendations
