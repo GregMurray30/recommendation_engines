@@ -15,10 +15,11 @@ MOVIE_NETWORK2=sc.parallelize([((u'122', 'm'), ((u'376', 'm'), 0.47)), ((u'122',
 rdd_graph_shell = MOVIE_NETWORK2.combineByKey(li, app, ext)
 rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src)
 
+A=1
 D=.5
 F=0
 
-A_bc = sc.broadcast(1) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
+A_bc = sc.broadcast(A) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
 D_bc = sc.broadcast(D)
 F_bc = sc.broadcast(F)
 
