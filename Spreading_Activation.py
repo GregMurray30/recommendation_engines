@@ -30,7 +30,9 @@ def activate(val_list):
         return res
     
     
-def walk_path(A, D, F, rdd_src, rdd_graph_shell, n=5):
+def walk_path(A, D, F, src, rdd_graph_shell, n=5):
+       src_bc = sc.broadcast(src)
+       rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src_bc)
        A_bc = sc.broadcast(A) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
        D_bc = sc.broadcast(D)
        F_bc = sc.broadcast(F)
@@ -65,7 +67,7 @@ def walk_path(A, D, F, rdd_src, rdd_graph_shell, n=5):
 if __name__=="__main__":
      #inv_MOVIE_NETWORK = MOVIE_NETWORK.map(lambda x: (x[1][0], (x[0], x[1][1])))
      #MOVIE_NETWORK2 = MOVIE_NETWORK.union(inv_MOVIE_NETWORK) #have pairs A-B and B-A
-     src = ('122', 'm')
+     src = ('1', 'u')
      MOVIE_NETWORK2=sc.parallelize([((u'122', 'm'), ((u'376', 'm'), 0.47)), ((u'122', 'm'), ((u'185', 'm'), 0.456)), ((u'231', 'm'), 
      ((u'539', 'm'), 0.989)), ((u'185', 'm'), ((u'231', 'm'), 0.632)), ((u'231', 'm'), ((u'376', 'm'), 0.809)), ((u'122', 'm'), 
      ((u'539', 'm'), 0)), ((u'376', 'm'), ((u'539', 'm'), 0.503)), ((u'122', 'm'), ((u'231', 'm'), 0.574)), ((u'185', 'm'), 
@@ -74,9 +76,10 @@ if __name__=="__main__":
      ((u'231', 'm'), 0.809)), ((u'539', 'm'), ((u'122', 'm'), 0)), ((u'539', 'm'), ((u'376', 'm'), 0.503)), 
      ((u'231', 'm'), ((u'122', 'm'), 0.574)), ((u'539', 'm'), ((u'185', 'm'), 0.391)), ((u'376', 'm'), ((u'185', 'm'), 0.169))])
      rdd_graph_shell = MOVIE_NETWORK2.combineByKey(li, app, ext)
-     rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src)
+     
     
      A=1 #Activation value for source
      D=.5 #Decay factor
      F=0 #Activation threshold
-     recommendations = walk_path(A, D, F, rdd_src, rdd_graph_shell, 5)
+     src=('1', 'u')
+     recommendations = walk_path(A, D, F, src, rdd_graph_shell, 5)
