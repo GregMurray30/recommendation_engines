@@ -12,7 +12,7 @@
 The recommender system detailed in this paper is a collaborative filtering, hybrid model, employing components of user-based nearest neighbor and item-based nearest neighbor recommenders, basic network theory, and probability theory, implemented in a MapReduce framework. 
 
 There are two models used for determining recommendations for users, the Pearson model ([USER_MOVIE_NETWORK.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK.py)), and the Gaussian model ([USER_MOVIE_NETWORK_gaussian.py](https://github.com/GregMurray30/recommendation_engines/blob/master/USER_MOVIE_NETWORK_gaussian.py)). Aside from their edge weightings, both the Pearson and Gaussian networks are modelled identically and
-utilize a spreading activation algorithm to assess the network efficiently and subsequently generate item recommendations.
+utilize a [spreading activation](https://github.com/GregMurray30/recommendation_engines/blob/master/Spreading_Activation.py) algorithm to assess the network efficiently and subsequently generate item recommendations.
 The user-item network is a weighted, non-directed and acyclic graph<sup>[1](#1)</sup> consisting of two node types, user and item, with node centrality typically in a skewed normal or power-law-like distribution.
 
 <p align="center">
