@@ -39,7 +39,7 @@ def sd1(v):
 	
 	
 #(user, (movie, rating)
-u_rt2 = rt.map(lambda x: (x[1], (x[0], x[2])))
+u_rt2 = rt.map(lambda x: (x[0], (x[1], x[2])))
 
 #(movie, (user, rating)
 u_rt3 = u_rt2.map(lambda x: (x[1][0], (x[0], float(x[1][1]))))
