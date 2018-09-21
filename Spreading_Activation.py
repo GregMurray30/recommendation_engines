@@ -1,23 +1,5 @@
 
-
-def walk_path(A, D, F, rdd_src, rdd_graph_shell, n=5):
-
-    A_bc = sc.broadcast(A) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
-    D_bc = sc.broadcast(D)
-    F_bc = sc.broadcast(F)
-
-    #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
-    def activate(val_list):
-        res = []
-        for v in val_list:
-            #A=A_bc.value*v[1]*D_bc.value
-            A=v[1]*D_bc.value
-            if A>F_bc.value:
-                res.append((v[0], A))
-        return res
-
-
-    def get_children(dist_arr, fired_nodes):
+def get_children(dist_arr, fired_nodes):
         arr_node_rdds = []
         print('dist_arr', dist_arr)
         for i in range(len(dist_arr)):
@@ -36,47 +18,47 @@ def walk_path(A, D, F, rdd_src, rdd_graph_shell, n=5):
             #print('arr_node_rdds:', arr_node_rdds)
         #fired_nodes.extend(arr_node_rdds)
         return arr_node_rdds
-
-    fired_nodes=[] # a list of the nodes whose children have already been looked up
-    init_dist_arr = rdd_src.mapValues(activate).collect()[0][1]
-    init_z=get_children(init_dist_arr, fired_nodes)
-    z=init_z[1:]
-    node_arrs = []
-    #node_arrs.append(z)
-    cnt = 0
-    #fired_nodes.append(src) #initially populate node_list with src
-
-    while z!=[]:
-        for i in range(len(z)):
-            a = activate(z[i])
-            node_arrs.extend(a)
-        #for tup in z:
-            #for node in tup:
-                #node_list.append(node)
-        z=get_children(node_arrs, fired_nodes)
-
-
-
-
-    node_arrs_rdd = sc.parallelize(node_arrs)
-    init_z_rdd = sc.parallelize(init_z)
-    init_z_rdd = init_z_rdd.flatMap(lambda x: x)
-    node_arrs_res = node_arrs_rdd.union(init_z_rdd)
-    node_arrs_res2 = node_arrs_res.combineByKey(li, app, ext)
-
-    def max(arr):
-        max=0
-        for x in arr:
-            if x>max:
-                max=x
-        return max
-
-
-    node_arrs_res3 = node_arrs_res2.mapValues(max)
-
-    #FINAL OUTPUT
-    TOP_N_RECOMMENDATIONS = node_arrs_res3.sortBy(lambda x: x[1]).collect()[-(n+1):-1] #top 3 recommendations
-    return TOP_N_RECOMMENDATIONS
+    
+#return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
+def activate(val_list):
+        res = []
+        for v in val_list:
+            #A=A_bc.value*v[1]*D_bc.value
+            A=v[1]*D_bc.value
+            if A>F_bc.value:
+                res.append((v[0], A))
+        return res
+    
+    
+def walk_path(A, D, F, rdd_src, rdd_graph_shell, n=5):
+       A_bc = sc.broadcast(A) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
+       D_bc = sc.broadcast(D)
+       F_bc = sc.broadcast(F)
+     
+       fired_nodes=[] # a list of the nodes whose children have already been looked up
+       init_dist_arr = rdd_src.mapValues(activate).collect()[0][1]
+       init_z=get_children(init_dist_arr, fired_nodes)
+       z=init_z[1:]
+       node_arrs = []
+       while z!=[]:
+               for i in range(len(z)):
+                       a = activate(z[i])
+                       node_arrs.extend(a)
+               z=get_children(node_arrs, fired_nodes)
+       node_arrs_rdd = sc.parallelize(node_arrs)
+       init_z_rdd = sc.parallelize(init_z)
+       init_z_rdd = init_z_rdd.flatMap(lambda x: x)
+       node_arrs_res = node_arrs_rdd.union(init_z_rdd)
+       node_arrs_res2 = node_arrs_res.combineByKey(li, app, ext)
+       def max(arr):
+              max=0
+              for x in arr:
+                     if x>max:
+                             max=x
+              return max
+       node_arrs_res3 = node_arrs_res2.mapValues(max)
+       TOP_N_RECOMMENDATIONS = node_arrs_res3.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
+       return TOP_N_RECOMMENDATIONS
 
 
 if __name__=="__main__":
