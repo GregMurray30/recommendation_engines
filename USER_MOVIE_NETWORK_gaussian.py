@@ -152,25 +152,25 @@ MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1]
 ###Final User-Movie Network RDD
 def rating_rank(v):
     if float(v[1])>4.5: #rating of 5
-        return (v[0], 0.0)
+        return (v[0], 0.1)
     elif float(v[1])>4.0:
-        return (v[0], 0.5)
+        return (v[0], 0.2)
     elif float(v[1])>3.5:
-        return (v[0], 1.0)
+        return (v[0], 0.3)
     elif float(v[1])>3.0:
-        return (v[0], 1.5)
+        return (v[0], 0.4)
     elif float(v[1])>2.5:
-        return (v[0], 2.0)
+        return (v[0], 0.5)
     elif float(v[1])>2.0:
-        return (v[0], 2.5)
+        return (v[0], 0.6)
     elif float(v[1])>1.5:
-        return (v[0], 3.0)
+        return (v[0], 0.7)
     elif float(v[1])>1.0:
-        return (v[0], 3.5)
+        return (v[0], 0.8)
     elif float(v[1])>0.5:
-        return (v[0], 4.0)
+        return (v[0], 0.9)
     elif float(v[1])>0.0:
-        return (v[0], 4.5)
+        return (v[0], 1.0)
         
 
 um_ratings = u_rt2.mapValues(rating_rank)
