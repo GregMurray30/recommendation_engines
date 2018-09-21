@@ -85,10 +85,6 @@ However, because many of the instances with zero variance are clearly more a res
 
 where δ<sub>uv</sub> is the edge distance for node pair u-v.
   
-  
-## GRAPH ASSESSMENT
-In determining the recommendations for each user, a [spreading activation](https://en.wikipedia.org/wiki/Spreading_activation) algorithm is used. 
-
 #### MODEL ADVANTAGES & DISADVANTAGES
 
 One of the advantages of using a dual node-type network model is that the user's item
