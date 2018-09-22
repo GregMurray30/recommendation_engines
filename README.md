@@ -51,7 +51,7 @@ where **nodeType<sub>u</sub>=nodeType<sub>v</sub>.**
 
 The Gaussian network model is identical to the Pearson model except for the calculation of the
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
-difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) of each node's rating difference for a node pair - not to be confused with the pair's edge weight - is one plus the absolute value of the difference of the two ratings, divided by the standard deviation of all the item's ratings. Mathematically, 
+difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) of each rating difference belonging to a node pair - not to be confused with the pair's edge weight distance, the value in the actual graph - is [one plus](#2) the absolute value of the difference of the two ratings , divided by the standard deviation of all the item's ratings. Mathematically, 
 
 > **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>)= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/σ<sub>x</sub>**
 
@@ -88,7 +88,7 @@ where δ<sub>uv</sub> is the edge distance for node pair u-v.
 #### MODEL ADVANTAGES & DISADVANTAGES
 
 One of the advantages of using a dual node-type network model is that the user's item
-ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>2</sup>](#2). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
+ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>2</sup>](#5). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
 
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets. 
@@ -98,14 +98,8 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
 >###### 1
 > *Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes directed, and acylic as no cycles are allowed and a node path may not "double back" on itself.*
 
->###### 2
->*In this iteration of the scalar model the distances in the user network, item network, and the
- user-item cross network are scaled the same, assigning each network equal impact on the
- final recommendation. These edge weights could easily be scaled to accomodate one's
- beliefs on the importance each network has in determining the right item recommendation.
- For instance if one believed that item similarity was more important than user
- similarity, the edge weights in the item network plane could be scaled down by some
- factor.*
+ >###### 2
+ >*Adding one to the rating difference ensures there is no zero outcome for the wrdv when the ratings are identical. The resultant wrdv curve would simply be the x axis - a wrdv of zero regardless of the standard deviation of the item or user.
  
  >###### 3
  >*Defined thus, a node pair with a rating-difference of 4 can never have a weighted rating-difference value less than 1.25 since the standard deviation for rating differences can never be greater than 4 ((1+4)/4)=1.25)*
@@ -113,5 +107,13 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
  >###### 4
  >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
  
+ >###### 5
+>*In this iteration of the scalar model the distances in the user network, item network, and the
+ user-item cross network are scaled the same, assigning each network equal impact on the
+ final recommendation. These edge weights could easily be scaled to accomodate one's
+ beliefs on the importance each network has in determining the right item recommendation.
+ For instance if one believed that item similarity was more important than user
+ similarity, the edge weights in the item network plane could be scaled down by some
+ factor.*
  ## *BIBLIOGRAPHY*
  >J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
