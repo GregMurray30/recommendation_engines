@@ -7,9 +7,13 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_test.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_medium.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=rdd.filter(lambda x: x[0]!='user_id')
+rt = rdd.map(lambda x: x.split(","))
+rt = rt.map(lambda x: x[0:3])
 
-
+#______________________________________________________________________________#
+#Functions
 def li(v): return [v]
 
 
@@ -22,13 +26,6 @@ def ext(a,b):
      return a
 
 
-rt = rdd.map(lambda x: x.split(","))
-rt = rt.map(lambda x: x[0:3])
-
-#______________________________________________________________________________#
-#USER NETWORK
-
-
 #standard deviation of each user
 import statistics as st
 def sd1(v):
@@ -38,6 +35,35 @@ def sd1(v):
 		return (v, round(st.stdev(v[1]),3))
 	
 	
+#get weighted rating-difference value (wrdv)
+def get_wrdv(arr):
+	res=[]
+	for tup in arr:
+		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		res.append(wrdv)
+	return res
+
+
+import scipy.stats as ss
+import math
+def prob_pairs(theta):
+    def _prob_pairs(v):
+        prob = float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference < theta (where theta is the threshold param)
+        #if variance==0 then hack a probability estimate with logistic func if the mean <=1
+        if math.isnan(prob):
+            if v[0]<=theta:
+                prob=1-(math.exp(v[1])/(1000+math.exp(v[1])))
+                return ((v[0], v[1]), round(prob, 3))
+            else:
+                prob=0
+                return ((v[0], v[1]), prob)
+        return ((v[0], v[1]), round(prob, 3))
+    return _prob_pairs
+
+
+#______________________________________________________________________________#
+#USER NETWORK
+
 #(user, (movie, rating)
 u_rt2 = rt.map(lambda x: (x[0], (x[1], x[2])))
 
@@ -63,15 +89,6 @@ u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]),
 #((userA_rating_2, userB_rating_2), movie2_stdev),…, ((userA_rating_n, userB_rating_n), movie_n_stdev)]))
 user_pairs1 = u_rt6.combineByKey(li, app, ext)
 
-#get weighted rating-difference value (wrdv)
-def get_wrdv(arr):
-	res=[]
-	for tup in arr:
-		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
-		res.append(wrdv)
-	return res
-
-
 #user_pairs2 schema: ((userA, userB), [wrdv1, wrdv=2,...,wrdv_n])
 user_pairs2 = user_pairs1.mapValues(get_wrdv)
 user_pairs3 = user_pairs2.map(sd1)
@@ -79,29 +96,13 @@ user_pairs3 = user_pairs2.map(sd1)
 #user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
 user_pairs4 = user_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
 
-import scipy.stats as ss
-import math
-def prob_pairs(theta):
-    def _prob_pairs(v):
-        prob = float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference < theta (where theta is the threshold param)
-        #if variance==0 then hack a probability estimate with logistic func if the mean <=1
-        if math.isnan(prob):
-            if v[0]<=theta:
-                prob=1-(math.exp(v[1])/(1000+math.exp(v[1])))
-                return ((v[0], v[1]), round(prob, 3))
-            else:
-                prob=0
-                return ((v[0], v[1]), prob)
-        return ((v[0], v[1]), round(prob, 3))
-    return _prob_pairs
-
-
 #m_cdf_pairs schema: ((userA, movieB), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff<theta)
 u_cdf_pairs = user_pairs4.mapValues(prob_pairs(1))
 
 #Add 'u' to each movie ID for 'user'
 #USER_NETWORK schema: ((userA, 'u'), ((userB, 'u'),  probability_wrdv<theta)
 USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][1])))
+
 
 #______________________________________________________________________________#
 #MOVIE NETWORK
