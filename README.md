@@ -99,7 +99,7 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
 > *Outside of the context of a single node path traversal the graph is non-directed and cyclic. It is only when an individual path is being assessed that the graph becomes directed, and acylic as no cycles are allowed and a node path may not "double back" on itself.*
 
  >###### 2
- >*Adding one to the rating difference ensures there is no zero outcome for the wrdv when the ratings are identical. The resultant wrdv curve would simply be the x axis - a wrdv of zero regardless of the standard deviation of the item or user.
+ >*Adding one to the numerator of the wrdv equation ensures there is no zero outcome when the ratings are identical. The resultant wrdv curve would simply be the x axis - a wrdv of zero regardless of the standard deviation of the item or user.*
  
  >###### 3
  >*Defined thus, a node pair with a rating-difference of 4 can never have a weighted rating-difference value less than 1.25 since the standard deviation for rating differences can never be greater than 4 ((1+4)/4)=1.25)*
@@ -115,5 +115,6 @@ In order to test the predictive ability of the two models the "leave-one-out" (L
  For instance if one believed that item similarity was more important than user
  similarity, the edge weights in the item network plane could be scaled down by some
  factor.*
+ 
  ## *BIBLIOGRAPHY*
  >J. L. Herlocker, J. A. Konstan, et al., An Algorithmic Framework for Performing Collaborative Filtering , Proceedings of the 22nd Annual International ACM SIGIR Conference, ACM Press, 1999, pp. 230–237.
