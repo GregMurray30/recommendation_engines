@@ -60,7 +60,8 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
               return max
        node_arrs_res3 = node_arrs_res2.mapValues(max)
        node_arrs_res4 = node_arrs_res3.filter(lambda x: x[0][1]=='m')
-       TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
+       #TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
+       TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1])
        return TOP_N_RECOMMENDATIONS
 
 
