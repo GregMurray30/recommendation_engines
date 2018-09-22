@@ -23,8 +23,8 @@ def get_children(dist_arr, fired_nodes):
 def activate(val_list):
         res = []
         for v in val_list:
-            #A=A_bc.value*v[1]*D_bc.value
-            A=v[1]*D_bc.value
+            A=A_bc.value*v[1]*D_bc.value
+            #A=v[1]*D_bc.value
             if A>F_bc.value:
                 res.append((v[0], A))
         return res
@@ -32,7 +32,7 @@ def activate(val_list):
     
 def walk_path(A, D, F, src, rdd_graph_shell, n=5):
        src_bc = sc.broadcast(src)
-       rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src_bc)
+       rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src_bc.value)
        A_bc = sc.broadcast(A) #Activation value is 1 (100%) for the source, will be changed to updated values with subsequent nodes
        D_bc = sc.broadcast(D)
        F_bc = sc.broadcast(F)
@@ -59,7 +59,8 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
                              max=x
               return max
        node_arrs_res3 = node_arrs_res2.mapValues(max)
-       TOP_N_RECOMMENDATIONS = node_arrs_res3.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
+       node_arrs_res4 = node_arrs_res3.filter(lambda x: x[0][1]=='m')
+       TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
        return TOP_N_RECOMMENDATIONS
 
 
