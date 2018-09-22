@@ -23,9 +23,11 @@ def get_children(dist_arr, fired_nodes):
 def activate(val_list):
         res = []
         for v in val_list:
+            #print('v:', v)
             A=A_bc.value*v[1]*D_bc.value
             #A=v[1]*D_bc.value
             if A>F_bc.value:
+                #print('A:', A)
                 res.append((v[0], A))
         return res
     
@@ -58,7 +60,8 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
                      if x>max:
                              max=x
               return max
-       node_arrs_res3 = node_arrs_res2.mapValues(max)
+       #node_arrs_res3 = node_arrs_res2.mapValues(max)
+       node_arrs_res3 = node_arrs_res2.mapValues(lambda x: mean(x))
        node_arrs_res4 = node_arrs_res3.filter(lambda x: x[0][1]=='m')
        #TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
        TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1])
