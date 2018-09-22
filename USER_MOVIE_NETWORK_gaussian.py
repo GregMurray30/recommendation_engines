@@ -83,24 +83,24 @@ import scipy.stats as ss
 import math
 def prob_pairs(theta):
     def _prob_pairs(v):
-        prob = 1-float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference > theta (where theta is the threshold param)
+        prob = float(ss.norm(v[0], v[1]).cdf(theta)) #probability difference < theta (where theta is the threshold param)
         #if variance==0 then hack a probability estimate with logistic func if the mean <=1
         if math.isnan(prob):
             if v[0]<=theta:
                 prob=1-(math.exp(v[1])/(1000+math.exp(v[1])))
                 return ((v[0], v[1]), round(prob, 3))
             else:
-                prob=float("Inf")
+                prob=0
                 return ((v[0], v[1]), prob)
         return ((v[0], v[1]), round(prob, 3))
     return _prob_pairs
 
 
-#m_cdf_pairs schema: ((userA, movieB), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
+#m_cdf_pairs schema: ((userA, movieB), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff<theta)
 u_cdf_pairs = user_pairs4.mapValues(prob_pairs(1))
 
 #Add 'u' to each movie ID for 'user'
-#USER_NETWORK schema: ((userA, 'u'), ((userB, 'u'),  probability_wrdv>theta)
+#USER_NETWORK schema: ((userA, 'u'), ((userB, 'u'),  probability_wrdv<theta)
 USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][1])))
 
 #______________________________________________________________________________#
