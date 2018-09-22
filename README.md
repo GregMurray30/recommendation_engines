@@ -30,7 +30,7 @@ calculated as the Pearson correlation coefficient (hence the name) of the user p
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
 #### ITEM NODES
-The second type of node in this model is the item node which represent individual items. Reciprocating the user nodes, the
+The second type of node in this model are the item nodes which represent individual items. Reciprocating the user nodes, the
 item network's edge weights are determined by the two item pair's shared user ratings, but this time using cosine similarity. For items A and B then, similarity is defined
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d94e5903f7936d3c131e040ef2c51b473dd071d).
 
