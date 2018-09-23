@@ -92,7 +92,14 @@ One of the advantages of using a dual node-type network model is that the user's
 ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>2</sup>](#5). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
 
 ## TESTING THE MODELS
-In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets. 
+In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets.
+
+## FUTURE ITERATIONS & MODEL IMPROVEMENTS
+There are a few ways in which the models might be improved. First, adding a time component to the models. Second, allowing for more information on the item or user than simply its volatility to weight the rating differences.
+
+There is currently no dimension of time incorporated in the model, and it is fairly certain that our tastes, and therefore the distributions that model the similarity between two users, evolve over time. The extent to which these time series of ratings display a Markovian property (that the best approximation of a probability for a time series is based on the most recent observation) could determine the weightings for each rating observation.
+ 
+Rather than just using the standard deviation to weight each node pair's rating differences, the mean value may too be used in that weighting equation. But difficulties quickly arise in implementing this information without blowing the whole thing into an oblivion of spurious relationships and non-sensical outcomes. For instance, how would the different outcomes in terms of deviation from the mean be modelled mathematically to produce an intuitive order of how those outcomes impact similarity? What are the intuive orders of the outcomes in the first place!?
 
 ## *NOTES*
 
