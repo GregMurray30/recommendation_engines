@@ -82,13 +82,13 @@ However, because many of the instances with zero variance are clearly more a res
 
 It should be noted that the sample size referenced here is the number of items two users have rated, not the global data set size. This means that the problem will almost certainly not be resolved with additional observations in the global data set as there will always be many pairs of users who overlap in only a few items. Consequently, the zero variance problem is actually a property of the subject domain with a power-law or [positively-skewed normal network distribution](#PEARSON_NETWORK_MODEL), not a transient issue of small sample size in the common statisical sense. A long-term solution to circumvent the problem is needed.
 
-To address the zero variance issue then, when the mean difference is less than the threshold parameter **θ** (and the variance is zero, obviously), distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>5</sup>](#5), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
+To address the zero variance issue then, when the mean difference is less than the threshold parameter **θ** (and the variance is zero, obviously), distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>5</sup>](#5), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to zero, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
   >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=Pr[N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>)<θ]**, when **σ<sup>2</sup><sub>uv</sub>>0** and **μ<sub>uv</sub><=θ**;
   
   >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=e<sup>n<sub>uv</uv></sup>/(1000+e<sup>n</sup>)**, when **σ<sup>2</sup><sub>uv</sub>=0** and **μ<sub>uv</sub><=θ**, where n is the sample size of **E<sub>uv</sub>**;
   
-  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sub>uv</sub>); θ)= ∞**, otherwise,
+  >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sub>uv</sub>); θ)= 0**, otherwise,
 
 where δ<sub>uv</sub> is the edge distance for node pair u-v.
   
