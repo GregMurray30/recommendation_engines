@@ -79,7 +79,7 @@ Lastly, the cross edges in the Gaussian Model use a different scaling system tha
 
 #### ZERO VARIANCE PROBLEM
 One (major) shortcoming of the probabilistic approach to edge weights is that since the Gaussian probability density is ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/4abaca87a10ecfa77b5a205056523706fe6c9c3f "Title"), it is undefined for samples with a variance (**σ<sup>2</sup>**) of zero. Intuitively, the cumulative distribution function (CDF) for a Gaussian distribution with zero variance is defined as ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/90400cbbc8895d9f3c9a62d7502ed0f077c6ee3b).
-However, because many of the instances with zero variance are clearly more a result of small sample size than two users' unwavering similarity, this CDF is not a practical solution to the zero variance problem (which is really a sample size problem). Instead, when variance is zero, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>4</sup>](#4), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
+However, because many of the instances with zero variance are clearly more a result of small sample size than two users' unwavering similarity, this CDF is not a practical solution to the zero variance problem (which is really a [sample size problem](#4)). Instead, when variance is zero, and where the mean difference is less than the threshold parameter **θ**, distance is calculated using a sigmoid function, *δ(n)=e<sup>n</sup>/(1000+e<sup>n</sup>)* [<sup>4</sup>](#5), where **n** is the sample size. In the case where the mean difference is greater than the threshold parameter and the variance is zero, the edge is set equal to infinity, effectively removing the two nodes' connection from the network. Formally, distance in this network is calculated where
   
   >**δ<sub>uv</sub>(N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>); θ)=Pr[N(μ<sub>uv</sub>, σ<sup>2</sup><sub>uv</sub>)<θ]**, when **σ<sup>2</sup><sub>uv</sub>>0** and **μ<sub>uv</sub><=θ**;
   
@@ -92,7 +92,7 @@ where δ<sub>uv</sub> is the edge distance for node pair u-v.
 #### MODEL ADVANTAGES & DISADVANTAGES
 
 One of the advantages of using a dual node-type network model is that the user's item
-ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>2</sup>](#5). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
+ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>2</sup>](#6). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
 
 ## TESTING THE MODELS
 In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets.
@@ -116,9 +116,12 @@ Rather than just using the standard deviation to weight each node pair's rating 
  >*Defined thus, a node pair with a rating-difference of 4 can never have a weighted rating-difference value less than 1.25 since the standard deviation for rating differences can never be greater than 4 ((1+4)/4)=1.25)*
 
  >###### 4
- >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
+ >*This is a sample size referenced here is the sample of items between two users have rated (or vice versa) not the global data set size. This means the problem that will likely not be resolved with additional observations in the global data set as there will always be many pairs of users who overlap in only a few items. Consequently, the zero variance problem is  actually a property of the subject domain not a transient issue of small sample size in the common statisical sense.*
  
  >###### 5
+ >*The constant 1 in the logistic function is replaced with 1000 in order to achieve the desired scaling of the resulting quantity*
+ 
+ >###### 6
 >*In this iteration of the scalar model the distances in the user network, item network, and the
  user-item cross network are scaled the same, assigning each network equal impact on the
  final recommendation. These edge weights could easily be scaled to accomodate one's
