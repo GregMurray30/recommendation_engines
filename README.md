@@ -106,7 +106,7 @@ There are a few ways in which the models might be improved. First, adding a time
 
 There is currently no dimension of time incorporated in the model, and it is fairly certain that our tastes, and therefore the distributions that model the similarity between two users, evolve over time. The extent to which these time series of ratings display a Markovian property (that the best approximation of a probability for a time series is based on the most recent observation) could determine the weightings for each rating observation.
  
-Rather than just using the standard deviation to weight each node pair's rating differences, the mean value may also be used to some effect in that weighting equation. But difficulties quickly arise in implementing this information without blowing the whole thing into an oblivion of spurious relationships and non-sensical outcomes. For instance, how would the different outcomes in terms of deviation from the mean be modelled mathematically to produce an intuitive order of how those outcomes impact similarity? What are the intuive orders of the outcomes in the first place!?
+Rather than just using the standard deviation to weight each node pair's rating differences, the mean value may also be used to some effect in that weighting equation. But difficulties quickly arise in implementing this information without blowing the whole thing into an oblivion of spurious relationships and non-sensical outcomes. The difficulties in assessing the meaning of the various outcomes and modelling them mathematically are deeper and more complex than they at first seem.
 
 ## *NOTES*
 
