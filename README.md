@@ -20,7 +20,7 @@ The user-item network is a weighted, non-directed and acyclic graph<sup>[1](#1)<
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/node_dist.png" title="Node Distribution">
  </p>
  
-**Figure 2:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density (count of nodes) on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
+**Figure 2:** *A plot of node centrality distribution for a sample of ratings data with count of node connections on the x axis and density on the y axis. Note that the count of node connections follows a positively skewed normal distribution in this sample.*
 
 ## PEARSON NETWORK MODEL
 
