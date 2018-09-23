@@ -98,7 +98,7 @@ One of the advantages of using a dual node-type network model is that the user's
 ratings, her similarity to other users, and other items similarity to items she rated, are not considered in any arbitrary order, but rather assessed simultaneously[<sup>6</sup>](#6). In addition, each node type's edge distances may be weighted according to one's beliefs about the impact that particular type.
 
 ## TESTING THE MODELS
-In order to test the predictive ability of the two models the "leave-one-out" (LOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets.
+In order to test the predictive ability of the two models the "leave-one-out" (LVOO) cross validation technique is used. In this way the network can be left virtually unchanged whilst composing the training data sets.
 
 ## FUTURE ITERATIONS & MODEL IMPROVEMENTS
 There are a few ways in which the models might be improved. First, adding a time component to the models. Second, allowing for more information on the item or user than simply its volatility to weight the rating differences.
