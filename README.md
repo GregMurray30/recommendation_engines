@@ -30,7 +30,7 @@ calculated as the Pearson correlation coefficient (hence the name) of the user p
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/bd1ccc2979b0fd1c1aec96e386f686ae874f9ec0).
 
 #### ITEM NODES
-The second type of node in this model are the item nodes which represent individual items. Reciprocating the user nodes, the
+The second type of node in this model is the item node which represents individual items. Reciprocating the user nodes, the
 item network's edge weights are determined by the two item pair's shared user ratings, but this time using cosine similarity. For items A and B then, 
 ![alt text](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d94e5903f7936d3c131e040ef2c51b473dd071d).
 
@@ -61,7 +61,7 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating3.png" title="Constant Rating Differences">
  </p>
 
-**Figure 3:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=0" curve (red) than the "rating difference=4" (brown) curve.*
+**Figure 3:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
  
 The intuition behind weighting each rating difference thus is to lend varying importance to items/users depending on, in the case of items, the degree to which there is a consensus of opinion from all users for that item, and, in the case of users, whether they are a consistent reviewer. For example, looking at figure 1 above, a user pair with a rating difference equal to 0 (red curve), aka similar opinions, on an item with standard deviation equal to 1, a consensus opinion, will have a wrdv of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve), divergent opinions, to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub> equal to 4, where essentially no one agrees<sup>[3](#3)</sup>.
 
