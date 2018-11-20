@@ -72,6 +72,15 @@ if __name__=="__main__":
         inv_USER_MOVIE_NETWORK_Gaussian = USER_MOVIE_NETWORK_Gaussian.map(lambda x: (x[1][0], (x[0], x[1][1])))
         USER_MOVIE_NETWORK_Gaussian2 = USER_MOVIE_NETWORK_Gaussian.union(inv_USER_MOVIE_NETWORK_Gaussian) #have pairs A-B and B-A
         src = ('6148', 'u')
+        
+        rdd_graph_shell = USER_MOVIE_NETWORK_Gaussian2.combineByKey(li, app, ext)
+     
+        A=1 #Activation value for source
+        D=.5 #Decay factor
+        F=0 #Activation threshold
+        recommendations = walk_path(A, D, F, src, rdd_graph_shell, 5)
+
+        
         #MOVIE_NETWORK2=sc.parallelize([((u'122', 'm'), ((u'376', 'm'), 0.47)), ((u'122', 'm'), ((u'185', 'm'), 0.456)), ((u'231', 'm'), 
         ((u'539', 'm'), 0.989)), ((u'185', 'm'), ((u'231', 'm'), 0.632)), ((u'231', 'm'), ((u'376', 'm'), 0.809)), ((u'122', 'm'), 
         ((u'539', 'm'), 0)), ((u'376', 'm'), ((u'539', 'm'), 0.503)), ((u'122', 'm'), ((u'231', 'm'), 0.574)), ((u'185', 'm'), 
@@ -79,10 +88,3 @@ if __name__=="__main__":
         ((u'122', 'm'), 0.456)), ((u'539', 'm'), ((u'231', 'm'), 0.989)), ((u'231', 'm'), ((u'185', 'm'), 0.632)), ((u'376', 'm'), 
         ((u'231', 'm'), 0.809)), ((u'539', 'm'), ((u'122', 'm'), 0)), ((u'539', 'm'), ((u'376', 'm'), 0.503)), 
         ((u'231', 'm'), ((u'122', 'm'), 0.574)), ((u'539', 'm'), ((u'185', 'm'), 0.391)), ((u'376', 'm'), ((u'185', 'm'), 0.169))])
-        rdd_graph_shell = USER_MOVIE_NETWORK_Gaussian2.combineByKey(li, app, ext)
-     
-        A=1 #Activation value for source
-        D=.5 #Decay factor
-        F=0 #Activation threshold
-
-        recommendations = walk_path(A, D, F, src, rdd_graph_shell, 5)
