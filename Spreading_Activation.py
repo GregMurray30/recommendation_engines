@@ -11,7 +11,7 @@ def get_children(dist_arr, fired_nodes):
             A_bc = sc.broadcast(A)
             temp_rdd_i = rdd_graph_shell.filter(lambda x: x[0]==node_id_bc.value)
             #print('node_id_bc:', node_id_bc.value, 'i:', i, 'temp_rdd_i:', temp_rdd_i.collect())
-            temp_rdd_i = temp_rdd_i.mapValues(activate).collect()
+            temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F)).collect()
             if temp_rdd_i!=[]:
                 arr_node_rdds.append(temp_rdd_i[0][1])
                 fired_nodes.append(temp_rdd_i[0][0])
@@ -20,18 +20,18 @@ def get_children(dist_arr, fired_nodes):
         return arr_node_rdds
     
 #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
-def activate(val_list):
+def activate(val_list, A_bc, D_bc, F_bc):
         res = []
         for v in val_list:
             #print('v:', v)
-            A=A_bc.value*v[1]*D_bc.value
+            A=A_bc*v[1]*D_bc
             #A=v[1]*D_bc.value
-            if A>F_bc.value:
+            if A>F_bc:
                 #print('A:', A)
                 res.append((v[0], A))
         return res
     
-    
+from functools import partial
 def walk_path(A, D, F, src, rdd_graph_shell, n=5):
         src_bc = sc.broadcast(src)
         rdd_src = rdd_graph_shell.filter(lambda x: x[0]==src_bc.value)
@@ -39,13 +39,13 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
         D_bc = sc.broadcast(D)
         F_bc = sc.broadcast(F)
         fired_nodes=[] # a list of the nodes whose children have already been looked up
-        init_dist_arr = rdd_src.mapValues(activate).collect()[0][1]
+        init_dist_arr = rdd_src.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F)).collect()[0][1]
         init_z=get_children(init_dist_arr, fired_nodes)
         z=init_z[1:]
         node_arrs = []
         while z!=[]:
                 for i in range(len(z)):
-                        a = activate(z[i])
+                        a = activate(z[i], A_bc=A, D_bc=D, F_bc=F)
                         node_arrs.extend(a)
                 z=get_children(node_arrs, fired_nodes)
         node_arrs_rdd = sc.parallelize(node_arrs)
@@ -60,7 +60,7 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
                               max=x
                return max
         #node_arrs_res3 = node_arrs_res2.mapValues(max)
-        node_arrs_res3 = node_arrs_res2.mapValues(lambda x: mean(x))
+        node_arrs_res3 = node_arrs_res2.mapValues(lambda x: np.mean(x))
         node_arrs_res4 = node_arrs_res3.filter(lambda x: x[0][1]=='m')
         #TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
         TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1])
@@ -76,7 +76,7 @@ if __name__=="__main__":
         rdd_graph_shell = USER_MOVIE_NETWORK_Gaussian2.combineByKey(li, app, ext)
      
         A=1 #Activation value for source
-        D=.5 #Decay factor
+        D=.8 #Decay factor
         F=0 #Activation threshold
         recommendations = walk_path(A, D, F, src, rdd_graph_shell, 5)
 
