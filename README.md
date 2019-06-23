@@ -37,7 +37,7 @@ item network's edge weights are determined by the two item pair's shared user ra
 #### CROSS EDGES
 Cross edges connecting a user node to a item node indicate the user's rating of that movie
 where node **u ∈ G<sub>user</sub>**, and node **v ∈ G<sub>movie</sub>**. In order for a high rating 
-to correspond to a small distance, a rating-rank (rating of 5=>1, rating of 4=>2, etc.) is used in for the edge weight in place of the actual rating.
+to correspond to a small distance, a rating-rank (rating of 5->1, rating of 4->2, etc.) is used for the edge weight in place of the actual rating.
 
 In order to accommodate a belief that an increase in degree separation should correspond to 
 a decrease in the similarity regardless of the values of the edge weights, a weighting 
