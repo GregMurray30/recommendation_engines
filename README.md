@@ -71,7 +71,7 @@ Because the range of the weighted rating difference values is continuous, the mo
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/gauss_dists.png" title="Gauss Dists">
  </p>
  
-**Figure 4:** *Examples of wrdv (x axis) Gaussian probability density functions for three different user pairs of varying similarity and variance. If the threshold paramater θ were set at 1, then each user pair's edge distance would be the area under that pair's bell curve to the **left** of the pink dashed line. Therefore, in this example, user pair A-B is most probable of being similar, followed by user pair A-D, then user pair A-C with the lowest similarity probability.*
+**Figure 4:** *Examples of wrdv (x axis) Gaussian probability density functions for three different user pairs of varying similarity and variance. If the threshold paramater θ were set at 1, then each user pair's edge distance would be the area under that pair's curve to the **left** of the pink dashed line. Therefore, in this example, user pair A-B has the highest probability of similarity, followed by user pair A-D, then user pair A-C with the lowest similarity probability.*
 
 #### CROSS EDGES
 The cross edges in the Gaussian Model use a different scaling system than the Pearson model. A non-linear transformation is applied to the raw ratings between a user node and movie node. Each rating from 0.5 to 5 is assigned a value from 0 to 1, with a rating of 5 assigned a value of 1 and the other ratings assigned weights at uneven intervals.
