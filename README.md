@@ -54,7 +54,7 @@ edge weight distances. Where the edge weights in the Pearson model are calculate
 difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) of each rating difference belonging to a node pair - not to be confused with the pair's edge weight distance, the value in the actual graph - is [one plus](#2) the absolute value of the difference of the two ratings , divided by the standard deviation of all the item's ratings. Mathematically, 
 
 
-> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r¯<sub>x</sub>)= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/(1+(|r<sub>u<sub>x</sub></sub>-r¯<sub>x</sub>|<sub>L2</sub>>|r<sub>v<sub>x</sub></sub>-r¯<sub>x</sub>|<sub>L2</sub>)) <*σ<sub>x</sub>**
+> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r¯<sub>x</sub>)= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/(1+(|r<sub>u<sub>x</sub></sub>-r¯<sub>x</sub>|<sub>L2</sub>|r<sub>v<sub>x</sub></sub>-r¯<sub>x</sub>|<sub>L2</sub>)^0.5)(σ<sub>x</sub>)**
 
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
