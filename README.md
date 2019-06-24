@@ -53,8 +53,8 @@ The Gaussian network model is identical to the Pearson model except for the calc
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
 difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) of each rating difference belonging to a node pair - not to be confused with the pair's edge weight distance, the value in the actual graph - is [one plus](#2) the absolute value of the difference of the two ratings , divided by the standard deviation of all the item's ratings. Mathematically, 
 
-$\bar{a}$
-r<bar>x</bar>
+\overline{XY}
+
 > **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/σ<sub>x</sub>**
 
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
