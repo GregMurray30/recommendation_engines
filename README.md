@@ -64,13 +64,13 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user
 **Figure 3a:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis, holding the mean rating of the item constant. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
  
   <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_b.png" title="Mean Rating X vs. WRDV: Slightly Divergent Ratings">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_1.png" title="Mean Rating X vs. WRDV: Slightly Divergent Ratings">
  </p>
  
   **Figure 3b:** *The **WRDV** on the y axis plotted against the mean rating of item x on the x axis, holding the standard deviation of the item constant. The blue and red curves reflect the effect on wrdv when the difference between the ratings is 2. The blue curve is when u and v rated 5 and 3, and the red curve is when u and v rated 3 and 1. **The belief is that mildly positive and strongly positive ratings when distinct from the mean rating of the item indicates more similarity than when the mean rating is near the ratings of u and v**.*
   
  <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_c.png" title="Mean Rating X vs. WRDV: Divergent and Identical Ratings">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_2.png" title="Mean Rating X vs. WRDV: Divergent and Identical Ratings">
  </p>
  
  **Figure 3b:** *The **WRDV** on the y axis plotted against the mean rating of item x on the x axis, holding the standard deviation of the item constant. The blue curve models the effect of an item's mean rating on wrdv when user u and user v have completely divergent ratings (5 vs 1). The two highest points on the wrdv axis (least likely to be similar) occur when one user agrees with the average rating and the other does not. Conversely, the green curve reflects the effect on wrdv when user u and user v have completely identical ratings (5 vs 5). In that scenario, the highest point occurs when the two users' ratings agree with average rating of the item. **The belief is that liking wildly popular or unpopular items is not particularly revealing of profound commonalities in taste**.*
