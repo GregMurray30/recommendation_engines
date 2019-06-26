@@ -51,10 +51,10 @@ where **nodeType<sub>u</sub>=nodeType<sub>v</sub>.**
 
 The Gaussian network model is identical to the Pearson model except for the calculation of the
 edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted, average, magnitudinal
-difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) function of each rating difference belonging to a node pair - not to be confused with the pair's edge distance - was engineered to exhibit properties that reflect the author's prior beliefs about each rating scenario's implications on similarity. The wrdv function is defined, 
+difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) function of each rating difference belonging to a node pair - not to be confused with the pair's edge distance - was engineered to exhibit properties that reflect the author's prior beliefs about each rating scenario's implications on similarity. The function contains two hyperparameters to control curvature, γ, and sensitivity, α. The wrdv function is defined, 
 
-> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r<sub>avg<sub>x</sub></sub> )= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/
-((1+(.25+(r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5)+(1+(.25+(r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5))(σ<sub>x</sub>)**
+> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r<sub>avg<sub>x</sub></sub>, γ, α)= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/
+((α+(γ+(r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5)+(α+(γ+(r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5))(σ<sub>x</sub>)**
 
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
@@ -62,13 +62,13 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating3.png" title="Constant Rating Differences">
  </p>
 
-**Figure 3a:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis, holding the mean rating of the item constant. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
+**Figure 3a:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis with params α=1 and γ=.25, holding the mean rating of the item constant. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
  
   <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_1.png" title="Mean Rating X vs. WRDV: Slightly Divergent Ratings">
  </p>
  
-  **Figure 3b:** *The **WRDV** on the y axis plotted against the mean rating of item x on the x axis, holding the standard deviation of the item constant. The blue and red curves reflect the effect on wrdv when the difference between the ratings is 2. The blue curve is when u and v rated 5 and 3, and the red curve is when u and v rated 3 and 1. **The belief is that mildly positive and strongly positive ratings when distinct from the mean rating of the item indicates more similarity than when the mean rating is near the ratings of u and v**.*
+  **Figure 3b:** *The **WRDV** on the y axis plotted against the mean rating of item x on the x axis with params α=1 and γ=.25, holding the standard deviation of the item constant. The blue and red curves reflect the effect on wrdv when the difference between the ratings is 2. The blue curve is when u and v rated 5 and 3, and the red curve is when u and v rated 3 and 1. **The belief is that mildly positive and strongly positive ratings when distinct from the mean rating of the item indicates more similarity than when the mean rating is near the ratings of u and v**.*
   
  <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_2.png" title="Mean Rating X vs. WRDV: Divergent and Identical Ratings">
