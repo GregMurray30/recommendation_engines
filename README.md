@@ -50,10 +50,11 @@ where **nodeType<sub>u</sub>=nodeType<sub>v</sub>.**
 ## GAUSSIAN NETWORK MODEL
 
 The Gaussian network model is identical to the Pearson model except for the calculation of the
-edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted average magnitudinal
-difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) of each rating difference belonging to a node pair - not to be confused with the pair's edge weight distance, the value in the actual graph - is, 
+edge weight distances. Where the edge weights in the Pearson model are calculated with the correlation coefficient and cosine similarity, the Gaussian model's edge weights are the probability that the weighted, average, magnitudinal
+difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) function of each rating difference belonging to a node pair - not to be confused with the pair's edge distance - was engineered to exhibit properties that reflect the author's prior beliefs about each rating scenario's implications on similarity. The wrdv function is defined, 
 
-> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r<sub>avg<sub>x</sub></sub> )= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/((1+|r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>|<sub>L2</sub>1+|r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>|<sub>L2</sub>))^0.5)(σ<sub>x</sub>)**
+> **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r<sub>avg<sub>x</sub></sub> )= (1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)/
+((1+(.25+(r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5)+|r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>|<sub>L2</sub>))^0.5)(σ<sub>x</sub>)**
 
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
