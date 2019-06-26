@@ -79,7 +79,9 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user
 
 
 
-The intuition behind weighting each rating difference as such is to lend varying importance to items/users depending on, in the case of items, the degree to which there is a consensus of opinion for that item, and, in the case of users, whether they are a consistent reviewer. For example, looking at figure 3a above, a user pair with a rating difference equal to 0 (red curve), on an item with standard deviation equal to 1 will have a wrdv of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve), divergent opinions, to also have a weighted rating-difference value of 1, the standard deviation must be 4 times higher with σ<sub>a</sub> equal to 4, where essentially no one agrees<sup>[3](#3)</sup>.
+The intuition behind weighting each rating difference as such is to lend varying importance to items/users depending on, in the case of items, the degree to which there is a consensus of opinion for that item, and what that consensus is. In the case of users, emphasis varies according divergence from their average rating and as a function of their consistency (consistently sympathetic reviewers rating an item poorly is potentially indicative of a very poor item).
+ 
+Examining consistency, in figure 3a above, a user pair with a rating difference equal to 0 (red curve), on an item with standard deviation equal to 1 will have a wrdv of 1. In comparison, in order for a user pair with a rating difference of 3 on an item (green curve), divergent opinions, to obtain the same wrdv, the standard deviation must be 4 times higher with σ<sub>a</sub> equal to 4, where essentially no one agrees<sup>[3](#3)</sup>.
 
 Because the range of the weighted rating difference values is continuous, the model assumes a Gaussian random variable to model the similarity of any two nodes. 
 
