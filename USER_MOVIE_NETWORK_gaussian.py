@@ -36,10 +36,10 @@ def sd1(v):
 	
 #mean of each movie or user
 def mean(v):
-	if len(v[1])==1:
-		return (v, v[1][0])
+	if len(v[0][1])==1:
+		return (v, v[0][1][0])
 	else:
-		return (v, round(st.mean(v[1]),3))	
+		return (v, round(st.mean(v[0][1]),3))	
 	
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr):
