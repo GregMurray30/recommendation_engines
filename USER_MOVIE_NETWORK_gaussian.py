@@ -34,6 +34,12 @@ def sd1(v):
 	else:
 		return (v, round(st.stdev(v[1]),3))
 	
+#mean of each movie or user
+def mean(v):
+	if len(v[1])==1:
+		return (v, v[1])
+	else:
+		return (v, round(st.mean(v[1]),3))	
 	
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr):
@@ -43,6 +49,13 @@ def get_wrdv(arr):
 		res.append(wrdv)
 	return res
 
+#get weighted rating-difference value (wrdv) version 2 with item mean
+def get_wrdv2(arr):
+	res=[]
+	for tup in arr:
+		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		res.append(wrdv)
+	return res
 
 import scipy.stats as ss
 import math
