@@ -37,9 +37,9 @@ def sd1(v):
 #mean of each movie or user
 def mean(v):
 	if len(v[0][1])==1:
-		return (v, v[0][1][0])
+		return (v[0][0], (v[0][1][0], v[1]))
 	else:
-		return (v, round(st.mean(v[0][1]),3))	
+		return ( v[0][0], (round(st.mean(v[0][1]),3), v[1]) )	
 	
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr):
@@ -83,15 +83,19 @@ u_rt2 = rt.map(lambda x: (x[0], (x[1], x[2])))
 #(movie, (user, rating)
 u_rt3 = u_rt2.map(lambda x: (x[1][0], (x[0], float(x[1][1]))))
 
+#sd5b:(u'4999', (4.0, (u'657', 4.0)))]
+#sd5: (u'4999', (0, (u'657', 4.0)))
+	
 #standard deviation of users
 u_sd1 = u_rt3.mapValues(lambda x: x[1])
 u_sd2 = u_sd1.combineByKey(li, app, ext)
 u_sd3 = u_sd2.map(sd1)
-u_sd4 = u_sd3.map(lambda x: (x[0][0], (x[1]), x[0][1]))
-u_sd5 = u_sd4.join(u_rt3)
+u_sd3b = u_sd3.map(mean)
+#u_sd4 = u_sd3b.map(lambda x: (x[0], (x[1], x[0][1])))
+u_sd5 = u_sd3b.join(u_rt3)
 u_sd6 = u_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
 
-#u_rt5 schema: ((movie, movie_stdev), (userA, ratingA), (userB, ratingB))
+#u_rt5 schema: ((movie, (movie_mean, movie_stdev)), (userA, ratingA), (userB, ratingB))
 u_rt4 = u_sd6.join(u_sd6)
 u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
 # u_rt6 schema: ((userA, userB), (ratingA, ratingB), movie_stdev)   
