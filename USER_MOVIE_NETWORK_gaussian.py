@@ -45,7 +45,7 @@ def mean(v):
 def get_wrdv(arr):
 	res=[]
 	for tup in arr:
-		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1][1]), 3)
 		res.append(wrdv)
 	return res
 
@@ -56,6 +56,8 @@ def get_wrdv2(arr):
 		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
 		res.append(wrdv)
 	return res
+
+
 
 import scipy.stats as ss
 import math
@@ -102,11 +104,11 @@ u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
 u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]), x[0][1])))
 
 #rdd user_pairs object schema:
-#((userA, userB), ([((userA_rating1, userB_rating_1), movie1_stdev),
+#((userA, userB), ([((userA_rating1, userB_rating_1), (movie1_mean, movie1_stdev),
 #((userA_rating_2, userB_rating_2), movie2_stdev),…, ((userA_rating_n, userB_rating_n), movie_n_stdev)]))
 user_pairs1 = u_rt6.combineByKey(li, app, ext)
 
-#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv=2,...,wrdv_n])
+#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv_2,...,wrdv_n])
 user_pairs2 = user_pairs1.mapValues(get_wrdv)
 user_pairs3 = user_pairs2.map(sd1)
 
