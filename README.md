@@ -59,7 +59,7 @@ difference between two users, or two items, is less than some designated thresho
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
 <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/constant_rating3.png" title="Constant Rating Differences">
+  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/sv_vs_wrdv.png" title="Constant Rating Differences">
  </p>
 
 **Figure 3a:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis with param b=1, holding the mean rating of the item constant. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
