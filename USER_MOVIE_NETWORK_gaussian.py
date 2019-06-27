@@ -7,7 +7,7 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_medium.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_tiny.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 rdd=rdd.filter(lambda x: x[0]!='user_id')
 rt = rdd.map(lambda x: x.split(","))
 rt = rt.map(lambda x: x[0:3])
@@ -34,7 +34,7 @@ def sd1(v):
 	else:
 		return (v, round(st.stdev(v[1]),3))
 	
-#mean of each movie or user
+#mean of each movie or user. 
 def mean(v):
 	if len(v[0][1])==1:
 		return (v[0][0], (v[0][1][0], v[1]))
@@ -42,15 +42,21 @@ def mean(v):
 		return ( v[0][0], (round(st.mean(v[0][1]),3), v[1]) )	
 	
 #get weighted rating-difference value (wrdv)
-def get_wrdv(arr):
+def get_wrdv(arr, gamma=.25, alpha=1, b=1):
 	res=[]
 	for tup in arr:
-		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1][1]), 3)
+		r_u = tup[0][0]
+		r_v = tup[0][1]
+		x_mean_half = tup[1][0]/2
+		x_sd = tup[1][1]
+		wrdv_numerator = 1+abs(r_u-r_v)
+		wrdv_denominator = (alpha+(gamma+(r_v-x_mean_half)**2)**.5)*(alpha+(gamma+(r_u-x_mean_half)**2)**.5)#*(b+x_sd)
+		wrdv = round(wrdv_numerator/wrdv_denominator, 3)
 		res.append(wrdv)
 	return res
 
-#get weighted rating-difference value (wrdv) version 2 with item mean
-def get_wrdv2(arr):
+#get probability that 
+def get_prob(arr):
 	res=[]
 	for tup in arr:
 		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
