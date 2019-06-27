@@ -98,7 +98,7 @@ u_sd6 = u_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
 #u_rt5 schema: ((movie, (movie_mean, movie_stdev)), (userA, ratingA), (userB, ratingB))
 u_rt4 = u_sd6.join(u_sd6)
 u_rt5 = u_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
-# u_rt6 schema: ((userA, userB), (ratingA, ratingB), movie_stdev)   
+# u_rt6 schema: ((userA, userB), (ratingA, ratingB), (movie_mean, movie_stdev))   
 u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]), x[0][1])))
 
 #rdd user_pairs object schema:
