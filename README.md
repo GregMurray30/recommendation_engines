@@ -54,7 +54,7 @@ edge weight distances. Where the edge weights in the Pearson model are calculate
 difference between two users, or two items, is less than some designated threshold parameter **θ**. Accordingly, the weighted rating-difference value (*wrdv*) function of each rating difference belonging to a node pair - not to be confused with the pair's edge distance - was engineered to exhibit properties that reflect the author's prior beliefs about each rating scenario's implications on similarity. The function contains three hyperparameters to control curvature, γ, sensitivity, α, and σ-explosiveness, b. The wrdv function is defined, 
 
 > **ω<sub>uv<sub>x</sub></sub>(r<sub>u<sub>x</sub></sub>, r<sub>v<sub>x</sub></sub>, σ<sub>x</sub>, r<sub>avg<sub>x</sub></sub>,α,  γ)= ((1+|r<sub>u<sub>x</sub></sub>-r<sub>v<sub>x</sub></sub>|)^(3/2))/
-((α*(γ+(r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5)*((γ+(r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5))^.5**
+((α(γ+(r<sub>u<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5)*((γ+(r<sub>v<sub>x</sub></sub>-r<sub>avg<sub>x</sub></sub>)^2)^.5))^.5**
 
 where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user x, *r<sub>u<sub>x</sub></sub>* is node u's rating of item (or rating from user) x, and *r<sub>v<sub>x</sub></sub>* is node b's rating of item (or rating from user) x. 
 
