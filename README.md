@@ -64,11 +64,6 @@ where *ω<sub>uv<sub>x</sub></sub>* is the wrdv of node pair *u-v* for item/user
 
 **Figure 3a:** *The **wrdv** on the y axis plotted against the standard deviation (**σ**) on the x axis with param b=1, holding the mean rating of the item constant. Each curve represents a constant value for the rating difference and shows how the wrdv varies with the σ of the item's ratings. Note that *σ* has more impact on the wrdv when there is consensus opinion (σ is small) compared to when there are mixed reviews (σ is large), and that this effect is more dramatic in the "rating difference=4" curve (brown) than the "rating difference=0" (red) curve.*
  
-  <p align="center">
-  <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_1.png" title="Mean Rating X vs. WRDV: Slightly Divergent Ratings">
- </p>
- 
-  **Figure 3b:** *The **WRDV** on the y axis plotted against the mean rating of item x on the x axis with params α=1 and γ=.25, holding the standard deviation of the item constant. The blue and red curves reflect the effect on wrdv when the difference between the ratings is 2. The blue curve is when u and v rated 5 and 3, and the red curve is when u and v rated 3 and 1. **The belief is that a mildly positive rating paired with a strongly positive rating, when distinct from the mean rating of the item, indicates more similarity than when the mean rating is near the ratings of u and v (ie: r_u=5, r_v=3, r_avg_x=1 vs r_avg_x=4**.*
   
  <p align="center">
   <img src="https://github.com/GregMurray30/recommendation_engines/blob/master/visualizations/mean_v_wrdv_3.png" title="Mean Rating X vs. WRDV: Divergent and Identical Ratings">
