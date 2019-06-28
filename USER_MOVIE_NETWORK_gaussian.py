@@ -49,7 +49,7 @@ def get_wrdv(arr, gamma=.25, alpha=1, b=1):
 		r_v = tup[0][1]
 		x_mean = tup[1][0]
 		x_sd = tup[1][1]
-		wrdv_numerator = 1+abs(r_u-r_v)*(abs(r_u-r_v)**.5
+		wrdv_numerator = 1+abs(r_u-r_v)*(abs(r_u-r_v)**.5)
 		wrdv_denominator = ((alpha*(gamma+(r_v-x_mean)**2)**.5)*(gamma+(r_u-x_mean)**2)**.5)**.5
 		wrdv = round(wrdv_numerator/wrdv_denominator, 3)
 		res.append(wrdv)
