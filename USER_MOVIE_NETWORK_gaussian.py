@@ -141,14 +141,23 @@ user_pairs3 = user_pairs2.map(sd1)
 #user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
 user_pairs4 = user_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
 
-#m_cdf_pairs schema: ((userA, movieB), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff<theta)
+#m_cdf_pairs schema: ((userA, userB), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff<theta)
 u_cdf_pairs = user_pairs4.mapValues(prob_pairs(1))
+
+
 
 #Add 'u' to each movie ID for 'user'
 #USER_NETWORK schema: ((userA, 'u'), ((userB, 'u'),  probability_wrdv<theta)
 USER_NETWORK = u_cdf_pairs.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][1])))
 
+'''IF USING WRDV2'''
+#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv_2,...,wrdv_n])
+user_pairs2 = user_pairs1.mapValues(get_wrdv2)
+user_pairs3 = user_pairs2.map(sd1)
 
+#user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
+user_pairs4 = user_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
+USER_NETWORK = user_pairs4.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][0])))
 #______________________________________________________________________________#
 #MOVIE NETWORK
 
@@ -162,10 +171,15 @@ m_rt3 = m_rt2.map(lambda x: (x[1][0], (x[0], float(x[1][1]))))
 m_sd1 = m_rt3.mapValues(lambda x: x[1])
 m_sd2 = m_sd1.combineByKey(li, app, ext)
 m_sd3 = m_sd2.map(sd1)
+m_sd3b = m_sd3.map(mean)
+#u_sd4 = u_sd3b.map(lambda x: (x[0], (x[1], x[0][1])))
+m_sd5 = m_sd3b.join(m_rt3)
+m_sd6 = m_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
+'''
 m_sd4 = m_sd3.map(lambda x: (x[0][0], (x[1]), x[0][1]))
 m_sd5 = m_sd4.join(m_rt3)
 m_sd6 = m_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
-
+'''
 #m_rt5 schema: ((user, user_stdev), (movieA, ratingA), (movieB, ratingB))
 m_rt4 = m_sd6.join(m_sd6)
 m_rt5 = m_rt4.filter(lambda x: int(x[1][0][0])<int(x[1][1][0]))
@@ -187,10 +201,24 @@ movie_pairs4 = movie_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3),
 #m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
 m_cdf_pairs = movie_pairs4.mapValues(prob_pairs(1))
 
+#if using wrdv2
+
+
+
 #Add 'm' to each movie ID for 'movie'
 #MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'),  probability_wrdv>theta)
 MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1][1])))
 
+
+
+'''IF USING WRDV2'''
+#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv_2,...,wrdv_n])
+movie_pairs2 = movie_pairs1.mapValues(get_wrdv2)
+movie_pairs3 = movie_pairs2.map(sd1)
+
+#user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
+movie_pairs4 = movie_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
+MOVIE_NETWORK = movie_pairs4.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][0])))
 
 #______________________________________________________________________________#
 #USER-MOVIE NETWORK
