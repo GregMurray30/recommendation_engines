@@ -71,7 +71,7 @@ def get_wrdv2(arr, gamma=1.5, alpha=10, b=1):
 		else:
 			w=0
 		wrdv = user_diff*(gamma*exp(w))
-		wrdv = exp(wrdv)/(alpha+exp(wrdv))
+		wrdv = round(exp(wrdv)/(alpha+exp(wrdv)), 3)
 		res.append(wrdv)
 	return res
 
