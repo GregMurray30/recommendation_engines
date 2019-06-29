@@ -1,4 +1,6 @@
 
+import numpy as np
+
 def get_children(dist_arr, fired_nodes):
         arr_node_rdds = []
         #print('dist_arr', dist_arr)
@@ -18,18 +20,22 @@ def get_children(dist_arr, fired_nodes):
             #print('arr_node_rdds:', arr_node_rdds)
         #fired_nodes.extend(arr_node_rdds)
         return arr_node_rdds
+
+
     
 #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
 def activate(val_list, A_bc, D_bc, F_bc):
         res = []
         for v in val_list:
-            print('v:', v)
+            #print('v:', v)
             A=A_bc*v[1]*D_bc
             #A=v[1]*D_bc.value
             if A>F_bc:
                 #print('A:', A)
                 res.append((v[0], A))
         return res
+
+
     
 from functools import partial
 def walk_path(A, D, F, src, rdd_graph_shell, n=5):
@@ -59,6 +65,8 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
                       if x>max:
                               max=x
                return max
+
+
 
 #node_arrs_res3 = node_arrs_res2.mapValues(max)
         node_arrs_res3 = node_arrs_res2.mapValues(lambda x: np.mean(x))
