@@ -61,8 +61,8 @@ def get_wrdv2(arr, gamma=1.5, alpha=10, b=1):
 	for tup in arr:
 		r_u = tup[0][0]
 		r_v = tup[0][1]
-		x_mean = tup[1][0]
-		x_sd = tup[1][1]
+		mu_x = tup[1][0]
+		sd_x = tup[1][1]
 		user_diff = (1+abs(r_u-r_v))
 		if r_u>mu_x+b and r_v>mu_x+b:
 			w=-1
@@ -71,7 +71,7 @@ def get_wrdv2(arr, gamma=1.5, alpha=10, b=1):
 		else:
 			w=0
 		wrdv = user_diff*(gamma*exp(w))
-		wrdv = exp(wrdv)/(b+exp(wrdv))
+		wrdv = exp(wrdv)/(alpha+exp(wrdv))
 		res.append(wrdv)
 	return res
 
