@@ -247,7 +247,7 @@ def rating_rank(v):
 
 #um_ratings = u_rt2.mapValues(rating_rank)
 #um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
-um_ratings2 = u_rt2.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+um_ratings2 = u_rt2.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), float(x[1][1]))))
 
 user_movie_network0 = USER_NETWORK.union(MOVIE_NETWORK)
 
