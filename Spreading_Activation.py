@@ -59,7 +59,8 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
                       if x>max:
                               max=x
                return max
-        #node_arrs_res3 = node_arrs_res2.mapValues(max)
+
+#node_arrs_res3 = node_arrs_res2.mapValues(max)
         node_arrs_res3 = node_arrs_res2.mapValues(lambda x: np.mean(x))
         node_arrs_res4 = node_arrs_res3.filter(lambda x: x[0][1]=='m')
         #TOP_N_RECOMMENDATIONS = node_arrs_res4.sortBy(lambda x: x[1]).collect()[-(n+1):-1]
@@ -71,14 +72,14 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
 if __name__=="__main__":
         inv_USER_MOVIE_NETWORK_Gaussian = USER_MOVIE_NETWORK_Gaussian.map(lambda x: (x[1][0], (x[0], x[1][1])))
         USER_MOVIE_NETWORK_Gaussian2 = USER_MOVIE_NETWORK_Gaussian.union(inv_USER_MOVIE_NETWORK_Gaussian) #have pairs A-B and B-A
-        src = ('6148', 'u')
+        src = ('2', 'u')
         
         rdd_graph_shell = USER_MOVIE_NETWORK_Gaussian2.combineByKey(li, app, ext)
      
         A=1 #Activation value for source
         D=.8 #Decay factor
         F=0 #Activation threshold
-        recommendations = walk_path(A, D, F, src, rdd_graph_shell, 5)
+        recommendations = walk_path(A, D, F, src, rdd_graph_shell, 1)
 
         
         #MOVIE_NETWORK2=sc.parallelize([((u'122', 'm'), ((u'376', 'm'), 0.47)), ((u'122', 'm'), ((u'185', 'm'), 0.456)), ((u'231', 'm'), 
