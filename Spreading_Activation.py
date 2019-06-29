@@ -23,7 +23,7 @@ def get_children(dist_arr, fired_nodes):
 def activate(val_list, A_bc, D_bc, F_bc):
         res = []
         for v in val_list:
-            #print('v:', v)
+            print('v:', v)
             A=A_bc*v[1]*D_bc
             #A=v[1]*D_bc.value
             if A>F_bc:
