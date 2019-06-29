@@ -56,14 +56,14 @@ def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 	return res
 
 from math import exp 
-def get_wrdv2(arr, gamma=1.25, alpha=15, b=1):
+def get_wrdv2(arr, gamma=.35, alpha=5, b=1):
 	res=[]
 	for tup in arr:
 		r_u = tup[0][0]
 		r_v = tup[0][1]
 		mu_x = tup[1][0]
 		sd_x = tup[1][1]
-		user_diff = (1+abs(r_u-r_v))
+		user_diff = (.5+abs(r_u-r_v))
 		if r_u>mu_x+b and r_v>mu_x+b:
 			w=-1
 		elif r_u<mu_x-b and r_v<mu_x-b:
@@ -72,7 +72,7 @@ def get_wrdv2(arr, gamma=1.25, alpha=15, b=1):
 			w=0
 		wrdv = user_diff*(gamma*exp(w))
 		wrdv = round(exp(wrdv)/(alpha+exp(wrdv)), 3)
-		res.append(wrdv)
+		res.append(1/wrdv)
 	return res
 
 #get probability that 
@@ -201,14 +201,11 @@ movie_pairs4 = movie_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3),
 #m_cdf_pairs schema: ((movieA, 'm'), (movieB, 'm')), (avg_mag_diffAB, sd_diffAB), sample_size), probability_diff>theta)
 m_cdf_pairs = movie_pairs4.mapValues(prob_pairs(1))
 
-#if using wrdv2
-
 
 
 #Add 'm' to each movie ID for 'movie'
 #MOVIE_NETWORK schema: ((movieA, 'm'), ((movieB, 'm'),  probability_wrdv>theta)
 MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1][1])))
-
 
 
 '''IF USING WRDV2'''
@@ -247,8 +244,11 @@ def rating_rank(v):
         return (v[0], .05)
         
 
-um_ratings = u_rt2.mapValues(rating_rank)
-um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+
+#um_ratings = u_rt2.mapValues(rating_rank)
+#um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+um_ratings2 = u_rt2.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+
 user_movie_network0 = USER_NETWORK.union(MOVIE_NETWORK)
 
 USER_MOVIE_NETWORK_Gaussian = user_movie_network0.union(um_ratings2)
