@@ -55,6 +55,26 @@ def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 		res.append(wrdv)
 	return res
 
+from math import exp 
+def get_wrdv2(arr, gamma=1.5, alpha=10, b=1):
+	res=[]
+	for tup in arr:
+		r_u = tup[0][0]
+		r_v = tup[0][1]
+		x_mean = tup[1][0]
+		x_sd = tup[1][1]
+		user_diff = (1+abs(r_u-r_v))
+		if r_u>mu_x+b and r_v>mu_x+b:
+			w=-1
+		elif r_u<mu_x-b and r_v<mu_x-b:
+			w=-1
+		else:
+			w=0
+		wrdv = user_diff*(gamma*exp(w))
+		wrdv = exp(wrdv)/(b+exp(wrdv))
+		res.append(wrdv)
+	return res
+
 #get probability that 
 def get_prob(arr):
 	res=[]
