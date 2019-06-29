@@ -7,7 +7,12 @@ import math
 
 sc = spark.sparkContext
 
-rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_tiny.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+#small
+#rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_tiny.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+
+#99k rows
+rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/Testing/ml-20m/ratings_train_99k.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+
 rdd=rdd.filter(lambda x: x[0]!='user_id')
 rt = rdd.map(lambda x: x.split(","))
 rt = rt.map(lambda x: x[0:3])
