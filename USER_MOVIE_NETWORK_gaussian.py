@@ -56,7 +56,7 @@ def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 	return res
 
 from math import exp 
-def get_wrdv2(arr, gamma=1.5, alpha=10, b=1):
+def get_wrdv2(arr, gamma=1.25, alpha=15, b=1):
 	res=[]
 	for tup in arr:
 		r_u = tup[0][0]
