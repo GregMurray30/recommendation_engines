@@ -80,6 +80,42 @@ def get_wrdv2(arr, gamma=.35, alpha=5, b=1):
 		res.append(1/wrdv)
 	return res
 
+def get_wrdv3(arr):
+	res=[]
+	for tup in arr:
+		r_u = tup[0][0]
+		r_v = tup[0][1]
+		mu_x = tup[1][0]
+		sd_x = tup[1][1]
+		if float(abs(r_u-r_v))==0: 
+			 res.append(1.0)
+		elif float(abs(r_u-r_v))==0.5:
+			res.append(.95)
+		elif float(abs(r_u-r_v))==1:
+			res.append( 0.85)
+		elif float(abs(r_u-r_v))==1.5:
+			res.append( 0.65)
+		elif float(abs(r_u-r_v))==2.0:
+			res.append( 0.45)
+		elif float(abs(r_u-r_v))==2.5:
+			res.append( 0.3)
+		elif float(abs(r_u-r_v))==3.0:
+			res.append( 0.24)
+		elif float(abs(r_u-r_v))==3.5:
+			res.append( 0.17)
+		elif float(abs(r_u-r_v))==4.0:
+			res.append(  0.1)
+		elif float(abs(r_u-r_v))==4.5:
+			res.append(.05)
+	return res
+	    
+	    
+	    
+	    
+	    
+	    
+
+	    
 #get probability that 
 def get_prob(arr):
 	res=[]
@@ -250,9 +286,9 @@ def rating_rank(v):
         
 
 
-#um_ratings = u_rt2.mapValues(rating_rank)
-#um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
-um_ratings2 = u_rt2.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), float(x[1][1]))))
+um_ratings = u_rt2.mapValues(rating_rank)
+um_ratings2 = um_ratings.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), x[1][1])))
+#um_ratings2 = u_rt2.map(lambda x: ((x[0], 'u'), ((x[1][0], 'm'), float(x[1][1]))))
 
 user_movie_network0 = USER_NETWORK.union(MOVIE_NETWORK)
 
