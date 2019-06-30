@@ -214,13 +214,13 @@ MOVIE_NETWORK = m_cdf_pairs.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1]
 
 
 '''IF USING WRDV2'''
-#user_pairs2 schema: ((userA, userB), [wrdv1, wrdv_2,...,wrdv_n])
+#movie_pairs2 schema: ((movieA, movieB), [wrdv1, wrdv_2,...,wrdv_n])
 movie_pairs2 = movie_pairs1.mapValues(get_wrdv2)
 movie_pairs3 = movie_pairs2.map(sd1)
 
-#user_pairs4 schema: (((userA, userB), (avg_wrdv, sd_wrdv), num_shared_movies))
+#movie_pairs4 schema: (((movieA, movieB), (avg_wrdv, sd_wrdv), num_shared_movies))
 movie_pairs4 = movie_pairs3.map(lambda x: (x[0][0], (round(st.mean(x[0][1]), 3), x[1]), len(x[0][1])))
-MOVIE_NETWORK = movie_pairs4.map(lambda x: ((x[0][0], 'u'), ((x[0][1], 'u'), x[1][0])))
+MOVIE_NETWORK = movie_pairs4.map(lambda x: ((x[0][0], 'm'), ((x[0][1], 'm'), x[1][0])))
 
 #______________________________________________________________________________#
 #USER-MOVIE NETWORK
