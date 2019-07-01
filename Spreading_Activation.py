@@ -3,7 +3,7 @@ import numpy as np
 
 def get_children(dist_arr, fired_nodes):
         arr_node_rdds = []
-        #print('dist_arr', dist_arr)
+        print('dist_arr', dist_arr)
         for i in range(len(dist_arr)):
             if dist_arr[i][0] in fired_nodes:
                 #print('node', dist_arr[i][0], 'in node_list, continue\n ')
