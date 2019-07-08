@@ -169,6 +169,12 @@ def rating_rank(v):
 
 
 #______________________________________________________________________________#
+#INITIALIZE
+rdd=rdd.filter(lambda x: x[0]!='user_id')
+rt = rdd.map(lambda x: x.split(","))
+rt = rt.map(lambda x: x[0:3])
+
+#______________________________________________________________________________#
 #USER NETWORK
 
 #(user, (movie, rating)
