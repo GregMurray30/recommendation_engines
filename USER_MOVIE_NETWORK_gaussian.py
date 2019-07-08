@@ -13,9 +13,9 @@ sc = spark.sparkContext
 #99k rows
 rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/Testing/ml-20m/ratings_train_99k.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
 
-rdd=rdd.filter(lambda x: x[0]!='user_id')
-rt = rdd.map(lambda x: x.split(","))
-rt = rt.map(lambda x: x[0:3])
+#test2
+#rdd=sc.textFile('/Users/gregmurray/Documents/BigData/movie_rec_engine/Final_Package/data_sources/ratings_sample_test2.csv').persist(storageLevel=StorageLevel.MEMORY_AND_DISK)
+
 
 #______________________________________________________________________________#
 #Functions
