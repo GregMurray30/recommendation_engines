@@ -29,6 +29,7 @@ def activate(val_list, A_bc, D_bc, F_bc):
         for v in val_list:
             print('v:', v)
             A=A_bc*v[1]*D_bc
+            print(A_bc, "*", v[1], "*", D_bc)
             #A=v[1]*D_bc.value
             if A>F_bc:
                 print('A:', A)
@@ -47,6 +48,7 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
         fired_nodes=[] # a list of the nodes whose children have already been looked up
         init_dist_arr = rdd_src.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F)).collect()[0][1]
         init_z=get_children(init_dist_arr, fired_nodes)
+        print("init_z:", init_z)
         z=init_z[1:]
         node_arrs = []
         while z!=[]:
