@@ -26,6 +26,7 @@ def app(a,b):
      a.append(b)
      return a
 
+
 def ext(a,b):
      a.extend(b)
      return a
@@ -39,12 +40,14 @@ def sd1(v):
 	else:
 		return (v, round(st.stdev(v[1]),3))
 	
+	
 #mean of each movie or user. 
 def mean(v):
 	if len(v[0][1])==1:
 		return (v[0][0], (v[0][1][0], v[1]))
 	else:
 		return ( v[0][0], (round(st.mean(v[0][1]),3), v[1]) )	
+	
 	
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
@@ -59,6 +62,7 @@ def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 		wrdv = round(wrdv_numerator/wrdv_denominator, 3)
 		res.append(wrdv)
 	return res
+
 
 from math import exp 
 def get_wrdv2(arr, gamma=.35, alpha=5, b=1):
@@ -79,6 +83,7 @@ def get_wrdv2(arr, gamma=.35, alpha=5, b=1):
 		wrdv = round(exp(wrdv)/(alpha+exp(wrdv)), 3)
 		res.append(1/wrdv)
 	return res
+
 
 def get_wrdv3(arr):
 	res=[]
@@ -110,10 +115,7 @@ def get_wrdv3(arr):
 	return res
 	    
 	    
-	    
-	    
-	    
-	    
+	      
 
 	    
 #get probability that 
