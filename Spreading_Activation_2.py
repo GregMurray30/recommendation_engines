@@ -1,7 +1,7 @@
 
 import numpy as np
 
-def get_children(dist_arr, fired_nodes):
+def get_children(dist_arr, fired_nodes, src_bc):
         arr_node_rdds = []
         #print('dist_arr', dist_arr)
         for i in range(len(dist_arr)):
@@ -13,7 +13,7 @@ def get_children(dist_arr, fired_nodes):
             A_bc = sc.broadcast(A)
             temp_rdd_i = rdd_graph_shell.filter(lambda x: x[0]==node_id_bc.value)
             print('node_id_bc:', node_id_bc.value, 'i:', i, 'temp_rdd_i:', temp_rdd_i.collect())
-            temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F)).collect()
+            temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc.value)).collect()
             if temp_rdd_i!=[]:
                 arr_node_rdds.append(temp_rdd_i[0][1])
                 fired_nodes.append(temp_rdd_i[0][0])
@@ -24,11 +24,14 @@ def get_children(dist_arr, fired_nodes):
 
     
 #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
-def activate(val_list, A_bc, D_bc, F_bc):
+def activate(val_list, A_bc, D_bc, F_bc, src_bc):
         res = []
         for v in val_list:
             print('v:', v)
+            if v==src_bc:
+                        continue
             A=A_bc*v[1]*D_bc
+            print(A_bc, "*", v[1], "*", D_bc)
             #A=v[1]*D_bc.value
             if A>F_bc:
                 print('A:', A)
@@ -45,15 +48,15 @@ def walk_path(A, D, F, src, rdd_graph_shell, n=5):
         D_bc = sc.broadcast(D)
         F_bc = sc.broadcast(F)
         fired_nodes=[] # a list of the nodes whose children have already been looked up
-        init_dist_arr = rdd_src.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F)).collect()[0][1]
-        init_z=get_children(init_dist_arr, fired_nodes)
+        init_dist_arr = rdd_src.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc.value)).collect()[0][1]
+        init_z=get_children(init_dist_arr, fired_nodes, src_bc)
         z=init_z[1:]
         node_arrs = []
         while z!=[]:
                 for i in range(len(z)):
-                        a = activate(z[i], A_bc=A, D_bc=D, F_bc=F)
+                        a = activate(z[i], A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc)
                         node_arrs.extend(a)
-                z=get_children(node_arrs, fired_nodes)
+                z=get_children(node_arrs, fired_nodes, src_bc)
         node_arrs_rdd = sc.parallelize(node_arrs)
         init_z_rdd = sc.parallelize(init_z)
         init_z_rdd = init_z_rdd.flatMap(lambda x: x)
