@@ -4,6 +4,7 @@ import numpy as np
 def get_children(dist_arr, fired_nodes, src_bc):
         arr_node_rdds = []
         #print('dist_arr', dist_arr)
+        is_src=False
         for i in range(len(dist_arr)):
             if dist_arr[i][0] in fired_nodes:
                 #print('node', dist_arr[i][0], 'in node_list, continue\n ')
@@ -13,7 +14,9 @@ def get_children(dist_arr, fired_nodes, src_bc):
             A_bc = sc.broadcast(A)
             temp_rdd_i = rdd_graph_shell.filter(lambda x: x[0]==node_id_bc.value)
             print('node_id_bc:', node_id_bc.value, 'i:', i, 'temp_rdd_i:', temp_rdd_i.collect())
-            temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc.value)).collect()
+            if node_id_bc==src_bc.value:
+                    is_src=True
+            temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc.value, is_src=is_src)).collect()
             if temp_rdd_i!=[]:
                 arr_node_rdds.append(temp_rdd_i[0][1])
                 fired_nodes.append(temp_rdd_i[0][0])
@@ -24,7 +27,7 @@ def get_children(dist_arr, fired_nodes, src_bc):
 
     
 #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
-def activate(val_list, A_bc, D_bc, F_bc, src_bc):
+def activate(val_list, A_bc, D_bc, F_bc, src_bc, is_src=False):
         res = []
         for v in val_list:
             print('v:', v)
