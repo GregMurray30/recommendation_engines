@@ -14,8 +14,10 @@ def get_children(dist_arr, fired_nodes, src_bc):
             A_bc = sc.broadcast(A)
             temp_rdd_i = rdd_graph_shell.filter(lambda x: x[0]==node_id_bc.value)
             print('node_id_bc:', node_id_bc.value, 'i:', i, 'temp_rdd_i:', temp_rdd_i.collect())
-            if node_id_bc==src_bc.value:
+            if node_id_bc.value==src_bc.value:
                     is_src=True
+                    print('in node_id_bc == src_bc')               
+            print('src_bc:', src_bc.value)
             temp_rdd_i = temp_rdd_i.mapValues(partial(activate, A_bc=A, D_bc=D, F_bc=F, src_bc=src_bc.value, is_src=is_src)).collect()
             if temp_rdd_i!=[]:
                 arr_node_rdds.append(temp_rdd_i[0][1])
@@ -33,7 +35,10 @@ def activate(val_list, A_bc, D_bc, F_bc, src_bc, is_src=False):
             print('v:', v)
             if v==src_bc:
                         continue
-            A=A_bc*v[1]*D_bc
+            if is_src:
+                A=A_bc*v[1]
+            else:
+                A=A_bc*v[1]*D_bc
             print(A_bc, "*", v[1], "*", D_bc)
             #A=v[1]*D_bc.value
             if A>F_bc:
