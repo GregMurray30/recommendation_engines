@@ -31,6 +31,7 @@ def get_children(dist_arr, fired_nodes, src_bc):
 #return the rdd with the values' activations updated with the Decay factor and only if that amount is more than the threshold F
 def activate(val_list, A_bc, D_bc, F_bc, src_bc, is_src=False):
         res = []
+        print(val_list)
         for v in val_list:
             print('v:', v)
             if v==src_bc:
