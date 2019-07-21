@@ -103,7 +103,7 @@ if __name__=="__main__":
         F=0 #Activation threshold
         recommendations = walk_path(A, D, F, src, rdd_graph_shell, 1)
 
-USER_MOVIE_NETWORK_Gaussian.filter(lambda x: (x[0][0]=='2' and x[1][0][1]=='u') or (x[0][1]=='u' and x[1][0][0]=='2')).collect()
+USER_MOVIE_NETWORK_Gaussian2.filter(lambda x: (x[0][0]=='2' and x[1][0][1]=='u') or (x[0][1]=='u' and x[1][0][0]=='2')).collect()
 
         #MOVIE_NETWORK2=sc.parallelize([((u'122', 'm'), ((u'376', 'm'), 0.47)), ((u'122', 'm'), ((u'185', 'm'), 0.456)), ((u'231', 'm'), 
         ((u'539', 'm'), 0.989)), ((u'185', 'm'), ((u'231', 'm'), 0.632)), ((u'231', 'm'), ((u'376', 'm'), 0.809)), ((u'122', 'm'), 
