@@ -39,21 +39,37 @@ def sd1(v):
 		return (v, 0)
 	else:
 		return (v, round(st.stdev(v[1]),3))
-	
+
+
 	
 #mean of each movie or user. 
 def mean(v):
 	if len(v[0][1])==1:
-		return (v[0][0], (v[0][1][0], v[1]))
+		return ((v[0][0], (v[0][1][0], v[1])), v[0][1])
 	else:
-		return ( v[0][0], (round(st.mean(v[0][1]),3), v[1]) )	
+		return (( v[0][0], (round(st.mean(v[0][1]),3), v[1])), v[0][1] )	
+	
+	
+
+def normalize(v):
+	norm_ratings = []
+	mu = v[0][1][0]
+	sigma = v[1][1][1]
+	for r in v[1]:
+		z = (r-mu)/sigma
+		norm_ratings.append(z)
+	return (v[0], norm_ratings)
+
+	
 	
 def get_wrdv_orig(arr):
 	res=[]
 	for tup in arr:
-		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		wrdv = round((1+abs(tup[0][0]-tup[0][1])), 3)
 		res.append(wrdv)
 	return res
+
+
 
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
@@ -68,6 +84,7 @@ def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 		wrdv = round(wrdv_numerator/wrdv_denominator, 3)
 		res.append(wrdv)
 	return res
+
 
 
 from math import exp 
@@ -89,6 +106,7 @@ def get_wrdv2(arr, gamma=.35, alpha=5, b=1):
 		wrdv = round(exp(wrdv)/(alpha+exp(wrdv)), 3)
 		res.append(1/wrdv)
 	return res
+
 
 
 def get_wrdv3(arr):
@@ -134,6 +152,7 @@ def get_prob(arr):
 
 
 
+
 import scipy.stats as ss
 import math
 def prob_pairs(theta):
@@ -149,6 +168,7 @@ def prob_pairs(theta):
                 return ((v[0], v[1]), prob)
         return ((v[0], v[1]), round(prob, 3))
     return _prob_pairs
+
 
 
 ###Final User-Movie Network RDD
@@ -199,6 +219,7 @@ u_sd1 = u_rt3.mapValues(lambda x: x[1])
 u_sd2 = u_sd1.combineByKey(li, app, ext)
 u_sd3 = u_sd2.map(sd1)
 u_sd3b = u_sd3.map(mean)
+u_sd3c = u_sd3b.map(normalize)
 #u_sd4 = u_sd3b.map(lambda x: (x[0], (x[1], x[0][1])))
 u_sd5 = u_sd3b.join(u_rt3)
 u_sd6 = u_sd5.map(lambda x: ((x[0], x[1][0]), x[1][1]))
@@ -214,6 +235,8 @@ u_rt6 = u_rt5.map(lambda x: ((x[1][0][0],x[1][1][0]), ((x[1][0][1], x[1][1][1]),
 #((userA_rating_2, userB_rating_2), movie2_stdev),…, ((userA_rating_n, userB_rating_n), movie_n_stdev)]))
 user_pairs1 = u_rt6.combineByKey(li, app, ext)
 
+#normalize ratings
+user_pairs1b = user_pairs1.mapValues(lambda x: 
 #user_pairs2 schema: ((userA, userB), [wrdv1, wrdv_2,...,wrdv_n])
 user_pairs2 = user_pairs1.mapValues(get_wrdv)
 user_pairs3 = user_pairs2.map(sd1)
