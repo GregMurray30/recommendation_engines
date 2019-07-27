@@ -48,7 +48,13 @@ def mean(v):
 	else:
 		return ( v[0][0], (round(st.mean(v[0][1]),3), v[1]) )	
 	
-	
+def get_wrdv_orig(arr):
+	res=[]
+	for tup in arr:
+		wrdv = round((1+abs(tup[0][0]-tup[0][1]))/(1+tup[1]), 3)
+		res.append(wrdv)
+	return res
+
 #get weighted rating-difference value (wrdv)
 def get_wrdv(arr, gamma=1.5, alpha=1.5, b=1):
 	res=[]
