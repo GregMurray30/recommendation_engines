@@ -1,5 +1,5 @@
 # !!WORK IN PROGRESS!!
-### (engineered functions are not complete and do not capture the desired behavior exactly as described :/)
+### (The engineered functions are not complete and do not capture the desired behavior exactly as described :/. More specifically, the desired behavior in the case of divergent ratings is not accurately captured with the function from figure 3c)
 
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
