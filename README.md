@@ -1,3 +1,6 @@
+# !!WORK IN PROGRESS!!
+### (engineered functions are not complete and do not behave exactly as described :/)
+
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
 
