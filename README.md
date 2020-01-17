@@ -1,5 +1,5 @@
 # !!WORK IN PROGRESS!!
-### (engineered functions are not complete and do not behave exactly as described :/)
+### (engineered functions are not complete and do not capture the desired behavior exactly as described :/)
 
 # MODEL CONCEPTUAL FRAMEWORK 
 >#### **by Greg Murray**
